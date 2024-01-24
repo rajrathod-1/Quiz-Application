@@ -1,6 +1,4 @@
-# Iteration 0 - JockiesonMonkies - Group 4
-
-## Vision Statement for QuizMonkies
+# QuizMonkies Vision Statement
 
 QuizMonkies aims to revolutionize the learning experience for students of all ages by providing the means to organize, practice, and improve their study material. It serves as a dynamic study tool that allows students to take notes, create study material, and provides a comprehensive class event scheduling system to track important dates for all users' classes. QuizMonkies strives to help learners in fostering effective academic journeys. 
 
