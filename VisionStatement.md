@@ -1,6 +1,6 @@
 # Vision Statement
 
-QuizMonkies Assists students by providing tools to curate and organize their study material!
+QuizMonkies assists students by providing tools to curate and organize their study material!
 
 ### What is QuizMonkies?
 
