@@ -25,3 +25,5 @@ QuizMonkies Assists students by providing tools to curate and organize their stu
 - [Medium Priority](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=Medium%20Priority)
 - [Low Priority](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=Low%20Priority)
 
+## System Architecture
+- [Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/Architecture_Iteration_0.drawio-2.png)
