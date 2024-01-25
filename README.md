@@ -18,3 +18,10 @@ QuizMonkies Assists students by providing tools to curate and organize their stu
 
 ## User Stories
 - [User Story Entries](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=User%20Story)
+
+## Priorities
+
+- [High Priority](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=High%20Priority)
+- [Medium Priority](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=Medium%20Priority)
+- [Low Priority](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=Low%20Priority)
+
