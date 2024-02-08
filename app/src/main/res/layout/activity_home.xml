@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="comp3350.srsys.presentation.HomePage">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="512dp"
+        android:layout_height="445dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="395dp"
+        android:layout_marginTop="171dp"
+        android:layout_marginEnd="389dp"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/quizmonkieslogo" />
+
+    <ToggleButton
+        android:id="@+id/profileButton"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="650dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/calendarButton"
+        android:text="@string/profile"
+        android:textOff="@string/profile"
+        android:textOn="@string/profile" />
+
+    <ToggleButton
+        android:id="@+id/calendarButton"
+        android:layout_width="450dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="650dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/classesButton"
+        android:text="@string/calendar"
+        android:textOff="@string/calendar"
+        android:textOn="@string/calendar" />
+
+    <ToggleButton
+        android:id="@+id/classesButton"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="650dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/classes"
+        android:textOff="@string/classes"
+        android:textOn="@string/classes" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="191dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="536dp"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="536dp"
+        android:layout_marginBottom="587dp"
+        android:gravity="center"
+        android:text="@string/welcome" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="467dp"
+        android:layout_marginTop="585dp"
+        android:layout_marginEnd="467dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="@string/select" />
+
+</RelativeLayout>
