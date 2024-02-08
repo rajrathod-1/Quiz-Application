@@ -3,19 +3,60 @@ package comp3350.srsys.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ToggleButton;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import comp3350.srsys.R;
+import comp3350.srsys.business.AccessCourses;
+import comp3350.srsys.objects.Course;
 
 
 public class ClassesInfo extends Activity {
+
+    private int selectedCoursePosition = -1;
+
+    private ArrayAdapter<Course> courseArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes);
 
+        ImageButton favoriteButton = findViewById(R.id.favoriteButton);
+        ImageButton notesButton = findViewById(R.id.notesButton);
+        ImageButton quizButton = findViewById(R.id.quizButton);
+        ImageButton eventsButton = findViewById(R.id.eventsButton);
+
+        favoriteButton.setEnabled(false);
+        notesButton.setEnabled(false);
+        quizButton.setEnabled(false);
+        eventsButton.setEnabled(false);
+
+        ImageButton buttonHome = findViewById(R.id.homeButton);
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassesInfo.this, HomePage.class);
+                startActivity(intent);
+            }
+        });
 
         Button buttonToCalendar = findViewById(R.id.calendarButton);
         buttonToCalendar.setOnClickListener(new View.OnClickListener() {
@@ -43,10 +84,281 @@ public class ClassesInfo extends Activity {
                 startActivity(intent);
             }
         });
+
+        buttonToCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassesInfo.this, ClassesInfo.class);
+                startActivity(intent);
+            }
+        });
+
+        AccessCourses accessCourse = new AccessCourses();
+        List<Course> registrations = accessCourse.getCourses();
+
+        EditText coursesEnrolled = (EditText)findViewById(R.id.numCoursesEnrolled);
+        coursesEnrolled.setText(registrations.size() + "");
+        courseArrayAdapter = new ArrayAdapter<Course>(this, android.R.layout.simple_list_item_2, android.R.id.text1, registrations)
+        {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(registrations.get(position).getTopic() + " " + registrations.get(position).getCourseID() + ": " + registrations.get(position).getCourseName());
+                text2.setText("Start Date : " + registrations.get(position).getStartDate() + " End Date : " + registrations.get(position).getEndDate());
+
+                return view;
+            }
+        };
+
+        ListView listView = (ListView)findViewById(R.id.listCourses);
+        listView.setAdapter(courseArrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Course selected;
+                Button deleteButton = (Button)findViewById(R.id.deleteEntry);
+                ImageButton favoriteButton = findViewById(R.id.favoriteButton);
+                ImageButton notesButton = findViewById(R.id.notesButton);
+                ImageButton quizButton = findViewById(R.id.quizButton);
+                ImageButton eventsButton = findViewById(R.id.eventsButton);
+
+                if (position == selectedCoursePosition) {
+                    listView.setItemChecked(position, false);
+                    deleteButton.setEnabled(false);
+                    favoriteButton.setEnabled(false);
+                    notesButton.setEnabled(false);
+                    quizButton.setEnabled(false);
+                    eventsButton.setEnabled(false);
+                    selectedCoursePosition = -1;
+                    favoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+                } else {
+                    listView.setItemChecked(position, true);
+                    deleteButton.setEnabled(true);
+                    favoriteButton.setEnabled(true);
+                    notesButton.setEnabled(true);
+                    quizButton.setEnabled(true);
+                    eventsButton.setEnabled(true);
+                    selectedCoursePosition = position;
+                    selectCourseAtPosition(position);
+                    selected = courseArrayAdapter.getItem(position);
+                    if (selected.getmarked()){
+                        favoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+                    }
+                    else{
+                        favoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+                    }
+                }
+            }
+        });
+
+        ImageButton buttonToNewCourse = findViewById(R.id.addCourse);
+        buttonToNewCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.activity_new_course_popup, null);
+
+                boolean focusable = true;
+                final PopupWindow popupWindow = new PopupWindow(popupView,
+                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
+
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                Button cancelButton = popupView.findViewById(R.id.cancelButton);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                Button createButton = popupView.findViewById(R.id.createButton);
+                createButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText newCode = (EditText)popupView.findViewById(R.id.codeOutput);
+                        EditText newName = (EditText)popupView.findViewById(R.id.nameOutput);
+                        EditText newDateCreated = (EditText)popupView.findViewById(R.id.startOutput);
+                        EditText newDateEnding = (EditText)popupView.findViewById(R.id.endOutput);
+                        EditText newTopic = (EditText)popupView.findViewById(R.id.subjectOutput);
+                        ToggleButton favoriteButton = (ToggleButton)popupView.findViewById(R.id.newFavoriteButton);
+
+                        String[] arrOfDateStartedInfo = newDateCreated.getText().toString().split("-", 0);
+                        String[] arrOfDateEndedInfo = newDateEnding.getText().toString().split("-", 0);
+
+
+                        Course newCourse = new Course(newTopic.getText().toString(),
+                        Integer.parseInt(newCode.getText().toString()), newName.getText().toString(), Integer.parseInt(arrOfDateStartedInfo[1]),
+                        Integer.parseInt(arrOfDateStartedInfo[2]), Integer.parseInt(arrOfDateStartedInfo[0]), Integer.parseInt(arrOfDateEndedInfo[1]),
+                        Integer.parseInt(arrOfDateEndedInfo[2]), Integer.parseInt(arrOfDateEndedInfo[0]));
+
+                        if (favoriteButton.isChecked()){
+                            newCourse.favoriteCourse();
+                        }
+
+                        accessCourse.insertCourse(newCourse);
+                        courseArrayAdapter.notifyDataSetChanged();
+                        popupWindow.dismiss();
+
+                    }
+                });
+            }
+        });
+
+        Button buttonToDeleteCourse = findViewById(R.id.deleteEntry);
+        buttonToDeleteCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.activity_delete_course, null);
+
+                boolean focusable = true;
+                final PopupWindow popupWindow = new PopupWindow(popupView,
+                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
+
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                Button yesButton = popupView.findViewById(R.id.yesButton);
+                yesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Course selected = courseArrayAdapter.getItem(selectedCoursePosition);
+                        accessCourse.deleteCourse(selected);
+                        courseArrayAdapter.notifyDataSetChanged();
+                        popupWindow.dismiss();
+                    }
+                });
+
+                Button noButton = popupView.findViewById(R.id.noButton);
+                noButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+            }
+        });
+
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Course selected = courseArrayAdapter.getItem(selectedCoursePosition);
+                ImageButton favouriteButton = (ImageButton)findViewById(R.id.favoriteButton);
+                if (selected.getmarked()){
+                    selected.unfavoriteCourse();
+                    favouriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+                }
+                else{
+                    selected.favoriteCourse();
+                    favouriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+                }
+            }
+        });
+
+
+        Button sortByDateButton = findViewById(R.id.dateButton);
+        sortByDateButton.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v){
+
+               accessCourse.sortCoursesByDate();
+               courseArrayAdapter.notifyDataSetChanged();
+           }
+        });
+
+        Button sortBySubjectButton = findViewById(R.id.subjectButton);
+        sortBySubjectButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                accessCourse.sortCoursesBySubject();
+                courseArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Button sortByNameButton = findViewById(R.id.nameSort);
+        sortByNameButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                accessCourse.sortCoursesByName();
+                courseArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Button sortByCourseIDButton = findViewById(R.id.codeSort);
+        sortByCourseIDButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                accessCourse.sortCoursesByID();
+                courseArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Button sortByFavoriteButton = findViewById(R.id.favouriteSort);
+        sortByFavoriteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                accessCourse.sortCoursesByFavorite();
+                courseArrayAdapter.notifyDataSetChanged();
+            }
+        });
+        notesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassesInfo.this, NotesInfo.class);
+                startActivity(intent);
+            }
+        });
+
+        //Navigate to quiz cards
+        quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassesInfo.this, QuizCardInfo.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void selectCourseAtPosition(int position) {
+        Course selected = courseArrayAdapter.getItem(position);
+
+        EditText courseCode = (EditText)findViewById(R.id.codeOutput);
+        EditText courseName = (EditText)findViewById(R.id.nameOutput);
+        EditText dateEnrolled = (EditText)findViewById(R.id.startOutput);
+        EditText dateEnded = (EditText)findViewById(R.id.endOutput);
+        EditText subjectOutput = (EditText)findViewById(R.id.subjectOutput);
+        EditText notesOutput = (EditText)findViewById(R.id.notesOutput);
+        EditText quizOutput = (EditText)findViewById(R.id.quizOutput);
+
+        ImageButton favouriteButton = (ImageButton)findViewById(R.id.favoriteButton);
+        if (selected.getmarked()){
+            favouriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        else{
+            favouriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+        }
+
+        String outputCode = (selected.getTopic() + " " + selected.getCourseID());
+        courseCode.setText(outputCode);
+        courseName.setText(selected.getCourseName());
+        dateEnrolled.setText(selected.getStartDate());
+        dateEnded.setText(selected.getEndDate());
+        subjectOutput.setText(selected.getTopic());
+        notesOutput.setText(selected.getNotesCreated() + "");
+        quizOutput.setText(selected.getQuizCreated() + "");
     }
 }

@@ -15,7 +15,7 @@ public class CalendarInfo extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        Button buttonToCourses = findViewById(R.id.classesButton);
+        Button buttonToCourses = findViewById(R.id.calendar_classesButton);
         buttonToCourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,7 +25,7 @@ public class CalendarInfo extends Activity {
         });
 
 
-        Button buttonToProfile = findViewById(R.id.profileButton);
+        Button buttonToProfile = findViewById(R.id.calendar_profileButton);
         buttonToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +34,7 @@ public class CalendarInfo extends Activity {
             }
         });
 
-        Button buttonToCalendar = findViewById(R.id.calendarButton);
+        Button buttonToCalendar = findViewById(R.id.calendar_calendarButton);
         buttonToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

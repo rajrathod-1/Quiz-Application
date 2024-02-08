@@ -6,19 +6,56 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context="comp3350.srsys.presentation.ClassesInfo">
 
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="300dp"
-        android:layout_height="220dp"
+    <Button
+        android:id="@+id/subjectButton"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="700dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Class 4" />
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/sort_by_subject" />
+
+    <Button
+        android:id="@+id/nameSort"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="150dp"
+        android:text="@string/sort_by_name" />
+
+    <Button
+        android:id="@+id/codeSort"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/sort_by_course_code" />
+
+    <Button
+        android:id="@+id/favouriteSort"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="250dp"
+        android:text="@string/sort_by_favorites" />
+
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/sort_by_date_added" />
 
     <ToggleButton
         android:id="@+id/profileButton"
@@ -63,46 +100,303 @@
         android:textOff="@string/classes"
         android:textOn="@string/classes" />
 
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="300dp"
-        android:layout_height="220dp"
+    <LinearLayout
+        android:layout_width="1042dp"
+        android:layout_height="647dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="137dp"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/listCourses"
+            android:layout_width="1049dp"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:choiceMode="none"
+            tools:ignore="InefficientWeight,Suspicious0dp" />
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="994dp"
+            android:layout_height="wrap_content"
+            app:columnCount="6"
+            app:rowCount="5">
+
+            <ImageButton
+                android:id="@+id/favoriteButton"
+                app:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:src="@drawable/favorite_values"
+                app:layout_column="5"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/courseIdentifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:text="@string/course_code"
+                app:layout_column="0"
+                app:layout_row="0" />
+
+            <EditText
+                android:id="@+id/codeOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="1"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/favoriteEntry"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/favorite"
+                app:layout_column="4"
+                app:layout_gravity="left"
+                app:layout_row="0"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/notesEntry"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/notes"
+                app:layout_column="4"
+                app:layout_gravity="left"
+                app:layout_row="1"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/quizEntry"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/quiz_cards"
+                app:layout_column="4"
+                app:layout_gravity="left"
+                app:layout_row="2"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/eventsEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/upcoming_events"
+                app:layout_column="4"
+                app:layout_gravity="left"
+                app:layout_row="3"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/nameIdentifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/course_name"
+                app:layout_column="0"
+                app:layout_row="1"
+                tools:ignore="Deprecated" />
+
+            <EditText
+                android:id="@+id/nameOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="1"
+                app:layout_row="1"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/startDateIdentifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/date_enrolled"
+                app:layout_column="0"
+                app:layout_row="2"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/endDateIdentifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:text="@string/date_ending"
+                app:layout_column="0"
+                app:layout_row="3"
+                tools:ignore="Deprecated" />
+
+            <EditText
+                android:id="@+id/startOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="1"
+                app:layout_row="2" />
+
+            <EditText
+                android:id="@+id/endOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="1"
+                app:layout_row="3"
+                tools:ignore="Deprecated" />
+
+            <TextView
+                android:id="@+id/subjectID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/subject"
+                app:layout_column="2"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/notesID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/notes_created"
+                app:layout_column="2"
+                app:layout_row="1" />
+
+            <TextView
+                android:id="@+id/quizID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/quiz_cards_created"
+                app:layout_column="2"
+                app:layout_row="2" />
+
+            <EditText
+                android:id="@+id/subjectOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="3"
+                app:layout_row="0" />
+
+            <EditText
+                android:id="@+id/notesOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="3"
+                app:layout_row="1" />
+
+            <EditText
+                android:id="@+id/quizOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_column="3"
+                app:layout_row="2" />
+
+            <ImageButton
+                android:id="@+id/notesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_edit"
+                android:enabled="false"
+                app:layout_column="5"
+                app:layout_row="1" />
+
+            <ImageButton
+                android:id="@+id/quizButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_mapmode"
+                android:enabled="false"
+                app:layout_column="5"
+                app:layout_row="2" />
+
+            <ImageButton
+                android:id="@+id/eventsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_my_calendar"
+                android:enabled="false"
+                app:layout_column="5"
+                app:layout_row="3" />
+
+            <Button
+                android:id="@+id/deleteEntry"
+                android:layout_width="207dp"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/delete_entry"
+                app:layout_column="3"
+                app:layout_row="3" />
+        </androidx.gridlayout.widget.GridLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="700dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="200dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Class 2" />
+        android:layout_marginStart="1200dp"
+        android:layout_marginTop="0dp"
+        android:src="@android:drawable/ic_menu_compass" />
 
     <EditText
-        android:id="@+id/editTextText1"
-        android:layout_width="300dp"
-        android:layout_height="220dp"
+        android:id="@+id/numCoursesEnrolled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="700dp"
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="460dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="Class 1" />
+        android:inputType="number" />
 
-    <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="300dp"
-        android:layout_height="220dp"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="700dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="200dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Class 3" />
+        android:layout_marginStart="1070dp"
+        android:layout_marginTop="450dp"
+        android:text="@string/number_courses_enrolled" />
+
+    <ImageButton
+        android:id="@+id/addCourse"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1050dp"
+        android:layout_marginTop="0dp"
+        android:src="@android:drawable/ic_menu_add" />
 
 </RelativeLayout>

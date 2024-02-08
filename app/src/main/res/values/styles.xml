@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="quizCardButtons">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>
