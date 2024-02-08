@@ -1,0 +1,146 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#FFFFFF">
+
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:columnCount="5"
+        app:rowCount="5">
+
+        <TextView
+            android:id="@+id/courseIdentifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Course Number:"
+            app:layout_column="0"
+            app:layout_row="0" />
+
+        <EditText
+            android:id="@+id/codeOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_column="1"
+            app:layout_row="0" />
+
+        <TextView
+            android:id="@+id/favoriteEntry"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/favorite"
+            app:layout_column="2"
+            app:layout_gravity="left"
+            app:layout_row="1" />
+
+        <TextView
+            android:id="@+id/nameIdentifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/course_name"
+            app:layout_column="0"
+            app:layout_row="1" />
+
+        <EditText
+            android:id="@+id/nameOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_column="1"
+            app:layout_row="1" />
+
+        <TextView
+            android:id="@+id/startDateIdentifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="10"
+            android:text="Date Enrolled (YYYY-M-D):"
+            app:layout_column="0"
+            app:layout_row="2" />
+
+        <TextView
+            android:id="@+id/endDateIdentifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Date Ending(YYYY-M-D):"
+            app:layout_column="0"
+            app:layout_row="3" />
+
+        <EditText
+            android:id="@+id/startOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_column="1"
+            app:layout_row="2" />
+
+        <EditText
+            android:id="@+id/endOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_column="1"
+            app:layout_row="3" />
+
+        <TextView
+            android:id="@+id/subjectID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/subject"
+            app:layout_column="2"
+            app:layout_row="0" />
+
+        <EditText
+            android:id="@+id/subjectOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_column="3"
+            app:layout_row="0" />
+
+        <Button
+            android:id="@+id/createButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Course"
+            app:layout_gravity="center"
+            app:layout_column="3"
+            app:layout_row="3" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel Creation"
+            app:layout_column="2"
+            app:layout_gravity="center"
+            app:layout_row="3" />
+
+        <ToggleButton
+            android:id="@+id/newFavoriteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_column="3"
+            app:layout_gravity="center"
+            app:layout_row="1" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <!-- Add more views as needed -->
+</LinearLayout>
