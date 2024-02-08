@@ -1,9 +1,9 @@
-# Architecture
+# Architecture Description
 
-## Diagram
+##Diagram
 ![Architecture Diagram](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/raw/main/Arcitecture_Iteration_1.drawio.png?ref_type=heads)
 
-## Description
+##Description
 
 The architecture of our application is a good visual aid and will be explained here:
 
