@@ -12,6 +12,7 @@ public class Quiz extends Card{
     private String question;
     private List<String> choices;
     private int correctChoice;   // index
+    //private String quizType;  //idk what type this should be
 
 
     /*
@@ -88,6 +89,10 @@ public class Quiz extends Card{
 
     public void setCorrectChoice(int newCC) {
         this.correctChoice = newCC;
+    }
+
+    public void setAnswer(String newAnswer) {
+        this.choices.set(correctChoice, newAnswer);
     }
 
     /*

@@ -2,15 +2,20 @@ package comp3350.srsys.tests.business.stubs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
+import comp3350.srsys.application.Services;
 import comp3350.srsys.objects.Note;
 
 import comp3350.srsys.business.AccessNotes;
+import comp3350.srsys.persistence.stubs.CoursePersistenceStub;
+import comp3350.srsys.persistence.stubs.NotePersistenceStub;
 
 public class AccessNotesTestStub {
 
@@ -21,26 +26,24 @@ public class AccessNotesTestStub {
 
     @Before
     public void setUp() {
+        accessNotes = new AccessNotes(new NotePersistenceStub());
+        note = accessNotes.getNotesSequential();
+        expectedNoteId = 1;
         System.out.println("Starting test for AccessNotes");
     }
 
     @Test
     public void testGetNotesSequential() {
-
         System.out.println("Starting testGetNotesSequential");
-
-        accessNotes = new AccessNotes();
         note = accessNotes.getNotesSequential();
-        expectedNoteId = 1;
 
         assertNotNull(note);
-        assertEquals(expectedNoteId,note.getId());
+        assertEquals(2,note.getId());
 
         note = accessNotes.getNotesSequential();
-        expectedNoteId++;
 
         assertNotNull(note);
-        assertEquals(expectedNoteId, note.getId());
+        assertEquals(3, note.getId());
 
         System.out.println("Finished testGetNotesSequential");
     }
@@ -50,53 +53,27 @@ public class AccessNotesTestStub {
 
         System.out.println("Starting testGetNotesSequentialToEnd");
 
-        initialize();
-
         for(int i=0; i<accessNotes.getNotes().size(); i++) {
             note = accessNotes.getNotesSequential();
         }
 
         //expected to be the first note, after the loop
-        assertEquals(expectedNoteId, note.getId());
+        assertNull(note);
 
         System.out.println("Finished testGetNotesSequentialToEnd");
-    }
-
-    @Test
-    public void testGetReverseSequential() {
-        System.out.println("Starting testGetReverseSequential");
-
-        initialize();
-
-        // expected to not change
-        note = accessNotes.getPrevNoteSequential();        // note 1
-
-        assertNotNull(note);
-        assertEquals(expectedNoteId, note.getId());
-
-        // move up once, then go back to first note
-
-        note = accessNotes.getNotesSequential();          // note 2
-        note = accessNotes.getPrevNoteSequential();        // note 1
-
-        assertNotNull(note);
-        assertEquals(expectedNoteId, note.getId());
-
-        System.out.println("Finished testGetReverseSequential");
     }
 
     @Test
     public void testInsertNote() {
         System.out.println("Starting testInsertNote");
 
-        initialize();
         expectedSize = accessNotes.getNotes().size();
 
         Note newnote = new Note("Inserting Note",
                 "This note will be inserted and" +
                         "expect the size to go up by one");
 
-        note = accessNotes.insertNotes(newnote);
+        note = accessNotes.insertNote();
         expectedSize++;
 
         assertNotNull(note);
@@ -109,7 +86,6 @@ public class AccessNotesTestStub {
     public void testDeleteNote() {
         System.out.println("Starting testDeleteNote");
 
-        initialize();
         expectedSize = accessNotes.getNotes().size();
 
         note = accessNotes.getNotesSequential();
@@ -125,11 +101,10 @@ public class AccessNotesTestStub {
     public void testDeleteNoteById() {
         System.out.println("Starting testDeleteNoteById");
 
-        initialize();
         expectedSize = accessNotes.getNotes().size();
 
         note = accessNotes.getNotesSequential();
-        accessNotes.deleteNotesById(note.getId());
+        accessNotes.deleteNoteById(note.getId());
         expectedSize--;
 
         assertEquals(expectedSize, accessNotes.getNotes().size());
@@ -137,9 +112,24 @@ public class AccessNotesTestStub {
         System.out.println("Finished testDeleteNoteById");
     }
 
-    private void initialize() {
-        accessNotes = new AccessNotes();
-        note = accessNotes.getNotesSequential();
-        expectedNoteId = 1;
+    @Test
+    public void testUpdateNotes() {
+        System.out.println("Starting testUpdateNotes");
+
+        Note newnote = accessNotes.getNotes().get(1);
+
+        newnote.setTitle("AAA:Update Note");
+        accessNotes.updateNotes(newnote);
+
+        accessNotes.sortNotesByTitle();
+
+        assertEquals("AAA:Update Note", accessNotes.getNotes().get(0).getTitle());
+
+        System.out.println("Finished testUpdateNotes");
+    }
+
+    @After
+    public void tearDown() {
+        Services.clean();
     }
 }

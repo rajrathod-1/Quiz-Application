@@ -1,12 +1,15 @@
 package comp3350.srsys.business;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import comp3350.srsys.application.Services;
 import comp3350.srsys.business.validators.NoteValidator;
 import comp3350.srsys.objects.Note;
-import comp3350.srsys.objects.Quiz;
 import comp3350.srsys.persistence.INotePersistence;
 
 public class AccessNotes {
@@ -19,6 +22,10 @@ public class AccessNotes {
     public AccessNotes() {
         dataAccess = Services.getNotePersistence();
         this.initialize();
+    }
+
+    public AccessNotes(final INotePersistence notePersistence) {
+        this.dataAccess = notePersistence;
     }
 
     public List<Note> getNotes() {
@@ -35,36 +42,31 @@ public class AccessNotes {
             currentNote = 0;
         }
         if(currentNote < notes.size()) {
-            note = notes.get(currentNote);
-            currentNote++;
+            note = notes.get(currentNote++);
         }
         else {
-            currentNote = 0;
-            note = notes.get(currentNote);
-        }
-        return note;
-    }
-    public Note getPrevNoteSequential() {
-        if(notes == null) {
-            notes = dataAccess.getNoteList();
-            currentNote = 0;
-        }
-        if(currentNote > 0) {
-            currentNote--;
-            note = notes.get(currentNote);
+            this.initialize();
         }
         return note;
     }
 
-
-    public Note insertNotes(Note currentNote) {
+    public Note insertNote() {
+        Note newNote = new Note("New Note", "Contents of note");
         Note result = null;
-        if(NoteValidator.validate(currentNote)) {
-            result = dataAccess.insertNote(currentNote);
+        if(NoteValidator.validate(newNote)) {
+            result = dataAccess.insertNote(newNote);
         }
         return result;
     }
 
+    public Note updateNotes(Note currentNote) {
+        Note result = null;
+        if(NoteValidator.validate(currentNote)) {
+            result = dataAccess.updateNote(currentNote);
+        }
+        result.updateDate();
+        return result;
+    }
 
     public void deleteNotes(Note currentNote) {
         if(NoteValidator.validate(currentNote)) {
@@ -72,7 +74,7 @@ public class AccessNotes {
         }
     }
 
-    public void deleteNotesById(int id) {
+    public void deleteNoteById(int id) {
         if(id > 0) {
             dataAccess.deleteNoteById(id);
         }
@@ -82,5 +84,27 @@ public class AccessNotes {
         notes = null;
         note = null;
         currentNote = 0;
+    }
+
+    public void sortNotesByTitle(){
+        notes = dataAccess.getNoteList();
+        notes.sort(new Comparator<Note>() {
+               @Override
+               public int compare(Note note1, Note note2) {
+                   return note1.getTitle().compareToIgnoreCase(note2.getTitle());
+               }
+           }
+
+        );
+    }
+
+    public void sortByDate(){
+        notes = dataAccess.getNoteList();
+        notes.sort(new Comparator<Note>() {
+            @Override
+            public int compare(Note note1, Note note2) {
+                return note2.getDate().compareTo(note1.getDate());
+            }
+        });
     }
 }

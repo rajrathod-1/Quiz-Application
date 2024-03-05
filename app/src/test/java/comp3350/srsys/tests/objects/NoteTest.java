@@ -5,13 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import android.nfc.Tag;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
 import comp3350.srsys.objects.Note;
-import comp3350.srsys.objects.Tag;
 
 public class NoteTest {
 
@@ -33,82 +34,6 @@ public class NoteTest {
         assertEquals(expectedTagNumbers, note.getCardTagList().size());
 
         System.out.println("Finished testCreateNoteWithoutTag");
-    }
-
-    @Test
-    public void testCreateNoteWithOneTag() {
-        System.out.println("\nStarting testCreateNoteWithOneTag");
-
-        initialize();
-        testHelper();
-
-        note.addCardTag(new Tag("Software Engineering"));
-        expectedTagNumbers++;
-
-        assertEquals(expectedTagNumbers, note.getCardTagList().size());
-
-        System.out.println("Finished testCreateNoteWithOneTag");
-    }
-
-    @Test
-    public void testCreateNoteWithMultipleTags() {
-        System.out.println("\nStarting testCreateNoteWithMultipleTags");
-
-        initialize();
-        testHelper();
-
-        // Add two Tags
-        note.addCardTag(new Tag("Math"));
-        note.addCardTag(new Tag("Science"));
-        expectedTagNumbers += 2;
-
-        assertEquals(expectedTagNumbers, note.getCardTagList().size());
-        assertTrue(note.containsTag(new Tag("Math")));
-        assertTrue(note.containsTag(new Tag("Science")));
-
-        System.out.println("Finished testCreateNoteWithMultipleTags");
-    }
-
-    @Test
-    public void testCreateNoteWithSameTags() {
-        System.out.println("\nStarting testCreateNoteWithSameTags");
-
-        initialize();
-        testHelper();
-
-        note.addCardTag(new Tag("Math"));
-        note.addCardTag(new Tag("Science"));
-        expectedTagNumbers += 2;
-
-        // Add two existing Tags, expect size to be unchanged
-        note.addCardTag(new Tag("Math"));
-        note.addCardTag(new Tag("Science"));
-
-        assertEquals(expectedTagNumbers, note.getCardTagList().size());
-        assertTrue(note.containsTag(new Tag("Math")));
-        assertTrue(note.containsTag(new Tag("Science")));
-
-        System.out.println("Finished testCreateNoteWithSameTags");
-    }
-
-    @Test
-    public void testRemoveCardTag() {
-        System.out.println("\nStarting testRemoveCardTag");
-
-        initialize();
-        testHelper();
-
-        note.addCardTag(new Tag("Science"));
-        expectedTagNumbers++;
-
-        assertEquals(expectedTagNumbers, note.getCardTagList().size());
-
-        note.removeCardTag(new Tag("Science"));
-        expectedTagNumbers--;
-
-        assertEquals(expectedTagNumbers, note.getCardTagList().size());
-
-        System.out.println("Finished testRemoveCardTag");
     }
 
     @Test

@@ -2,13 +2,17 @@ package comp3350.srsys.tests.business.stubs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.suppliers.TestedOn;
 
+import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessCourses;
 import comp3350.srsys.objects.Course;
+import comp3350.srsys.persistence.stubs.CoursePersistenceStub;
 import kotlin.coroutines.RestrictsSuspension;
 
 public class AccessCoursesTestStub {
@@ -19,14 +23,14 @@ public class AccessCoursesTestStub {
 
     @Before
     public void setup() {
+        accessCourses = new AccessCourses(new CoursePersistenceStub());
+        expectedSize = accessCourses.getCourses().size();
         System.out.println("Starting test for AccessCourses");
     }
 
     @Test
     public void testInsertCourse() {
         System.out.println("Starting test for testInsertCourse");
-
-        initialize();
 
         assertEquals(expectedSize, accessCourses.getCourses().size());
 
@@ -39,8 +43,6 @@ public class AccessCoursesTestStub {
 
     @Test
     public void testDeleteExistingCourse() {
-
-        initialize();
         course = accessCourses.getCourses().get(0);
 
         accessCourses.deleteCourse(course);
@@ -50,9 +52,20 @@ public class AccessCoursesTestStub {
     }
 
     @Test
+    public void testGetSequential() {
+        accessCourses.getSequential();
+        accessCourses.getSequential();
+        accessCourses.getSequential();
+        accessCourses.getSequential();
+        accessCourses.getSequential();
+        accessCourses.getSequential();
+        Course ourCourse = accessCourses.getSequential();
+        assertNull(ourCourse);
+    }
+
+    @Test
     public void testSortCoursesByFavorite() {
 
-        initialize();
         Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
         newCourse.favoriteCourse();
 
@@ -64,7 +77,7 @@ public class AccessCoursesTestStub {
         course = accessCourses.getCourses().get(0);
 
         assertEquals("COMP", course.getTopic());
-        assertEquals(3190, course.getCourseID());
+        assertEquals(3190, course.getCourseNum());
         assertEquals("Intro to AI", course.getCourseName());
 
     }
@@ -72,22 +85,18 @@ public class AccessCoursesTestStub {
     @Test
     public void testSortCoursesByID() {
 
-        initialize();
-
         accessCourses.sortCoursesByID();
         course = accessCourses.getCourses().get(0);
-        assertEquals(2160, course.getCourseID());
+        assertEquals(2160, course.getCourseNum());
 
         //test second course
         course = accessCourses.getCourses().get(1);
-        assertEquals(3020, course.getCourseID());
+        assertEquals(3020, course.getCourseNum());
 
     }
 
     @Test
     public void testSortCoursesByName() {
-
-        initialize();
         accessCourses.sortCoursesByName();
 
         course = accessCourses.getCourses().get(0);
@@ -101,8 +110,6 @@ public class AccessCoursesTestStub {
 
     @Test
     public void testSortCoursesBySubject() {
-
-        initialize();
         accessCourses.sortCoursesBySubject();
 
         //test first course
@@ -118,8 +125,6 @@ public class AccessCoursesTestStub {
 
     @Test
     public void testSortObjectsByDate(){
-
-        initialize();
         Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2000, 4, 5, 2000);
         newCourse.favoriteCourse();
 
@@ -131,15 +136,13 @@ public class AccessCoursesTestStub {
         course = accessCourses.getCourses().get(0);
 
         assertEquals("COMP", course.getTopic());
-        assertEquals(3190, course.getCourseID());
+        assertEquals(3190, course.getCourseNum());
         assertEquals("Intro to AI", course.getCourseName());
 
     }
 
     @Test
     public void testDeleteNonExistingCourse() {
-
-        initialize();
         course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
 
         accessCourses.deleteCourse(course);
@@ -148,8 +151,8 @@ public class AccessCoursesTestStub {
         assertEquals(expectedSize, accessCourses.getCourses().size());
     }
 
-    private void initialize() {
-        accessCourses = new AccessCourses();
-        expectedSize = accessCourses.getCourses().size();
+    @After
+    public void tearDown() {
+        Services.clean();
     }
 }

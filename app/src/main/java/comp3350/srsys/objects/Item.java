@@ -19,10 +19,6 @@ public abstract class Item {
         return date;
     }
 
-    public void setDate(Date newDate) {
-        this.date = newDate;
-    }
-
     public void updateDate() {
         this.date = new Date();
     }

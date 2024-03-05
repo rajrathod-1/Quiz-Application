@@ -107,8 +107,8 @@ public class ClassesInfo extends Activity {
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                text1.setText(registrations.get(position).getTopic() + " " + registrations.get(position).getCourseID() + ": " + registrations.get(position).getCourseName());
-                text2.setText("Start Date : " + registrations.get(position).getStartDate() + " End Date : " + registrations.get(position).getEndDate());
+                text1.setText(registrations.get(position).getTopic() + " " + registrations.get(position).getCourseNum() + ": " + registrations.get(position).getCourseName());
+                text2.setText("Start Date : " + registrations.get(position).getStartDateString() + " End Date : " + registrations.get(position).getEndDateString());
 
                 return view;
             }
@@ -198,7 +198,7 @@ public class ClassesInfo extends Activity {
                         Integer.parseInt(arrOfDateStartedInfo[2]), Integer.parseInt(arrOfDateStartedInfo[0]), Integer.parseInt(arrOfDateEndedInfo[1]),
                         Integer.parseInt(arrOfDateEndedInfo[2]), Integer.parseInt(arrOfDateEndedInfo[0]));
 
-                        if (favoriteButton.isChecked()){
+                        if (favoriteButton.isChecked()) {
                             newCourse.favoriteCourse();
                         }
 
@@ -320,7 +320,7 @@ public class ClassesInfo extends Activity {
         quizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ClassesInfo.this, QuizCardInfo.class);
+                Intent intent = new Intent(ClassesInfo.this, QuizListInfo.class);
                 startActivity(intent);
             }
         });
@@ -352,11 +352,11 @@ public class ClassesInfo extends Activity {
             favouriteButton.setImageResource(android.R.drawable.btn_star_big_off);
         }
 
-        String outputCode = (selected.getTopic() + " " + selected.getCourseID());
+        String outputCode = (selected.getTopic() + " " + selected.getCourseNum());
         courseCode.setText(outputCode);
         courseName.setText(selected.getCourseName());
-        dateEnrolled.setText(selected.getStartDate());
-        dateEnded.setText(selected.getEndDate());
+        dateEnrolled.setText(selected.getStartDateString());
+        dateEnded.setText(selected.getEndDateString());
         subjectOutput.setText(selected.getTopic());
         notesOutput.setText(selected.getNotesCreated() + "");
         quizOutput.setText(selected.getQuizCreated() + "");

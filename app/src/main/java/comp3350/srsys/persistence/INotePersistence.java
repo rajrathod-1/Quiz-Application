@@ -10,6 +10,7 @@ public interface INotePersistence {
 
     Note insertNote(final Note note);
 
+    Note updateNote(final Note newNote);
 
     void deleteNote(final Note note);
 

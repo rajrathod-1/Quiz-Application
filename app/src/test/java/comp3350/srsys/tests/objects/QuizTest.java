@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 
 import comp3350.srsys.objects.Quiz;
-import comp3350.srsys.objects.Tag;
 
 public class QuizTest {
 
@@ -37,84 +36,6 @@ public class QuizTest {
         assertEquals(expectedTagNumbers, quiz.getCardTagList().size());
 
         System.out.println("Finished testCreateQuizWithoutTag");
-    }
-
-    @Test
-    public void testCreateQuizWithOneTag() {
-        System.out.println("\nStarting testCreateQuizWithOneTag");
-
-        initialize();
-        testHelper();
-
-        quiz.addCardTag(new Tag("Software Engineering"));
-        expectedTagNumbers++;
-
-        assertEquals(expectedTagNumbers, quiz.getCardTagList().size());
-        assertTrue(quiz.containsTag(new Tag("Software Engineering")));
-
-        System.out.println("Finished testCreateQuizWithOneTag");
-    }
-
-    @Test
-    public void testCreateQuizWithMultipleTags() {
-        System.out.println("\nStarting testCreateQuizWithMultipleTags");
-
-        initialize();
-        testHelper();
-
-        // Add Two Tags
-        quiz.addCardTag(new Tag("Math"));
-        quiz.addCardTag(new Tag("Science"));
-
-        assertEquals(expectedTagNumbers+2, quiz.getCardTagList().size());
-        assertTrue(quiz.containsTag(new Tag("Math")));
-        assertTrue(quiz.containsTag(new Tag("Science")));
-
-        System.out.println("Finished testCreateQuizWithMultipleTags");
-    }
-
-
-    @Test
-    public void testCreateQuizWithSameTags() {
-        System.out.println("\nStarting testCreateQuizWithSameTags");
-
-        initialize();
-        testHelper();
-
-        quiz.addCardTag(new Tag("Math"));
-        quiz.addCardTag(new Tag("Science"));
-        expectedTagNumbers += 2;
-
-        // Add two existing Tags, expect size to be unchanged
-        quiz.addCardTag(new Tag("Math"));
-        quiz.addCardTag(new Tag("Science"));
-
-        assertEquals(expectedTagNumbers, quiz.getCardTagList().size());
-        assertTrue(quiz.containsTag(new Tag("Math")));
-        assertTrue(quiz.containsTag(new Tag("Science")));
-
-        System.out.println("Finished testCreateQuizWithSameTags");
-    }
-
-    @Test
-    public void testRemoveCardTag() {
-        System.out.println("\nStarting testRemoveCardTag");
-
-        initialize();
-        testHelper();
-
-        quiz.addCardTag(new Tag("Science"));
-        expectedTagNumbers++;
-        assertEquals(expectedTagNumbers, quiz.getCardTagList().size());
-
-        quiz.removeCardTag(new Tag("Science"));
-        expectedTagNumbers--;
-
-        assertEquals(expectedTagNumbers, quiz.getCardTagList().size());
-        assertFalse(quiz.containsTag(new Tag("Math")));
-        assertFalse(quiz.containsTag(new Tag("Science")));
-
-        System.out.println("Finished testRemoveCardTag");
     }
 
     @Test
@@ -187,6 +108,25 @@ public class QuizTest {
         quiz2.setCorrectChoice(0);
 
         assertTrue(quiz1.equal(quiz2));
+    }
+
+    @Test
+    public void quizSetAnswer(){
+        Quiz quiz = new Quiz();
+        String question = "What is the airspeed velocity of an unladed sparrow?";
+        quiz.setQuestion(question);
+
+        List<String> choices = new ArrayList<>();
+        choices.add("African or European?");
+        choices.add("40m/s");
+
+        quiz.setChoices(choices);
+
+        quiz.setCorrectChoice(0);
+
+        quiz.setAnswer("This is the answer");
+
+        assertEquals("This is the answer",quiz.getAnswer());
     }
 
     private void testHelper() {

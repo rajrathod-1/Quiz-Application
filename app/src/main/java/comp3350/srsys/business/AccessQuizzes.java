@@ -17,14 +17,16 @@ public class AccessQuizzes {
 
     public AccessQuizzes() {
         dataAccess = Services.getQuizPersistence();
-        quizzes = dataAccess.getQuizList();
-        quiz = null;
-        currentQuiz = 0;
+        this.initialize();
     }
 
+    public AccessQuizzes(final IQuizPersistence quizPersistence) {
+        this.dataAccess = quizPersistence;
+    }
 
     public List<Quiz> getQuizzes() {
-        return quizzes;
+        quizzes = dataAccess.getQuizList();
+        return Collections.unmodifiableList(quizzes);
     }
 
     /*
@@ -42,12 +44,11 @@ public class AccessQuizzes {
         if(currentQuiz < quizzes.size()) {
             quiz = quizzes.get(currentQuiz);
         }
-        if(currentQuiz < quizzes.size()){
-            quiz = quizzes.get(currentQuiz);
+        else {
+            this.initialize();
         }
         return quiz;
     }
-
 
     public Quiz getPrevQuizSequential() {
         if(quizzes == null) {
@@ -69,10 +70,18 @@ public class AccessQuizzes {
         return result;
     }
 
+    public Quiz updateQuiz(Quiz currentQuiz) {
+        Quiz result = null;
+        if(QuizValidator.validate(currentQuiz)) {
+            result = dataAccess.updateQuiz(currentQuiz);
+        }
+        return result;
+    }
 
     public void deleteQuiz(Quiz currentQuiz) {
-        quizzes.remove(currentQuiz);
-        dataAccess.deleteQuiz(currentQuiz);
+        if(QuizValidator.validate(currentQuiz)) {
+            dataAccess.deleteQuiz(currentQuiz);
+        }
     }
 
     public void deleteQuizById(int id) {
@@ -81,7 +90,17 @@ public class AccessQuizzes {
         }
     }
 
-    public boolean endOfQuizzes() {return currentQuiz == quizzes.size()-1;}
+    private void initialize() {
+        quizzes = null;
+        quiz = null;
+        currentQuiz = 0;
+    }
 
-    public boolean startOfQuizzes() {return currentQuiz == 0;}
+    public boolean endOfQuizzes() {
+        return currentQuiz == quizzes.size()-1;
+    }
+
+    public boolean startOfQuizzes() {
+        return currentQuiz == 0;
+    }
 }

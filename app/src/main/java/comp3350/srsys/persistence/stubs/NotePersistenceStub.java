@@ -1,17 +1,18 @@
 package comp3350.srsys.persistence.stubs;
 
+import android.nfc.Tag;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import comp3350.srsys.objects.Note;
 
-import comp3350.srsys.objects.Tag;
 import comp3350.srsys.persistence.INotePersistence;
 
 public class NotePersistenceStub implements INotePersistence {
 
-    private final List<Note> noteList;
+    private List<Note> noteList;
 
     public NotePersistenceStub() {
 
@@ -50,18 +51,6 @@ public class NotePersistenceStub implements INotePersistence {
                         "fungi, and protozoa that can cause disease"
         );
 
-        // ADD TAGS
-        note1.addCardTag(new Tag("Software Engineering"));
-        note1.addCardTag(new Tag("Note"));
-
-        note2.addCardTag(new Tag("Math"));
-        note2.addCardTag(new Tag("Note"));
-
-        note3.addCardTag(new Tag("Science"));
-        note3.addCardTag(new Tag("Biology"));
-        note3.addCardTag(new Tag("Note"));
-
-        // ADD NOTES TO LIST
         noteList.add(note1);
         noteList.add(note2);
         noteList.add(note3);
@@ -83,6 +72,18 @@ public class NotePersistenceStub implements INotePersistence {
         return result;
     }
 
+    @Override
+    public Note updateNote(Note newNote) {
+        Note result = null;
+        int index = noteList.indexOf(newNote);
+
+        if(index >= 0) {
+            noteList.set(index, newNote);
+            result = newNote;
+        }
+
+        return result;
+    }
 
     @Override
     public void deleteNote(Note note) {

@@ -2,7 +2,6 @@ package comp3350.srsys.persistence.stubs;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -11,48 +10,34 @@ import comp3350.srsys.persistence.IEventPersistence;
 
 public class EventPersistenceStub implements IEventPersistence {
 
-    private final List<Event> eventList;
+    private List<Event> eventList;
 
     public EventPersistenceStub() {
 
         this.eventList = new ArrayList<>();
 
         Date date = new Date();
-        Time time = new Time(6, 30, 0);
 
         // Event 1
         eventList.add(new Event(
-                1,
-                date,
-                "Iteration 1 due",
-                date,
-                new Time(16, 30, 0)
+                "Iteration 0", "2024-01-23", "2024-01-24"
         ));
-
 
         // Event 2
         eventList.add(new Event(
-                2,
-                date,
-                "Winter break start",
-                date,
-                new Time(0, 0, 0)
+                "Iteration 1", "2024-02-07", "2024-02-08"
         ));
 
         // Event 3
         eventList.add(new Event(
-                3,
-                date,
-                "Winter break ends",
-                date,
-                new Time(23, 59, 59)
+                "Iteration 2", "2024-02-27", "2024-02-28"
         ));
 
     }
 
     @Override
     public List<Event> getEventList() {
-        return Collections.unmodifiableList(eventList);
+        return eventList;
     }
 
     @Override
@@ -70,6 +55,20 @@ public class EventPersistenceStub implements IEventPersistence {
 
         if(eventList.contains(event)) {
             eventList.remove(event);
+        }
+    }
+
+    @Override
+    public void deleteEventById(int id) {
+        int index = -1;
+        for(int i=0; i<eventList.size(); i++) {
+            if(i == id) {
+                index = i;
+            }
+        }
+
+        if(index >= 0) {
+            eventList.remove(index);
         }
     }
 }

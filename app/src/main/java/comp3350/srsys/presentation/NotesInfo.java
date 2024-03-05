@@ -3,6 +3,9 @@ package comp3350.srsys.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -18,11 +23,13 @@ import java.util.Comparator;
 import java.util.List;
 
 import comp3350.srsys.R;
-import comp3350.srsys.business.AccessCourses;
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Note;
 import comp3350.srsys.business.AccessNotes;
+import android.text.Editable;
+import android.text.TextWatcher;
 
-import comp3350.srsys.objects.Course;
+
 
 public class NotesInfo extends Activity{
 
@@ -82,9 +89,121 @@ public class NotesInfo extends Activity{
             startActivity(intent);
         });
 
+        EditText editTitle = findViewById(R.id.noteTitle);
+        editTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String updatedText = editable.toString();
+
+                if(selectedNotePosition>-1) {
+                    Note currentNote = noteArrayAdapter.getItem(selectedNotePosition);
+                    if (!updatedText.equals(currentNote.getTitle())) {
+                        currentNote.setTitle(updatedText);
+                        accessNotes.updateNotes(currentNote);
+                        noteArrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+        EditText editContent = findViewById(R.id.noteContent);
+        editContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                String updatedText = editable.toString();
+
+                if(selectedNotePosition>-1) {
+                    Note currentNote = noteArrayAdapter.getItem(selectedNotePosition);
+                    if(!updatedText.equals(currentNote.getContent())) {
+                        currentNote.setContent(updatedText);
+                        accessNotes.updateNotes(currentNote);
+                        noteArrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+        Button buttonToDeleteNote = findViewById(R.id.deleteNoteButton);
+        buttonToDeleteNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedNotePosition>-1) {
+                    LayoutInflater inflater = (LayoutInflater)
+                            getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View popupView = inflater.inflate(R.layout.activity_delete_note, null);
+
+                    boolean focusable = true;
+                    final PopupWindow popupWindow = new PopupWindow(popupView,
+                            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, focusable);
+
+                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                    Button yesButton = popupView.findViewById(R.id.yesButton);
+                    yesButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Note selected = noteArrayAdapter.getItem(selectedNotePosition);
+                            accessNotes.deleteNotes(selected);
+                            noteArrayAdapter.notifyDataSetChanged();
+                            popupWindow.dismiss();
+                            selectedNotePosition = -1;
+                        }
+                    });
+
+                    Button noButton = popupView.findViewById(R.id.noButton);
+                    noButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popupWindow.dismiss();
+                        }
+                    });
+                }
+            }
+        });
+
+        Button buttonToAddNote = findViewById(R.id.addNoteButton);
+        buttonToAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessNotes.insertNote();
+                noteArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Button buttonToSortByTitle = findViewById(R.id.sortByTitleButton);
+        buttonToSortByTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessNotes.sortNotesByTitle();
+                noteArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Button buttonToSortByLastEdited = findViewById(R.id.sortByLastEditedButton);
+        buttonToSortByLastEdited.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessNotes.sortByDate();
+                noteArrayAdapter.notifyDataSetChanged();
+            }
+        });
 
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

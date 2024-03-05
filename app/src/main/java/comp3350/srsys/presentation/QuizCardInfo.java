@@ -1,7 +1,6 @@
 package comp3350.srsys.presentation;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,7 @@ public class QuizCardInfo extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quizcard);
+        setContentView(R.layout.activity_quiz_card);
 
         AccessQuizzes accessQuizzes = new AccessQuizzes();
         changeQuizText(accessQuizzes.getNextQuizSequential());
@@ -37,10 +36,7 @@ public class QuizCardInfo extends Activity {
         });
 
         ImageButton backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(QuizCardInfo.this, ClassesInfo.class);
-            startActivity(intent);
-        });
+        backButton.setOnClickListener(v -> this.finish());
 
         Button revealAnswerButton = findViewById(R.id.revealAnswerButton);
         revealAnswerButton.setOnClickListener(v -> {

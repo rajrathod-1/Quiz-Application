@@ -17,6 +17,9 @@ public class AccessEvents {
         dataAccess = Services.getEventPersistence();
     }
 
+    public AccessEvents(final IEventPersistence eventPersistence) {
+        this.dataAccess = eventPersistence;
+    }
 
     public List<Event> getEvents(){
         List<Event> events = dataAccess.getEventList();
@@ -36,6 +39,10 @@ public class AccessEvents {
         if(EventValidator.validate(event)){
             dataAccess.deleteEvent(event);
         }
+    }
+
+    public void deleteEventById(int id) {
+        dataAccess.deleteEventById(id);
     }
 
 }

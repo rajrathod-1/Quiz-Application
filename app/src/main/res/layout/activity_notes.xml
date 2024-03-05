@@ -3,7 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Toolbar -->
+    <Button
+        android:id="@+id/addNoteButton"
+        android:layout_width="161dp"
+        android:layout_height="53dp"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:text="Add New Note" />
+
+    <Button
+        android:id="@+id/deleteNoteButton"
+        android:layout_width="161dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/addNoteButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:text="Delete Note" />
+
+    <Button
+        android:id="@+id/sortByTitleButton"
+        android:layout_width="161dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/deleteNoteButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:text="Sort By Title" />
+
+    <Button
+        android:id="@+id/sortByLastEditedButton"
+        android:layout_width="161dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/sortByTitleButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:text="Sort By Last Edited" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +60,6 @@
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-        <!-- Back Button -->
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="50dp"
@@ -25,8 +70,6 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/backarrow" />
-
-        <!-- Other Toolbar elements can be added here -->
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -80,7 +123,5 @@
 
     </LinearLayout>
 
-    <!-- Content of your activity/fragment goes here -->
-    <!-- Make sure to adjust the layout_below attribute to position your content below the toolbar -->
 
 </RelativeLayout>

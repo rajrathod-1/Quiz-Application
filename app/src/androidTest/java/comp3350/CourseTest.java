@@ -62,7 +62,8 @@ public class CourseTest {
         onView(withId(R.id.classesButton)).perform(click());
         onView(withId(R.id.profileButton)).perform(click());
         onView(withId(R.id.calendarButton)).perform(click());
-        onView(withId(R.id.calendar_classesButton)).perform(click());
+        onView(withId(R.id.backButton)).perform(click());
+        onView(withId(R.id.classesButton)).perform(click());
         onView(withId(R.id.homeButton)).perform(click());
     }
 
@@ -87,27 +88,27 @@ public class CourseTest {
 
         //double click on the top entry needed to unselect the previously selected course first
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
         onView(withId(R.id.dateButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         course = testUtils.sortCoursesByDate();
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
         onView(withId(R.id.subjectButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         course = testUtils.sortCoursesBySubject();
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
         onView(withId(R.id.nameSort)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         course = testUtils.sortCoursesByName();
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
         onView(withId(R.id.codeSort)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         course = testUtils.sortCoursesByID();
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
     }
 
     @Test
@@ -142,7 +143,7 @@ public class CourseTest {
         List<Course> course = testUtils.getCourses();
 
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
         onView(withId(R.id.deleteEntry)).perform(click());
         onView(withId(R.id.noButton)).perform(click());
         onView(withId(R.id.deleteEntry)).perform(click());
@@ -151,9 +152,9 @@ public class CourseTest {
         testUtils.deleteCourse(course.get(0));
         course = testUtils.getCourses();
         SystemClock.sleep(sleepTime);
+        onView(withId(R.id.classesButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
-        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseID())));
+        onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
 
     }
 

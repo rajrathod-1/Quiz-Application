@@ -1,26 +1,54 @@
 package comp3350.srsys.business;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import comp3350.srsys.application.Services;
 import comp3350.srsys.objects.Course;
 import comp3350.srsys.persistence.ICoursePersistence;
-import comp3350.srsys.persistence.ICoursePersistence;
 
 public class AccessCourses {
 
     private ICoursePersistence coursePersistence;
+    private List<Course> courses;
+    private Course course;
+    private int currentCourse;
+
 
     public AccessCourses()
     {
         coursePersistence = Services.getCoursePersistence();
     }
 
+    public AccessCourses(final ICoursePersistence coursePersistence) {
+        this.coursePersistence = coursePersistence;
+    }
+
     public List<Course> getCourses(){
         List<Course> courses = coursePersistence.getCourseSequential();
         return courses;
+    }
+
+    public Course getSequential()
+    {
+        String result = null;
+        if (courses == null)
+        {
+            courses = coursePersistence.getCourseSequential();
+            currentCourse = 0;
+        }
+        if (currentCourse < courses.size())
+        {
+            course = (Course) courses.get(currentCourse);
+            currentCourse++;
+        }
+        else
+        {
+            courses = null;
+            course = null;
+            currentCourse = 0;
+        }
+        return course;
     }
 
     public Course insertCourse(Course currentCourse)
@@ -60,7 +88,7 @@ public class AccessCourses {
         courses.sort(new Comparator<Course>() {
             @Override
             public int compare(Course course1, Course course2) {
-                return Integer.compare(course1.getCourseID(), course2.getCourseID());
+                return Integer.compare(course1.getCourseNum(), course2.getCourseNum());
             }
         });
         return courses;
@@ -96,7 +124,7 @@ public class AccessCourses {
                 int returnValue;
                 if (course1.getStartYear() == course2.getStartYear()){
                     if (course1.getStartMonth() == course2.getStartMonth()){
-                        returnValue = Integer.compare(course1.getStartDay(), course2.getStartDay());
+                        returnValue = Integer.compare(course1.getStartDate(), course2.getStartDate());
                     }
                     else{
                         returnValue = Integer.compare(course1.getStartMonth(), course2.getStartMonth());

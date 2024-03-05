@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import comp3350.srsys.R;
+import comp3350.srsys.persistence.utils.DBHelper;
 
 public class HomePage extends Activity {
 
@@ -14,6 +15,8 @@ public class HomePage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        DBHelper.copyDatabaseToDevice(this);
 
         Button buttonToCourses = findViewById(R.id.classesButton);
         buttonToCourses.setOnClickListener(new View.OnClickListener() {

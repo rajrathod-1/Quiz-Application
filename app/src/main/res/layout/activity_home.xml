@@ -22,6 +22,37 @@
         android:layout_marginBottom="200dp"
         android:src="@drawable/quizmonkieslogo" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="191dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="536dp"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="536dp"
+        android:layout_marginBottom="587dp"
+        android:gravity="center"
+        android:text="@string/welcome" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="467dp"
+        android:layout_marginTop="585dp"
+        android:layout_marginEnd="467dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="@string/select" />
+
     <ToggleButton
         android:id="@+id/profileButton"
         android:layout_width="400dp"
@@ -65,36 +96,5 @@
         android:text="@string/classes"
         android:textOff="@string/classes"
         android:textOn="@string/classes" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="191dp"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="536dp"
-        android:layout_marginTop="137dp"
-        android:layout_marginEnd="536dp"
-        android:layout_marginBottom="587dp"
-        android:gravity="center"
-        android:text="@string/welcome" />
-
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="362dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="467dp"
-        android:layout_marginTop="585dp"
-        android:layout_marginEnd="467dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="text"
-        android:text="@string/select" />
 
 </RelativeLayout>

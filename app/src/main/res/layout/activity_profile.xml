@@ -1,11 +1,261 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="comp3350.srsys.presentation.ProfileInfo">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="comp3350.srsys.presentation.HomePage">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="110dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="comp3350.srsys.presentation.ProfileInfo">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@color/blue"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:foregroundGravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/gorilla" />
+
+                <TextView
+                    android:id="@+id/full_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/profile_image"
+                    android:includeFontPadding="false"
+                    android:text="I am Gorilla"
+                    android:textColor="@color/black"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:typeface="sans" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/full_name"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/profile_image"
+                    android:includeFontPadding="false"
+                    android:text="i_am_gorilla"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="italic"
+                    android:typeface="sans" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-100dp"
+                android:padding="20dp">
+
+                <!-- Card 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_background"
+                    android:elevation="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/courses_icon" />
+
+                        <TextView
+                            android:id="@+id/courses_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:includeFontPadding="false"
+                            android:text="Number of Courses"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/courses_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/courses_label"
+                            android:layout_centerHorizontal="true"
+                            android:includeFontPadding="false"
+                            android:text="6"
+                            android:textSize="18sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!-- Card 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_background"
+                    android:elevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/semester" />
+
+                        <TextView
+                            android:id="@+id/random_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:includeFontPadding="false"
+                            android:text="Semester"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/random_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/random_label"
+                            android:layout_centerHorizontal="true"
+                            android:includeFontPadding="false"
+                            android:text="Winter 2024"
+                            android:textSize="18sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Full Name"
+                    app:hintTextAppearance="@style/MyHintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/user"
+                        android:drawablePadding="10dp"
+                        android:text="I am Gorilla"
+                        android:textSize="16sp" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Username"
+                    app:hintTextAppearance="@style/MyHintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/username"
+                        android:drawablePadding="10dp"
+                        android:text="i_am_gorilla"
+                        android:textSize="16sp" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Email"
+                    app:hintTextAppearance="@style/MyHintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/mail"
+                        android:drawablePadding="10dp"
+                        android:text="iamgorilla@myumanitoba.ca"
+                        android:textSize="16sp" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Phone Number"
+                    android:textSize="16sp"
+                    app:hintTextAppearance="@style/MyHintText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/phone"
+                        android:drawablePadding="10dp"
+                        android:text="666-6666-666" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:text="Update"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
     <ToggleButton
         android:id="@+id/profileButton"
         android:layout_width="400dp"
@@ -13,10 +263,11 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="650dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:checked="true"
+        android:layout_toEndOf="@+id/calendarButton"
         android:text="@string/profile"
         android:textOff="@string/profile"
         android:textOn="@string/profile" />
@@ -26,11 +277,11 @@
         android:layout_width="450dp"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="650dp"
-        android:layout_marginEnd="400dp"
         android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/classesButton"
         android:text="@string/calendar"
         android:textOff="@string/calendar"
         android:textOn="@string/calendar" />
@@ -48,35 +299,4 @@
         android:text="@string/classes"
         android:textOff="@string/classes"
         android:textOn="@string/classes" />
-
-    <EditText
-        android:id="@+id/editTextText5"
-        android:layout_width="216dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="526dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="522dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="text"
-        android:text="@string/name" />
-
-    <EditText
-        android:id="@+id/editTextText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="552dp"
-        android:layout_marginTop="297dp"
-        android:layout_marginEnd="550dp"
-        android:ems="10"
-        android:inputType="text"
-        android:gravity="center"
-        android:text="@string/edit" />
-
 </RelativeLayout>

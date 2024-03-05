@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Toolbar -->
+
+
+    <!-- Layout for adding reminders -->
+    <LinearLayout
+        android:id="@+id/add_reminder_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@color/colorPrimary"
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!-- EditText for adding reminder -->
+        <EditText
+            android:id="@+id/reminder_title"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="72dp"
+            android:layout_marginRight="16dp"
+            android:gravity="top|left"
+            android:hint="Reminder"
+            android:inputType="textCapWords|textMultiLine"
+            android:lines="4"
+            android:minLines="4"
+            android:scrollHorizontally="false"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/black"
+            android:textSize="32dp" />
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/add_reminder_layout_top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TextView for Details -->
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="72dp"
+                android:text="Details"
+                android:textSize="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/mdtp_accent_color_dark"/>
+
+            <!-- RelativeLayout for date selection -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:clickable="true"
+                android:onClick="setDate"
+                android:id="@+id/date"
+                android:background="?android:attr/selectableItemBackground">
+
+                <!-- ImageView for date icon -->
+                <ImageView
+                    android:id="@+id/date_icon"
+                    android:layout_width="42dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="32dp"
+                    android:src="@drawable/ic_view_date" />
+
+                <!-- LinearLayout for date text -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/date_icon"
+                    android:orientation="vertical">
+
+                    <!-- TextView for "Date" -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/date_text"
+                        android:textSize="20dp"
+                        android:text="Date"
+                        android:textColor="@color/mdtp_accent_color_dark"/>
+
+                    <!-- TextView for selected date -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:id="@+id/set_date"
+                        android:textColor="@color/mdtp_accent_color_dark"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout for time selection -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:clickable="true"
+                android:onClick="setTime"
+                android:id="@+id/time"
+                android:background="?android:attr/selectableItemBackground">
+
+                <!-- ImageView for time icon -->
+                <ImageView
+                    android:id="@+id/time_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="37dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="32dp"
+                    android:src="@drawable/time_icon" />
+
+                <!-- LinearLayout for time text -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/time_icon"
+                    android:orientation="vertical">
+
+                    <!-- TextView for "Time" -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/time_text"
+                        android:textSize="20dp"
+                        android:text="Time"
+                        android:textColor="@color/mdtp_accent_color_dark"/>
+
+                    <!-- TextView for selected time -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:id="@+id/set_time"
+                        android:textColor="@color/mdtp_accent_color_dark"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- Button for "Done" -->
+            <Button
+                android:id="@+id/btn_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

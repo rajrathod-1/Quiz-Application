@@ -26,6 +26,10 @@ public class TestUtils {
         return courseHandler.getCourses();
     }
 
+    public Course getSequential()
+    {
+        return courseHandler.getSequential();
+    }
 
     public Course insertCourse(Course currentCourse)
     {

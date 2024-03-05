@@ -2,16 +2,21 @@ package comp3350.srsys.tests.business.stubs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessQuizzes;
 import comp3350.srsys.objects.Quiz;
+import comp3350.srsys.persistence.stubs.CoursePersistenceStub;
+import comp3350.srsys.persistence.stubs.QuizPersistenceStub;
 
 public class AccessQuizzesTestStub {
 
@@ -22,51 +27,68 @@ public class AccessQuizzesTestStub {
 
     @Before
     public void setUp() {
+        this.accessQuizzes = new AccessQuizzes(new QuizPersistenceStub());
+        this.expectedQuizId = 1;
+        this.expectedSize = 4;
         System.out.println("Starting test for AccessQuizzes");
     }
 
     @Test
     public void testGetQuizzesSequential() {
-        this.accessQuizzes = new AccessQuizzes();
-
         System.out.println("Starting testGetQuizzesSequential");
 
         quiz = accessQuizzes.getNextQuizSequential();   // quiz 2
 
         assertNotNull(quiz);
-        assertEquals(2, quiz.getId());
+        assertEquals(1, quiz.getId());
 
         quiz = accessQuizzes.getNextQuizSequential();        // quiz 3
 
         assertNotNull(quiz);
-        assertEquals(3, quiz.getId());
+        assertEquals(2, quiz.getId());
 
         System.out.println("Finished testGetQuizzesSequential");
     }
 
     @Test
     public void testGetQuizzesSequentialToEnd() {
-        initialize();
         System.out.println("Starting testGetQuizzesSequentialToEnd");
 
         quiz = accessQuizzes.getNextQuizSequential();        // quiz 1
+        assertNotNull(quiz);
+        assertEquals(1, quiz.getId());
         quiz = accessQuizzes.getNextQuizSequential();        // quiz 2
+        assertNotNull(quiz);
+        assertEquals(2, quiz.getId());
         quiz = accessQuizzes.getNextQuizSequential();        // quiz 3
+        assertNotNull(quiz);
+        assertEquals(3, quiz.getId());
         quiz = accessQuizzes.getNextQuizSequential();        // quiz 4
+        assertNotNull(quiz);
+        assertEquals(4, quiz.getId());
         quiz = accessQuizzes.getNextQuizSequential();        // quiz 5
 
-        //expecting to be at the last entry
-        expectedQuizId = 4;
-
-        assertNotNull(quiz);
-        assertEquals(expectedQuizId, quiz.getId());
+        assertNull(quiz);
 
         System.out.println("Finished testGetQuizzesSequentialToEnd");
     }
 
     @Test
+    public void nullGetPrevQuizSequential(){
+        System.out.println("Starting testGetReverseSequential");
+
+        accessQuizzes.getPrevQuizSequential();
+        accessQuizzes.getNextQuizSequential();        // quiz 2
+        quiz = accessQuizzes.getPrevQuizSequential();        // quiz 1
+
+        assertNotNull(quiz);
+        assertEquals(expectedQuizId, quiz.getId());
+
+        System.out.println("Finished testGetReverseSequential");
+    }
+
+    @Test
     public void testGetReverseSequential() {
-        initialize();
         System.out.println("Starting testGetReverseSequential");
 
         // move up once, then go back to first quiz
@@ -82,7 +104,6 @@ public class AccessQuizzesTestStub {
 
     @Test
     public void testInsertQuiz() {
-        initialize();
         System.out.println("Starting testInsertQuiz");
 
         String question = "What is 100 + 100?";
@@ -106,7 +127,6 @@ public class AccessQuizzesTestStub {
 
     @Test
     public void testDeleteQuiz() {
-        initialize();
         System.out.println("Starting testDeleteQuiz");
 
         expectedSize = accessQuizzes.getQuizzes().size();
@@ -120,7 +140,6 @@ public class AccessQuizzesTestStub {
 
     @Test
     public void testDeleteQuizById() {
-        initialize();
         System.out.println("Starting testDeleteQuizById");
 
         quiz = accessQuizzes.getNextQuizSequential();
@@ -131,10 +150,51 @@ public class AccessQuizzesTestStub {
         System.out.println("Finished testDeleteQuizById");
     }
 
+    @Test
+    public void testUpdateQuiz() {
+        System.out.println("Starting testUpdateQuiz");
 
-    private void initialize() {
-        this.accessQuizzes = new AccessQuizzes();
-        this.expectedQuizId = 1;
-        this.expectedSize = 4;
+        String question = "What is 100 + 100?";
+        List<String> choices = new ArrayList<>();
+        choices.add("100");     // 0
+        choices.add("201");     // 1
+        choices.add("300");     // 2
+        choices.add("400");     // 3
+        Quiz newQuiz = new Quiz(question, choices, 1);
+        accessQuizzes.insertQuiz(newQuiz);
+        newQuiz.setAnswer("200");
+        accessQuizzes.updateQuiz(newQuiz);
+
+        assertEquals("200",accessQuizzes.getQuizzes().get(4).getAnswer());
+
+        System.out.println("Finished testUpdateQuiz");
+    }
+
+    @Test
+    public void testEndOfQuizzes() {
+        System.out.println("Starting testEndOfQuizzes");
+
+        accessQuizzes.getNextQuizSequential();
+        accessQuizzes.getNextQuizSequential();
+        accessQuizzes.getNextQuizSequential();
+        accessQuizzes.getNextQuizSequential();
+        assertTrue(accessQuizzes.endOfQuizzes());
+
+        System.out.println("Finished testEndOfQuizzes");
+    }
+
+    @Test
+    public void testStartOfQuizzes() {
+        System.out.println("Starting testStartOfQuizzes");
+
+        accessQuizzes.getNextQuizSequential();
+        assertTrue(accessQuizzes.startOfQuizzes());
+
+        System.out.println("Finished testStartOfQuizzes");
+    }
+
+    @After
+    public void tearDown() {
+        Services.clean();
     }
 }

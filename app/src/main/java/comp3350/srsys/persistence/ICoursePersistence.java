@@ -8,9 +8,7 @@ public interface ICoursePersistence {
 
     List<Course> getCourseSequential();
 
-
     Course insertCourse(Course currentCourse);
-
 
     void deleteCourse(Course currentCourse);
 }

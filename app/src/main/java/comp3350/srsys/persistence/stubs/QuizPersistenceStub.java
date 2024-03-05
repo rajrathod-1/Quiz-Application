@@ -1,11 +1,12 @@
 package comp3350.srsys.persistence.stubs;
 
+import android.nfc.Tag;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
 import comp3350.srsys.objects.Quiz;
-import comp3350.srsys.objects.Tag;
 import comp3350.srsys.persistence.IQuizPersistence;
 
 public class QuizPersistenceStub implements IQuizPersistence {
@@ -46,6 +47,7 @@ public class QuizPersistenceStub implements IQuizPersistence {
         Quiz quiz3 = new Quiz(3, date, question3, choices3, 3);
 
         // QUIZ 4
+//        String question4 = "Which one is correct in Java?"; saving this for multiple choice
         String question4 = "How do you print \"Hello, World\" in Java?";
         List<String> choices4 = new ArrayList<>();
         choices4.add("print('Hello, World')");
@@ -53,20 +55,6 @@ public class QuizPersistenceStub implements IQuizPersistence {
         choices4.add("System.out.println('Hello, World')");
         choices4.add("cout << 'Hello, World' << endl");
         Quiz quiz4 = new Quiz(4, date, question4, choices4, 2);
-
-
-        // ADD TAGS
-        quiz1.addCardTag(new Tag("Math"));
-        quiz1.addCardTag(new Tag("Quiz"));
-
-        quiz2.addCardTag(new Tag("Science"));
-        quiz2.addCardTag(new Tag("Quiz"));
-
-        quiz3.addCardTag(new Tag("Software Engineering"));
-        quiz3.addCardTag(new Tag("Quiz"));
-
-        quiz4.addCardTag(new Tag("Programming"));
-        quiz4.addCardTag(new Tag("Quiz"));
 
         // ADD QUIZZES TO THE LIST
         quizList.add(quiz1);
@@ -90,6 +78,19 @@ public class QuizPersistenceStub implements IQuizPersistence {
         return result;
     }
 
+    // Returns null if failed to update
+    @Override
+    public Quiz updateQuiz(Quiz newQuiz) {
+        Quiz result = null;
+        int index = quizList.indexOf(newQuiz);
+
+        if(index >= 0) {
+            quizList.set(index, newQuiz);
+            result = newQuiz;
+        }
+
+        return result;
+    }
 
     @Override
     public void deleteQuiz(Quiz quiz) {

@@ -16,6 +16,20 @@ public class Course {
     private int notesCreated;
     private int quizCreated;
 
+    /*
+           COURSE constructor
+              - used when creating Course instance with data from database
+     */
+    public Course(final String newTopic, final int newNum, final String newName, final int newMonth,
+                  final int newDate, final int newYear, final int lastMonth, final int lastDate,
+                  final int lastYear, final boolean marked, final int notesCreated, final int quizCreated)
+    {
+        this(newTopic, newNum, newName, newMonth, newDate, newYear, lastMonth, lastDate, lastYear);
+        this.marked = marked;
+        this.notesCreated = notesCreated;
+        this.quizCreated = quizCreated;
+    }
+
     public Course(final String newTopic, final int newNum, final String newName, final int newMonth,
                   final int newDate, final int newYear, final int lastMonth, final int lastDate,
                   final int lastYear){
@@ -51,7 +65,7 @@ public class Course {
     public String getTopic(){
         return topic;
     }
-    public int getCourseID()
+    public int getCourseNum()
     {
         return courseNum;
     }
@@ -73,10 +87,6 @@ public class Course {
         return courseName;
     }
 
-    public String getStartDate(){
-        return startYear + "-"+ startMonth + "-" + startDate;
-    }
-
     public int getStartYear(){
         return startYear;
     }
@@ -85,12 +95,20 @@ public class Course {
         return startMonth;
     }
 
-    public int getStartDay(){
+    public int getStartDate(){
         return startDate;
     }
 
-    public String getEndDate(){
-        return endYear + "-"+ endMonth + "-" + endDate;
+    public int getEndYear() {
+        return endYear;
+    }
+
+    public int getEndMonth() {
+        return endMonth;
+    }
+
+    public int getEndDate() {
+        return endDate;
     }
 
     public int getNotesCreated(){
@@ -99,6 +117,14 @@ public class Course {
 
     public int getQuizCreated(){
         return quizCreated;
+    }
+
+    public String getStartDateString(){
+        return startYear + "-"+ startMonth + "-" + startDate;
+    }
+
+    public String getEndDateString(){
+        return endYear + "-"+ endMonth + "-" + endDate;
     }
 
     public String toString()

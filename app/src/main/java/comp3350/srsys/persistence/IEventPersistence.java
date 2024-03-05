@@ -11,5 +11,7 @@ public interface IEventPersistence {
     Event insertEvent(final Event event);
 
     void deleteEvent(final Event event);
+
+    void deleteEventById(final int id);
 }
 

@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="comp3350.srsys">
 
     <application
@@ -6,6 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".presentation.HomePage"
             android:exported="true">
@@ -15,11 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".presentation.ClassesInfo" />
         <activity android:name=".presentation.CalendarInfo" />
         <activity android:name=".presentation.ProfileInfo" />
         <activity android:name=".presentation.NotesInfo" />
         <activity android:name=".presentation.QuizCardInfo" />
+        <activity
+            android:name=".presentation.CalendarEventInfo"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".presentation.AddReminderActivity" />
+        <activity android:name=".presentation.QuizListInfo" />
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ public interface IQuizPersistence {
 
     Quiz insertQuiz(final Quiz quiz);
 
+    Quiz updateQuiz(final Quiz newQuiz);
+
     void deleteQuiz(final Quiz quiz);
 
     void deleteQuizById(final int id);

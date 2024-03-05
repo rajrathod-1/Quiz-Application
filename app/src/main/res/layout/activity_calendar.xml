@@ -8,10 +8,11 @@
     tools:context=".presentation.CalendarInfo">
 
     <Button
+        android:id="@+id/newEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Weekly"
+        android:text="Add Event"
         android:textColor="@color/blue"
         android:background="@null"
         android:textStyle="bold"
@@ -33,6 +34,7 @@
             android:textColor="@color/blue"
             android:background="@null"
             android:textStyle="bold"
+            android:onClick="previousMonthAction"
             android:textSize="20sp"/>
 
 
@@ -54,6 +56,7 @@
             android:textColor="@color/blue"
             android:background="@null"
             android:textStyle="bold"
+            android:onClick="nextMonthAction"
             android:textSize="20sp"/>
 
 
