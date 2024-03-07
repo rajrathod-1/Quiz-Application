@@ -25,18 +25,6 @@ public class NoteTest {
     }
 
     @Test
-    public void testCreateNoteWithoutTag() {
-        System.out.println("\nStarting testCreateNoteWithoutTag");
-
-        initialize();
-        testHelper();
-
-        assertEquals(expectedTagNumbers, note.getCardTagList().size());
-
-        System.out.println("Finished testCreateNoteWithoutTag");
-    }
-
-    @Test
     public void testNullNote() {
         Note newNote = new Note();
 
@@ -64,9 +52,7 @@ public class NoteTest {
         initialize();
 
         assertEquals("Note: { " +
-                "ID = " + note.getId() + "Date = " +
-                new Date() +
-                "Tag List = []"  +
+                "ID = " + note.getId() +
                 "\nTitle = " + note.getTitle() +
                 "\nContent = " + note.getContent() +
                 "\n}",note.toString());

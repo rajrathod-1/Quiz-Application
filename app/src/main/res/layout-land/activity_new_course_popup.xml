@@ -24,7 +24,7 @@
 
         <EditText
             android:id="@+id/codeOutput"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
@@ -52,7 +52,7 @@
 
         <EditText
             android:id="@+id/nameOutput"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
@@ -80,7 +80,7 @@
 
         <EditText
             android:id="@+id/startOutput"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
@@ -89,7 +89,7 @@
 
         <EditText
             android:id="@+id/endOutput"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
@@ -98,7 +98,7 @@
 
         <TextView
             android:id="@+id/subjectID"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="@string/subject"
@@ -107,7 +107,7 @@
 
         <EditText
             android:id="@+id/subjectOutput"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"

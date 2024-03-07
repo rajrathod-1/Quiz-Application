@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="110dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -164,8 +164,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="700dp"
+                android:layout_width="1233dp"
+                android:layout_height="353dp"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -256,14 +256,16 @@
     </ScrollView>
     <ToggleButton
         android:id="@+id/profileButton"
-        android:layout_width="255dp"
+        android:layout_width="400dp"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="1110dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="650dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/calendarButton"
         android:checked="true"
         android:text="@string/profile"
         android:textOff="@string/profile"
@@ -271,12 +273,12 @@
 
     <ToggleButton
         android:id="@+id/calendarButton"
-        android:layout_width="255dp"
+        android:layout_width="450dp"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="1110dp"
+        android:layout_marginTop="650dp"
         android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/classesButton"
         android:text="@string/calendar"
@@ -285,13 +287,13 @@
 
     <ToggleButton
         android:id="@+id/classesButton"
-        android:layout_width="255dp"
+        android:layout_width="400dp"
         android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="1110dp"
+        android:layout_marginTop="650dp"
         android:layout_marginBottom="0dp"
         android:text="@string/classes"
         android:textOff="@string/classes"

@@ -22,10 +22,12 @@ public class AccessNotes {
     public AccessNotes() {
         dataAccess = Services.getNotePersistence();
         this.initialize();
+        notes = dataAccess.getNoteList();
     }
 
     public AccessNotes(final INotePersistence notePersistence) {
         this.dataAccess = notePersistence;
+        notes = dataAccess.getNoteList();
     }
 
     public List<Note> getNotes() {
@@ -54,6 +56,12 @@ public class AccessNotes {
         Note newNote = new Note("New Note", "Contents of note");
         Note result = null;
         if(NoteValidator.validate(newNote)) {
+            if (newNote != null){
+                if (notes == null){
+                    notes = dataAccess.getNoteList();
+                }
+                notes.add(newNote);
+            }
             result = dataAccess.insertNote(newNote);
         }
         return result;
@@ -71,6 +79,7 @@ public class AccessNotes {
     public void deleteNotes(Note currentNote) {
         if(NoteValidator.validate(currentNote)) {
             dataAccess.deleteNote(currentNote);
+            notes.remove(currentNote);
         }
     }
 
@@ -106,5 +115,9 @@ public class AccessNotes {
                 return note2.getDate().compareTo(note1.getDate());
             }
         });
+    }
+
+    public void purgeTestNotes() {
+        notes = null;
     }
 }

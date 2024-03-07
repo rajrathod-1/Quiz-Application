@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,11 +53,29 @@ public class CalendarEventInfo extends AppCompatActivity {
             }
         });
 
-        mAddReminderButton = findViewById(R.id.fab);
-        mAddReminderButton.setOnClickListener(new View.OnClickListener() {
+        Button buttonToCourses = findViewById(R.id.classesButton);
+        buttonToCourses.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CalendarEventInfo.this, AddReminderActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarEventInfo.this, ClassesInfo.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonToCalendar = findViewById(R.id.calendarButton);
+        buttonToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarEventInfo.this, CalendarInfo.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonToProfile = findViewById(R.id.profileButton);
+        buttonToProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarEventInfo.this, ProfileInfo.class);
                 startActivity(intent);
             }
         });

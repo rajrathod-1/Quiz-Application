@@ -10,10 +10,6 @@ import java.util.ArrayList;
 public class AccessCalendarUtils {
     public static LocalDate selectedDate;
 
-    public AccessCalendarUtils() {
-        selectedDate = LocalDate.now();
-    }
-
     public static String monthYearFromDate(LocalDate date)
     {
         selectedDate = date;

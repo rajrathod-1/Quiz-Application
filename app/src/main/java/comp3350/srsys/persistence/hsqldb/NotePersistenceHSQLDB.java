@@ -40,7 +40,7 @@ public class NotePersistenceHSQLDB implements INotePersistence {
 
     @Override
     public Note insertNote(Note note) {
-        System.out.println("[LOG] Inserting Recipe " + note.getTitle());
+        System.out.println("[LOG] Inserting Note " + note.getTitle());
         String dateString = DBHelper.getSQLDateString(note.getDate());
 
         try (Connection con = connect()) {

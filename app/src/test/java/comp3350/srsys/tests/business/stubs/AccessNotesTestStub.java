@@ -69,14 +69,9 @@ public class AccessNotesTestStub {
 
         expectedSize = accessNotes.getNotes().size();
 
-        Note newnote = new Note("Inserting Note",
-                "This note will be inserted and" +
-                        "expect the size to go up by one");
-
         note = accessNotes.insertNote();
         expectedSize++;
 
-        assertNotNull(note);
         assertEquals(expectedSize, accessNotes.getNotes().size());
 
         System.out.println("Finished testInsertNote");

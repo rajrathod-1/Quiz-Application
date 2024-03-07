@@ -27,18 +27,6 @@ public class QuizTest {
     }
 
     @Test
-    public void testCreateQuizWithoutTag() {
-        System.out.println("\nStarting testCreateQuizWithoutTag");
-
-        initialize();
-        testHelper();
-
-        assertEquals(expectedTagNumbers, quiz.getCardTagList().size());
-
-        System.out.println("Finished testCreateQuizWithoutTag");
-    }
-
-    @Test
     public void testNullQuiz(){
         Quiz ourQuiz = new Quiz();
 
@@ -83,9 +71,7 @@ public class QuizTest {
     public void quizToStringTest(){
         initialize();
         assertEquals("Quiz: {" +
-                "ID = " + quiz.getId() + "Date = " +
-                new Date() +
-                "Tag List = []"  +
+                "ID = " + quiz.getId() +
                 "\nQuestion = " + quiz.getQuestion() +
                 "\nChoices = " + quiz.getChoices() +
                 "\nCorrect Choice = " + quiz.getCorrectChoice() +

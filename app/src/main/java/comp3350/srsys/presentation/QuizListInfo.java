@@ -27,6 +27,7 @@ import comp3350.srsys.objects.Quiz;
 
 public class QuizListInfo extends Activity{
     private Quiz selected = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -200,11 +201,17 @@ public class QuizListInfo extends Activity{
 
     private Quiz createQuiz(View popupView)
     {
+        final int NUM_CHOICES = 4;
         EditText question = (EditText)popupView.findViewById(R.id.inputQuestion);
         List<String> choices = new ArrayList<>();
 
+        //default single answer quiz
         EditText answer = (EditText)popupView.findViewById(R.id.inputAnswer);
         choices.add(answer.getText().toString());
+        for(int i = 1; i < NUM_CHOICES; i++)
+        {
+            choices.add("");
+        }
         int correctChoice = 0;
 
         return new Quiz(question.getText().toString(), choices, correctChoice);

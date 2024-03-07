@@ -109,6 +109,7 @@ public class AccessNotesIT {
     public void tearDown() {
         // reset DB
         this.tempDB.delete();
+        accessNotes.purgeTestNotes();
 
         Services.clean();
     }

@@ -8,6 +8,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.CalendarInfo">
 
+    <ToggleButton
+        android:id="@+id/profileButton"
+        android:layout_width="270dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="1110dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/profile"
+        android:textOff="@string/profile"
+        android:textOn="@string/profile" />
+
+    <ToggleButton
+        android:id="@+id/calendarButton"
+        android:layout_width="260dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1110dp"
+        android:layout_marginBottom="0dp"
+        android:checked="true"
+        android:layout_toEndOf="@+id/classesButton"
+        android:text="@string/calendar"
+        android:textOff="@string/calendar"
+        android:textOn="@string/calendar" />
+
+    <ToggleButton
+        android:id="@+id/classesButton"
+        android:layout_width="270dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1110dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/classes"
+        android:textOff="@string/classes"
+        android:textOn="@string/classes" />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -42,19 +85,5 @@
             android:text="Click on the button to add an event"/>
 
     </RelativeLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_add"
-        app:fabSize="normal" />
 
 </RelativeLayout>

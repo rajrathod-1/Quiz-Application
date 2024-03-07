@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".presentation.CalendarInfo">
+
+    <Button
+        android:id="@+id/newEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add Event"
+        android:textColor="@color/blue"
+        android:background="@null"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,23 +25,25 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp">
 
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="back"
+            android:text="prev"
             android:textColor="@color/blue"
             android:background="@null"
             android:textStyle="bold"
-            android:onClick="previousWeekAction"
+            android:onClick="previousMonthAction"
             android:textSize="20sp"/>
+
 
         <TextView
             android:id="@+id/monthYearTV"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Feb 2021"
+            android:text="Feb 2024"
             android:textSize="20sp"
             android:textAlignment="center"
             android:textColor="@color/black"/>
@@ -39,12 +52,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="forward"
+            android:text="next"
             android:textColor="@color/blue"
             android:background="@null"
             android:textStyle="bold"
-            android:onClick="nextWeekAction"
+            android:onClick="nextMonthAction"
             android:textSize="20sp"/>
+
 
     </LinearLayout>
 
@@ -126,23 +140,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Event"
-        android:textColor="@color/blue"
-        android:background="@null"
-        android:textStyle="bold"
-        android:onClick="newEventAction"
-        android:layout_gravity="center"
-        android:textSize="20sp"/>
-
-    <ListView
-        android:id="@+id/eventListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -150,7 +147,7 @@
         android:gravity="bottom">
 
         <ToggleButton
-            android:id="@+id/weekly_classesButton"
+            android:id="@+id/calendar_classesButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
@@ -159,16 +156,17 @@
             android:textOn="@string/classes" />
 
         <ToggleButton
-            android:id="@+id/weekly_calendarButton"
+            android:id="@+id/calendar_calendarButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
+            android:checked="true"
             android:text="@string/calendar"
             android:textOff="@string/calendar"
             android:textOn="@string/calendar" />
 
         <ToggleButton
-            android:id="@+id/weekly_profileButton"
+            android:id="@+id/calendar_profileButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
@@ -176,22 +174,6 @@
             android:textOff="@string/profile"
             android:textOn="@string/profile" />
 
-
-
-
     </LinearLayout>
 
-
 </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,50 +5,50 @@
 
     <Button
         android:id="@+id/addNoteButton"
-        android:layout_width="200dp"
+        android:layout_width="161dp"
         android:layout_height="53dp"
         android:layout_alignTop="@+id/linearLayout"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1081dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/deleteNoteButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
         android:text="Add New Note" />
 
     <Button
         android:id="@+id/deleteNoteButton"
-        android:layout_width="200dp"
+        android:layout_width="161dp"
         android:layout_height="53dp"
-        android:layout_alignTop="@+id/linearLayout"
+        android:layout_below="@+id/addNoteButton"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1081dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
         android:text="Delete Note" />
 
     <Button
         android:id="@+id/sortByTitleButton"
-        android:layout_width="200dp"
+        android:layout_width="161dp"
         android:layout_height="53dp"
-        android:layout_alignTop="@+id/linearLayout"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1081dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/addNoteButton"
+        android:layout_below="@+id/deleteNoteButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
         android:text="Sort By Title" />
 
     <Button
         android:id="@+id/sortByLastEditedButton"
-        android:layout_width="200dp"
+        android:layout_width="161dp"
         android:layout_height="53dp"
-        android:layout_alignTop="@+id/linearLayout"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1081dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/sortByTitleButton"
+        android:layout_below="@+id/sortByTitleButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
         android:text="Sort By Last Edited" />
 
     <androidx.appcompat.widget.Toolbar
@@ -75,12 +75,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="900dp"
+        android:layout_width="1018dp"
         android:layout_height="599dp"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="137dp"
@@ -89,15 +88,14 @@
 
         <ListView
             android:id="@+id/listNotes"
-            android:layout_width="0dp"
+            android:layout_width="556dp"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:choiceMode="none"
-            android:visibility="visible" />
+            android:choiceMode="none" />
 
         <LinearLayout
-            android:layout_width="500dp"
+            android:layout_width="800dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -114,12 +112,12 @@
                 android:id="@+id/noteContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
                 android:layout_weight="1"
                 android:ems="10"
-                android:gravity="top|start"
                 android:inputType="textMultiLine"
-                android:text="Content" />
+                android:text="Content"
+                android:gravity="top|start"
+                android:layout_gravity="top|start"/>
         </LinearLayout>
 
 

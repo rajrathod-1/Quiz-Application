@@ -56,4 +56,8 @@
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
     <string name="_1">1</string>
+    <string name="did_you_answer_correctly">Did you answer correctly?</string>
+    <string name="reveal_answer">Reveal Answer</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <androidx.gridlayout.widget.GridLayout
-        android:layout_width="440dp"
+        android:layout_width="325dp"
         android:layout_height="111dp"
         app:columnCount="1"
         app:rowCount="2">
@@ -16,9 +16,9 @@
             android:id="@+id/deleteCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_gravity="center"
             android:text="Are You Sure You Want To Delete This Note?"
             app:layout_column="0"
+            app:layout_gravity="center"
             app:layout_row="0" />
 
         <Button
@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:text="Yes"
             app:layout_column="0"
-            app:layout_row="1" />
+            app:layout_row="1"
+            app:layout_gravity="end" />
 
         <Button
             android:id="@+id/noButton"
@@ -35,7 +36,6 @@
             android:layout_height="wrap_content"
             android:text="No"
             app:layout_column="0"
-            app:layout_gravity="end"
             app:layout_row="1" />
 
     </androidx.gridlayout.widget.GridLayout>

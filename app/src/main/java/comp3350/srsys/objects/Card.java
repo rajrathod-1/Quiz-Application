@@ -1,25 +1,25 @@
 package comp3350.srsys.objects;
 
-import android.nfc.Tag;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public abstract class Card extends Item {
 
-    protected List<Tag> cardTagList;
+    protected Date date;
 
     public Card() {
         super();
-        this.cardTagList = new ArrayList<>();
+        this.date = new Date();
     }
 
-    public List<Tag> getCardTagList() {
-        return cardTagList;
+    public Date getDate() {
+        return date;
+    }
+
+    public void updateDate() {
+        this.date = new Date();
     }
 
     public String toString() {
-        return super.toString() +
-                "Tag List = " + this.cardTagList.toString();
+        return super.toString();
     }
 }

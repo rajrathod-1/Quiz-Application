@@ -65,6 +65,12 @@ public class AccessQuizzes {
     public Quiz insertQuiz(Quiz currentQuiz) {
         Quiz result = null;
         if(QuizValidator.validate(currentQuiz)) {
+            if (currentQuiz != null){
+                if (quizzes == null){
+                    quizzes = dataAccess.getQuizList();
+                }
+                quizzes.add(currentQuiz);
+            }
             result = dataAccess.insertQuiz(currentQuiz);
         }
         return result;
@@ -81,6 +87,7 @@ public class AccessQuizzes {
     public void deleteQuiz(Quiz currentQuiz) {
         if(QuizValidator.validate(currentQuiz)) {
             dataAccess.deleteQuiz(currentQuiz);
+            quizzes.remove(currentQuiz);
         }
     }
 

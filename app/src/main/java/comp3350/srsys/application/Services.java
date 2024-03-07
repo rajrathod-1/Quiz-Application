@@ -3,10 +3,12 @@ package comp3350.srsys.application;
 import comp3350.srsys.persistence.ICoursePersistence;
 import comp3350.srsys.persistence.IEventPersistence;
 import comp3350.srsys.persistence.INotePersistence;
+import comp3350.srsys.persistence.IProfilePersistence;
 import comp3350.srsys.persistence.IQuizPersistence;
 import comp3350.srsys.persistence.hsqldb.CoursePersistenceHSQLDB;
 import comp3350.srsys.persistence.hsqldb.EventPersistenceHSQLDB;
 import comp3350.srsys.persistence.hsqldb.NotePersistenceHSQLDB;
+import comp3350.srsys.persistence.hsqldb.ProfilePersistenceHSQLDB;
 import comp3350.srsys.persistence.hsqldb.QuizPersistenceHSQLDB;
 
 public class Services {
@@ -14,6 +16,7 @@ public class Services {
     private static IQuizPersistence quizPersistence = null;
     private static INotePersistence notePersistence = null;
     private static IEventPersistence eventPersistence = null;
+    private static IProfilePersistence profilePersistence = null;
 
 
     public static synchronized ICoursePersistence getCoursePersistence()
@@ -60,11 +63,22 @@ public class Services {
         return eventPersistence;
     }
 
+    public static synchronized IProfilePersistence getProfilePersistence()
+    {
+        if(profilePersistence == null)
+        {
+            profilePersistence = new ProfilePersistenceHSQLDB(Main.getDBPathName());
+        }
+
+        return profilePersistence;
+    }
+
     public static synchronized void clean() {
         coursePersistence = null;
         quizPersistence = null;
         notePersistence = null;
         eventPersistence = null;
+        profilePersistence = null;
     }
 
 }
