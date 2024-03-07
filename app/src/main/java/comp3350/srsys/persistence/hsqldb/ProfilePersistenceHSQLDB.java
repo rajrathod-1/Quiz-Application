@@ -54,31 +54,6 @@ public class ProfilePersistenceHSQLDB implements IProfilePersistence {
         }
     }
 
-    public void clearDatabase() {
-        try (Connection con = connect()) {
-            Statement statement = con.createStatement();
-
-            // Drop the PROFILE table if it exists
-            statement.executeUpdate("DROP TABLE IF EXISTS PROFILE");
-
-            // Recreate the PROFILE table
-            statement.executeUpdate("CREATE TABLE PROFILE ("
-                    + "id INTEGER PRIMARY KEY,"
-                    + "name VARCHAR(255),"
-                    + "username VARCHAR(255),"
-                    + "email VARCHAR(255),"
-                    + "phone VARCHAR(255),"
-                    + "numCourses INTEGER,"
-                    + "semester VARCHAR(255)"
-                    + ")");
-
-            statement.close();
-        } catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-    }
-
 
     private Connection connect() throws SQLException {
         return DriverManager.getConnection(this.url, "SA", "");

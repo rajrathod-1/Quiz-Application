@@ -26,8 +26,4 @@ public class AccessProfile {
     public void updateProfile(Profile profile) {
         dataAccess.updateProfile(profile);
     }
-
-    public void clearProfile() {
-        dataAccess.clearDatabase();
-    }
 }

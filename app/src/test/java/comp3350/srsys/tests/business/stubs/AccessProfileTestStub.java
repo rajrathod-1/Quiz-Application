@@ -44,12 +44,6 @@ public class AccessProfileTestStub {
 
     }
 
-    @Test
-    public void testClearDatabase() {
-        accessProfile.clearProfile();
-        assertNull(accessProfile.getProfile());
-    }
-
     @After
     public void tearDown() {
         Services.clean();

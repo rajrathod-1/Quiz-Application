@@ -7,5 +7,4 @@ public interface IProfilePersistence {
     Profile getProfile();
 
     void updateProfile(final Profile profile);
-    void clearDatabase();
 }

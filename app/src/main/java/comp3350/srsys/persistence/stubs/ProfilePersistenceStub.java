@@ -23,9 +23,4 @@ public class ProfilePersistenceStub implements IProfilePersistence {
     public void updateProfile(Profile profile) {
         this.profile = profile;
     }
-
-    @Override
-    public void clearDatabase() {
-        profile = null;
-    }
 }
