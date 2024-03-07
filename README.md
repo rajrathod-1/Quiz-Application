@@ -8,6 +8,9 @@ QuizMonkies assists students by providing tools to curate and organize their stu
 - [Iteration 2](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/milestones/2)
 - [Iteration 3](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/milestones/3)
 
+## Code Formatting Rules
+- [Code Format Style](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/CodeFormattingRules.md)
+
 ## Vision Statement 
 
 [Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/VisionStatement.md) for Iteration 0
@@ -26,4 +29,11 @@ QuizMonkies assists students by providing tools to curate and organize their stu
 - [Low Priority](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=Low%20Priority)
 
 ## System Architecture
-- [Iteration 1 Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/Architecture_Iteration_0.drawio-2.png)
+- [Iteration 0 Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/Architecture_Iteration_0.drawio-2.png)
+- [Iteration 1 Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/Architecture1.md)
+- [Iteration 2 Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/Architecture2.md)
+
+
+## Marker Info
+- [Iteration 1 Marker Info](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration1.md)
+- [Iteration 2 Marker Info](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration2.md)
