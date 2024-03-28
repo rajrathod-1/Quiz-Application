@@ -65,7 +65,7 @@ public class AccessCoursesTestMock {
     }
 
     @Test
-    public void testSetGPAWithSpy() {
+    public void testSetGPA() {
         Course course = new Course("History", 104, "World History", 8, 25, 2023, 12, 20, 2023, 3.0);
 
         Course spyCourse = spy(course);

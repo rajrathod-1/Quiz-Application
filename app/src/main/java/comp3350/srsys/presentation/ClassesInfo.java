@@ -312,6 +312,7 @@ public class ClassesInfo extends Activity {
                             Course selected = courseArrayAdapter.getItem(selectedCoursePosition);
                             accessCourse.changeGPA(selected, Double.parseDouble(gpaField.getText().toString()));
                             courseArrayAdapter.notifyDataSetChanged();
+                            buttonToSetGPA.setText("Grade: "+gpaField.getText().toString());
                             popupWindow.dismiss();
                         }
                         else{

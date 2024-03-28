@@ -20,6 +20,7 @@ import comp3350.srsys.tests.objects.CourseTest;
 import comp3350.srsys.tests.objects.EventTest;
 import comp3350.srsys.tests.objects.InitObjectTest;
 import comp3350.srsys.tests.objects.NoteTest;
+import comp3350.srsys.tests.objects.ProfileTest;
 import comp3350.srsys.tests.objects.QuizTest;
 
 @RunWith(Suite.class)
@@ -29,6 +30,7 @@ import comp3350.srsys.tests.objects.QuizTest;
         InitObjectTest.class,
         NoteTest.class,
         QuizTest.class,
+        ProfileTest.class,
         AccessCoursesTestStub.class,
         AccessCalendarTestStub.class,
         AccessNotesTestStub.class,

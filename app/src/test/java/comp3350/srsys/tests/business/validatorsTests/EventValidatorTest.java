@@ -34,32 +34,31 @@ public class EventValidatorTest {
 
     @Test
     public void validateDate_valid() {
-        assertTrue(EventValidator.validateDate("2023-12-25"));
-        assertTrue(EventValidator.validateDate("2024-02-29"));
+        assertTrue(EventValidator.validateDate("25/12/2023"));
+        assertTrue(EventValidator.validateDate("29/02/2024"));
     }
 
     @Test
     public void validateDate_invalid() {
-        assertFalse(EventValidator.validateDate("2023-02-29"));
-        assertFalse(EventValidator.validateDate("2023-13-10"));
-        assertFalse(EventValidator.validateDate("2023-00-10"));
-        assertFalse(EventValidator.validateDate("2023-12-32"));
-        assertFalse(EventValidator.validateDate("2023-12"));
+        assertFalse(EventValidator.validateDate("29/02/2023"));
+        assertFalse(EventValidator.validateDate("10/13/2023"));
+        assertFalse(EventValidator.validateDate("10/00/2023"));
+        assertFalse(EventValidator.validateDate("32/12/2023"));
+        assertFalse(EventValidator.validateDate("2023/12"));
     }
 
     @Test
     public void validateTime_valid() {
-        assertTrue(EventValidator.validateTime("23:59:59"));
-        assertTrue(EventValidator.validateTime("00:00:00"));
-        assertTrue(EventValidator.validateTime("12:34:56"));
+        assertTrue(EventValidator.validateTime("23:59"));
+        assertTrue(EventValidator.validateTime("00:00"));
+        assertTrue(EventValidator.validateTime("12:34"));
     }
 
     @Test
     public void validateTime_invalid() {
-        assertFalse(EventValidator.validateTime("24:00:00"));
-        assertFalse(EventValidator.validateTime("00:60:00"));
-        assertFalse(EventValidator.validateTime("00:00:60"));
-        assertFalse(EventValidator.validateTime("23:59"));
+        assertFalse(EventValidator.validateTime("24:00"));
+        assertFalse(EventValidator.validateTime("00:60"));
+        assertFalse(EventValidator.validateTime("23:59:01"));
         assertFalse(EventValidator.validateTime("noon"));
     }
 }

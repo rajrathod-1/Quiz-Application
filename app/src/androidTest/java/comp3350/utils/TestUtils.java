@@ -1,5 +1,6 @@
 package comp3350.utils;
 
+import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessCourses;
 
 import java.util.List;
@@ -58,4 +59,9 @@ public class TestUtils {
     public Note getNotesSequential(){
         return notesHandler.getNotesSequential();
     }
+
+    public double getOverallGPA() {
+        return courseHandler.getTermGPA();
+    }
+
 }

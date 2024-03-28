@@ -11,12 +11,12 @@ public class EventValidator {
     public static boolean validateDate(String date){
         boolean checkBool = true;
 
-        String[] parts = date.split("-");
+        String[] parts = date.split("/");
 
         if (parts.length == 3){
-            int year = Integer.parseInt(parts[0]);
+            int day = Integer.parseInt(parts[0]);
             int month = Integer.parseInt(parts[1]);
-            int day = Integer.parseInt(parts[2]);
+            int year = Integer.parseInt(parts[2]);
 
             // Check the range of year, month, and day
             if (year < 1 || month < 1 || month > 12 || day < 1) {
@@ -47,18 +47,16 @@ public class EventValidator {
         boolean returnBool = true;
         String[] parts = time.split(":");
 
-        if (parts.length != 3) {
+        if (parts.length != 2) {
             returnBool = false;
         }
         else{
             int hours = Integer.parseInt(parts[0]);
             int minutes = Integer.parseInt(parts[1]);
-            int seconds = Integer.parseInt(parts[2]);
 
             // Validate hours, minutes, and seconds
             if (hours < 0 || hours > 23) returnBool = false;
             if (minutes < 0 || minutes > 59) returnBool = false;
-            if (seconds < 0 || seconds > 59) returnBool = false;
         }
 
         return returnBool;

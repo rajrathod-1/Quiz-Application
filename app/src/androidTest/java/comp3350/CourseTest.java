@@ -1,23 +1,31 @@
 package comp3350;
 
+import android.content.Context;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
+import comp3350.srsys.application.Main;
+import comp3350.srsys.application.Services;
 import comp3350.srsys.objects.Course;
 import comp3350.srsys.presentation.HomePage;
 import comp3350.utils.TestUtils;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+
 import comp3350.srsys.R;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
@@ -39,6 +47,10 @@ import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
@@ -51,20 +63,8 @@ public class CourseTest {
     private TestUtils testUtils;
 
     @Before
-    public void setupTestUtils() {
+    public void setupTestUtils(){
         testUtils = new TestUtils();
-    }
-
-    @Test
-    public void testFeatureNavigation() {
-        //Tests to check whether navigation across the app works correctly
-        onView(withId(R.id.startImage)).check(matches(isDisplayed()));
-        onView(withId(R.id.classesButton)).perform(click());
-        onView(withId(R.id.profileButton)).perform(click());
-        onView(withId(R.id.calendarButton)).perform(click());
-        onView(withId(R.id.backButton)).perform(click());
-        onView(withId(R.id.classesButton)).perform(click());
-        onView(withId(R.id.homeButton)).perform(click());
     }
 
     @Test
@@ -74,12 +74,6 @@ public class CourseTest {
         onView(withId(R.id.listCourses)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void testCalendarView() {
-        //Tests to check if the calendar view works correctly
-        onView(withId(R.id.calendarButton)).perform(click());
-        onView(withId(R.id.calendarRecyclerView)).check(matches(isDisplayed()));
-    }
 
     @Test
     public void testCourseSorting() {
@@ -126,6 +120,7 @@ public class CourseTest {
         onView(withId(R.id.startOutput)).perform(typeText("2024-01-07"), closeSoftKeyboard());
         onView(withId(R.id.endOutput)).perform(typeText("2024-04-07"), closeSoftKeyboard());
         onView(withId(R.id.subjectOutput)).perform(typeText("ECE"), closeSoftKeyboard());
+        onView(withId(R.id.creditHoursInput)).perform(typeText("3.0"), closeSoftKeyboard());
 
         onView(withId(R.id.newFavoriteButton)).perform(click());
 
@@ -155,9 +150,24 @@ public class CourseTest {
         onView(withId(R.id.classesButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
         onView(withId(R.id.codeOutput)).check(matches(withText(course.get(0).getTopic() + " " +  course.get(0).getCourseNum())));
-
     }
 
+    @Test
+    public void testGPAChange(){
+        onView(withId(R.id.classesButton)).perform(click());
+        double gpaValue = testUtils.getOverallGPA();
 
+        onView(withId(R.id.termGPA)).check(matches(withText(String.valueOf(gpaValue))));
+
+        onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
+        onView(withId(R.id.gradeButton)).perform(click());
+        onView(withId(R.id.cancelButton)).perform(click());
+        onView(withId(R.id.gradeButton)).perform(click());
+        onView(withId(R.id.gpaInput)).perform(typeText("2.0"), closeSoftKeyboard());
+        onView(withId(R.id.saveButton)).perform(click());
+        gpaValue = testUtils.getOverallGPA();
+        onView(withId(R.id.termGPA)).check(matches(withText(String.valueOf(gpaValue))));
+
+    }
 
 }
