@@ -1,14 +1,15 @@
 package comp3350.srsys.business;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AccessCalendarUtils {
     public static LocalDate selectedDate;
+    public static int numberOfWeeksColumn = 7;
+    public static int numberOfDaysColumn = 6;
+
 
     public static String monthYearFromDate(LocalDate date)
     {
@@ -28,7 +29,7 @@ public class AccessCalendarUtils {
         LocalDate firstOfMonth = date.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
-        for(int i = 1; i <= 42; i++)
+        for(int i = 1; i <= numberOfDaysColumn * numberOfWeeksColumn; i++)
         {
             if(i <= dayOfWeek || i > daysInMonth + dayOfWeek)
                 daysInMonthArray.add(null);

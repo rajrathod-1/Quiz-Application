@@ -24,4 +24,4 @@ INSERT INTO QUIZ VALUES (3, 'What is the first step in Software Development Life
 INSERT INTO EVENT VALUES (1, 'Iteration 1 due', '2024-02-08', '12:00:01')
 INSERT INTO EVENT VALUES (2, 'Winter break starts', '2024-02-19', '12:00:01')
 INSERT INTO EVENT VALUES (3, 'Winter break ends', '2024-02-23', '12:00:01')
-INSERT INTO PROFILE VALUES (1, 'I am Gorillaaaa', 'i_am_gorilla', 'gorilla@myumanitoba.ca', '911', 3, 'Winter 2024')
+INSERT INTO PROFILE VALUES (1, 'I am Gorillaaaa', 'i_am_gorilla', 'gorilla@myumanitoba.ca', '911-877-8777', 3, 'Winter 2024')
