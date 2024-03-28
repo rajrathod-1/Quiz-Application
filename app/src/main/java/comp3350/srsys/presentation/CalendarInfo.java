@@ -82,7 +82,7 @@ public class CalendarInfo extends AppCompatActivity implements CalendarAdapter.O
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(AccessCalendarUtils.selectedDate);
 
         CalendarAdapter calAda = new CalendarAdapter(daysInMonth, (CalendarAdapter.OnItemListener) this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);   //number of weeks
         calRecyclerView.setLayoutManager(layoutManager);
         calRecyclerView.setAdapter(calAda);
     }
