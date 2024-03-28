@@ -13,7 +13,7 @@ QuizMonkies assists students by providing tools to curate and organize their stu
 
 ## Vision Statement 
 
-[Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/VISION.md) for Iteration 0
+[Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/VISION.md)
 
 ## Features
 - [Feature Entries](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/issues/?label_name%5B%5D=Feature)
@@ -38,7 +38,7 @@ QuizMonkies assists students by providing tools to curate and organize their stu
 ## Marker Info
 - [Iteration 1 Marker Info](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration1.md)
 - [Iteration 2 Marker Info](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration2.md)
-- [Iteration 3 Marker Info](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration2.md)
+- [Iteration 3 Marker Info](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration3.md)
 
 ## Retrospective
-- [Retrospective Document](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/MarkerInfoIteration2.md)
+- [Retrospective Document](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/blob/main/docs/RETROSPECTIVE.md)

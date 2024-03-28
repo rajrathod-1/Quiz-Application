@@ -1,6 +1,6 @@
 # Architecture Description
 
-![Architecture Diagram](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/raw/main/docs/Arcitecture_Iteration_3.drawio.png?ref_type=heads)
+![Architecture Diagram](https://code.cs.umanitoba.ca/comp3350-winter2024/jockiesonmonkies-a02-4/-/raw/main/docs/Architecture_Iteration_3.drawio.png?ref_type=heads)
 
 ## Description
 
