@@ -51,10 +51,22 @@
         android:layout_toStartOf="@+id/linearLayout"
         android:text="Sort By Last Edited" />
 
+    <Button
+        android:id="@+id/saveNoteButton"
+        android:layout_width="161dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/sortByLastEditedButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:text="Save Note" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="63dp"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -70,6 +82,13 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/backarrow" />
+        <TextView
+            android:id="@+id/courseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:text="TextView" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -112,16 +131,14 @@
                 android:id="@+id/noteContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textMultiLine"
-                android:text="Content"
                 android:gravity="top|start"
-                android:layout_gravity="top|start"/>
+                android:inputType="textMultiLine"
+                android:text="Content" />
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </RelativeLayout>

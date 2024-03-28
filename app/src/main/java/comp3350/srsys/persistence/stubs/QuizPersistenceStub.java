@@ -5,7 +5,9 @@ import android.nfc.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Objects;
 
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Quiz;
 import comp3350.srsys.persistence.IQuizPersistence;
 
@@ -26,7 +28,7 @@ public class QuizPersistenceStub implements IQuizPersistence {
         choices1.add("2");
         choices1.add("3");
         choices1.add("4");
-        Quiz quiz1 = new Quiz(1, date, question1, choices1, 1);
+        Quiz quiz1 = new Quiz(1, date, question1, choices1, 1, "MC", "COMP", 3350);
 
         // QUIZ 2
         String question2 = "What is the PH of H20?";
@@ -35,7 +37,7 @@ public class QuizPersistenceStub implements IQuizPersistence {
         choices2.add("6");
         choices2.add("7");
         choices2.add("8");
-        Quiz quiz2 = new Quiz(2, date, question2, choices2, 2);
+        Quiz quiz2 = new Quiz(2, date, question2, choices2, 2, "MC", "COMP", 3350);
 
         // QUIZ 3
         String question3 = "What is the first step in Software Development Lifecycle?";
@@ -44,7 +46,7 @@ public class QuizPersistenceStub implements IQuizPersistence {
         choices3.add("Maintenance");
         choices3.add("Analysis / Requirements");
         choices3.add("Design");
-        Quiz quiz3 = new Quiz(3, date, question3, choices3, 3);
+        Quiz quiz3 = new Quiz(3, date, question3, choices3, 3, "MC", "COMP", 3350);
 
         // QUIZ 4
 //        String question4 = "Which one is correct in Java?"; saving this for multiple choice
@@ -54,7 +56,7 @@ public class QuizPersistenceStub implements IQuizPersistence {
         choices4.add("printf('Hello, World')");
         choices4.add("System.out.println('Hello, World')");
         choices4.add("cout << 'Hello, World' << endl");
-        Quiz quiz4 = new Quiz(4, date, question4, choices4, 2);
+        Quiz quiz4 = new Quiz(4, date, question4, choices4, 2, "MC", "COMP", 3350);
 
         // ADD QUIZZES TO THE LIST
         quizList.add(quiz1);
@@ -112,6 +114,16 @@ public class QuizPersistenceStub implements IQuizPersistence {
 
         if(index >= 0) {
             quizList.remove(index);
+        }
+    }
+
+    @Override
+    public void deleteQuizzesByCourse(Course course) {
+        for (Quiz quiz : quizList) {
+            if (quiz.getCourseNum() == course.getCourseNum() &&
+                    Objects.equals(quiz.getCourseTopic(), course.getTopic())) {
+                quizList.remove(quiz);
+            }
         }
     }
 }

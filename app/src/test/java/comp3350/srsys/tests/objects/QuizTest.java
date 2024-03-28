@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -19,11 +20,39 @@ public class QuizTest {
 
     private Quiz quiz;
     private List<String> choices;
-    private int expectedTagNumbers;
 
     @Before
     public void setup() {
         System.out.println("Starting test for Quiz");
+    }
+
+    @Test
+    public void testCreateQuiz() {
+        System.out.println("\nStarting testCreateQuizWithoutTag");
+
+        initialize();
+        testHelper();
+
+        assertEquals("What is 1+1?", quiz.getQuestion());
+        assertEquals(2, quiz.getCorrectChoice());
+
+        quiz.setQuizType("MC");
+
+        assertEquals("MC", quiz.getQuizType());
+
+        System.out.println("Finished testCreateQuizWithoutTag");
+    }
+    @Test
+    public void testQuizSecondaryConstructor() {
+        System.out.println("\nStarting testQuizSecondaryConstructor");
+        List<String> choices = Arrays.asList("Choice1", "Choice2", "Choice3");
+        Quiz quiz = new Quiz("What is 2+2?", choices, 1, "Math", "Addition", 101);
+
+        assertEquals("What is 2+2?", quiz.getQuestion());
+        assertEquals(choices, quiz.getChoices());
+        assertEquals(1, quiz.getCorrectChoice());
+        assertEquals("Math", quiz.getQuizType());
+        assertEquals("Addition", quiz.getCourseTopic());
     }
 
     @Test
@@ -68,17 +97,6 @@ public class QuizTest {
     }
 
     @Test
-    public void quizToStringTest(){
-        initialize();
-        assertEquals("Quiz: {" +
-                "ID = " + quiz.getId() +
-                "\nQuestion = " + quiz.getQuestion() +
-                "\nChoices = " + quiz.getChoices() +
-                "\nCorrect Choice = " + quiz.getCorrectChoice() +
-                "\n}",quiz.toString());
-    }
-
-    @Test
     public void quizEqualsTest(){
         Quiz quiz1 = new Quiz();
         Quiz quiz2 = new Quiz();
@@ -115,6 +133,23 @@ public class QuizTest {
         assertEquals("This is the answer",quiz.getAnswer());
     }
 
+    @Test
+    public void testQuizToString() {
+        System.out.println("\nStarting testQuizToString");
+        List<String> choices = Arrays.asList("Choice1", "Choice2", "Choice3");
+        Quiz quiz = new Quiz("What is 2+2?", choices, 1, "Math", "Addition", 101);
+
+        String expectedString = "Quiz: {" +
+                // Assuming super.toString() returns something like "Topic: Addition, Number: 101"
+                "ID = " + quiz.getId() +
+                "\nQuestion = What is 2+2?" +
+                "\nChoices = [Choice1, Choice2, Choice3]" +
+                "\nCorrect Choice = Choice2" +
+                "\n}";
+
+        assertEquals(expectedString, quiz.toString());
+    }
+
     private void testHelper() {
         assertNotNull(quiz);
         assertEquals("What is 1+1?", quiz.getQuestion());
@@ -135,6 +170,5 @@ public class QuizTest {
         int correctChoice = 2;
 
         quiz = new Quiz(question, choices, correctChoice);
-        expectedTagNumbers = 0;
     }
 }

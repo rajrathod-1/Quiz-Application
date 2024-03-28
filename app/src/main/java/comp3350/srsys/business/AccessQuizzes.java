@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import comp3350.srsys.application.Services;
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Quiz;
 import comp3350.srsys.persistence.IQuizPersistence;
 import comp3350.srsys.business.validators.QuizValidator;
@@ -16,8 +17,13 @@ public class AccessQuizzes {
     private int currentQuiz;
 
     public AccessQuizzes() {
-        dataAccess = Services.getQuizPersistence();
         this.initialize();
+        dataAccess = Services.getQuizPersistence(null);
+    }
+
+    public AccessQuizzes(Course course) {
+        this.initialize();
+        dataAccess = Services.getQuizPersistence(course);
     }
 
     public AccessQuizzes(final IQuizPersistence quizPersistence) {
@@ -64,31 +70,24 @@ public class AccessQuizzes {
 
     public Quiz insertQuiz(Quiz currentQuiz) {
         Quiz result = null;
-        if(QuizValidator.validate(currentQuiz)) {
-            if (currentQuiz != null){
-                if (quizzes == null){
-                    quizzes = dataAccess.getQuizList();
-                }
-                quizzes.add(currentQuiz);
+        if (currentQuiz != null){
+            if (quizzes == null){
+                quizzes = dataAccess.getQuizList();
             }
-            result = dataAccess.insertQuiz(currentQuiz);
         }
+        result = dataAccess.insertQuiz(currentQuiz);
         return result;
     }
 
     public Quiz updateQuiz(Quiz currentQuiz) {
         Quiz result = null;
-        if(QuizValidator.validate(currentQuiz)) {
-            result = dataAccess.updateQuiz(currentQuiz);
-        }
+        result = dataAccess.updateQuiz(currentQuiz);
         return result;
     }
 
     public void deleteQuiz(Quiz currentQuiz) {
-        if(QuizValidator.validate(currentQuiz)) {
-            dataAccess.deleteQuiz(currentQuiz);
-            quizzes.remove(currentQuiz);
-        }
+        dataAccess.deleteQuiz(currentQuiz);
+        quizzes.remove(currentQuiz);
     }
 
     public void deleteQuizById(int id) {
@@ -101,6 +100,14 @@ public class AccessQuizzes {
         quizzes = null;
         quiz = null;
         currentQuiz = 0;
+    }
+
+    public void setCurrentQuiz(int position)
+    {
+        if(position >= 0 && position < quizzes.size())
+        {
+            currentQuiz = position;
+        }
     }
 
     public boolean endOfQuizzes() {

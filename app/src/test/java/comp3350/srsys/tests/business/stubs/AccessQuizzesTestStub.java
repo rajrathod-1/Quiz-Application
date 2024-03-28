@@ -1,6 +1,7 @@
 package comp3350.srsys.tests.business.stubs;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -11,9 +12,11 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessQuizzes;
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Quiz;
 import comp3350.srsys.persistence.stubs.CoursePersistenceStub;
 import comp3350.srsys.persistence.stubs.QuizPersistenceStub;
@@ -184,6 +187,19 @@ public class AccessQuizzesTestStub {
     }
 
     @Test
+    public void testDeleteQuizByCourse() {
+        System.out.println("Starting testEndOfQuizzes");
+
+        accessQuizzes.getNextQuizSequential();
+        accessQuizzes.getNextQuizSequential();
+        accessQuizzes.getNextQuizSequential();
+        accessQuizzes.getNextQuizSequential();
+        assertTrue(accessQuizzes.endOfQuizzes());
+
+        System.out.println("Finished testEndOfQuizzes");
+    }
+
+    @Test
     public void testStartOfQuizzes() {
         System.out.println("Starting testStartOfQuizzes");
 
@@ -191,6 +207,18 @@ public class AccessQuizzesTestStub {
         assertTrue(accessQuizzes.startOfQuizzes());
 
         System.out.println("Finished testStartOfQuizzes");
+    }
+
+    @Test
+    public void testSetCurrentQuiz() {
+        System.out.println("Starting testSetCurrentQuiz");
+
+        accessQuizzes.getNextQuizSequential();
+        assertTrue(accessQuizzes.startOfQuizzes());
+        accessQuizzes.getNextQuizSequential();
+
+        accessQuizzes.setCurrentQuiz(0);
+        assertTrue(accessQuizzes.startOfQuizzes());
     }
 
     @After

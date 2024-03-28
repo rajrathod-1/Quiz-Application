@@ -1,11 +1,13 @@
 package comp3350.srsys.objects;
 
-import java.util.Date;
-
 public class Event extends Item{
-    private final String newDate;
-    private final String time;
-    private final String title;
+
+    private static int eventCount = 1;
+    private String newDate;
+    private String time;
+    private String title;
+    private int id;
+
 
     /*
      *  Event Constructor
@@ -13,20 +15,29 @@ public class Event extends Item{
      *      - set id to eventCount
      */
 
-    public Event(String title, String newDate, String time) {
+
+    public Event(int id, String title, String newDate, String time) {
+        this.id = id;
         this.title = title;
         this.newDate = newDate;
         this.time = time;
     }
+    /*
+     *  Event Constructor
+     *      - Used to create Event with data from database
+     */
+
 
     @Override
     public String toString() {
         return "Event: { " +
-                "Title = " + title +
-                "\nDate = " +  newDate +
+                "ID = " + id +
+                "\nTitle = " + title+
+                "\nEvent Date = " + newDate +
                 "\nTime = " + time +
                 "\n}";
     }
+
 
     public String getTitle() {
         return this.title;
@@ -38,5 +49,9 @@ public class Event extends Item{
 
     public String getTime() {
         return this.time;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

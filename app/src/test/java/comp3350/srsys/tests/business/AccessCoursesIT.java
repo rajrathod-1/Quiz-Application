@@ -44,8 +44,8 @@ public class AccessCoursesIT {
     public void testGetSequentialCourse() {
         final Course course = accessCourses.getSequential();
         assertNotNull("first sequential course should not be null", course);
-        assertTrue("2160".equals(Integer.toString(course.getCourseNum())));
-        assertTrue("COMP".equals(course.getTopic()));
+        assertEquals("2160", Integer.toString(course.getCourseNum()));
+        assertEquals("COMP", course.getTopic());
 
         System.out.println("Finished testGetSequentialCourses");
     }
@@ -64,8 +64,8 @@ public class AccessCoursesIT {
     public void testDeleteCourse() {
         accessCourses.deleteCourse(accessCourses.getSequential());
         final Course firstCourse = accessCourses.getSequential();
-        assertTrue("3350".equals(Integer.toString(firstCourse.getCourseNum())));
-        assertTrue("COMP".equals(firstCourse.getTopic()));
+        assertEquals("3350", Integer.toString(firstCourse.getCourseNum()));
+        assertEquals("COMP", firstCourse.getTopic());
         final List<Course> courses = accessCourses.getCourses();
         assertEquals(2,courses.size());
 
@@ -74,7 +74,7 @@ public class AccessCoursesIT {
 
     @Test
     public void testSortCoursesByFavorite() {
-        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
+        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025,3,4.5);
         newCourse.favoriteCourse();
         accessCourses.insertCourse(newCourse);
         accessCourses.sortCoursesByFavorite();
@@ -86,7 +86,7 @@ public class AccessCoursesIT {
 
     @Test
     public void testSortCoursesByID() {
-        Course newCourse = new Course("COMP", 1010, "Intro to Computer Science", 1, 0, 2024, 4, 5, 2025);
+        Course newCourse = new Course("COMP", 1010, "Intro to Computer Science", 1, 0, 2024, 4, 5, 2025,3,4.5);
         accessCourses.insertCourse(newCourse);
         accessCourses.sortCoursesByID();
         final Course favoriteCourse = accessCourses.getSequential();
@@ -97,7 +97,7 @@ public class AccessCoursesIT {
 
     @Test
     public void testSortCoursesByName() {
-        Course newCourse = new Course("COMP", 4190, "Artificial Intelligence 2", 1, 0, 2024, 4, 5, 2025);
+        Course newCourse = new Course("COMP", 4190, "Artificial Intelligence 2", 1, 0, 2024, 4, 5, 2025,3,4.5);
         accessCourses.insertCourse(newCourse);
         accessCourses.sortCoursesByName();
         final Course favoriteCourse = accessCourses.getSequential();
@@ -108,7 +108,7 @@ public class AccessCoursesIT {
 
     @Test
     public void testSortCoursesBySubject() {
-        Course newCourse = new Course("AGRI", 1010, "Agriculture", 1, 0, 2024, 4, 5, 2025);
+        Course newCourse = new Course("AGRI", 1010, "Agriculture", 1, 0, 2024, 4, 5, 2025,3,4.5);
         accessCourses.insertCourse(newCourse);
         accessCourses.sortCoursesBySubject();
         final Course favoriteCourse = accessCourses.getSequential();
@@ -119,7 +119,7 @@ public class AccessCoursesIT {
 
     @Test
     public void testSortObjectsByDate(){
-        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2000, 4, 5, 2000);
+        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2000, 4, 5, 2000,3,4.5);
         accessCourses.insertCourse(newCourse);
         accessCourses.sortCoursesByDate();
         final Course favoriteCourse = accessCourses.getSequential();
@@ -131,7 +131,7 @@ public class AccessCoursesIT {
 
     @Test
     public void testDeleteNonExistingCourse() {
-        Course course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
+        Course course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025,3,4.5);
 
         accessCourses.deleteCourse(course);
 
@@ -139,6 +139,17 @@ public class AccessCoursesIT {
         assertEquals(3, accessCourses.getCourses().size());
 
         System.out.println("Finished testDeleteNonExistingCourse");
+    }
+
+    @Test
+    public void testChangeGPA() {
+        List<Course> courseList = accessCourses.getCourses();
+        assertEquals(courseList.get(0).getGPA(),3.5,0.1);
+
+        accessCourses.changeGPA(courseList.get(0),4.5);
+
+        assertEquals(courseList.get(0).getGPA(),4.5,0.1);
+
     }
 
     @After

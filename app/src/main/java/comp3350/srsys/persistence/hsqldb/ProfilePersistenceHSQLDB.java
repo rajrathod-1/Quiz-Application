@@ -54,7 +54,6 @@ public class ProfilePersistenceHSQLDB implements IProfilePersistence {
         }
     }
 
-
     private Connection connect() throws SQLException {
         return DriverManager.getConnection(this.url, "SA", "");
     }

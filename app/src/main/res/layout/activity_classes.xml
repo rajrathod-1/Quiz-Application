@@ -149,6 +149,7 @@
                 android:id="@+id/codeOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:ems="10"
                 android:inputType="text"
                 app:layout_column="1"
@@ -217,6 +218,7 @@
                 android:id="@+id/nameOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:editable="false"
                 android:ems="10"
                 android:inputType="text"
@@ -250,6 +252,7 @@
                 android:id="@+id/startOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:ems="10"
                 android:inputType="text"
                 app:layout_column="1"
@@ -259,6 +262,7 @@
                 android:id="@+id/endOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:editable="false"
                 android:ems="10"
                 android:inputType="text"
@@ -297,6 +301,7 @@
                 android:id="@+id/subjectOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:ems="10"
                 android:inputType="text"
                 app:layout_column="3"
@@ -306,6 +311,7 @@
                 android:id="@+id/notesOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:ems="10"
                 android:inputType="text"
                 app:layout_column="3"
@@ -315,6 +321,7 @@
                 android:id="@+id/quizOutput"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:ems="10"
                 android:inputType="text"
                 app:layout_column="3"
@@ -355,6 +362,15 @@
                 android:text="@string/delete_entry"
                 app:layout_column="3"
                 app:layout_row="3" />
+
+            <Button
+                android:id="@+id/gradeButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Grade"
+                app:layout_column="2"
+                app:layout_row="3" />
         </androidx.gridlayout.widget.GridLayout>
 
     </LinearLayout>
@@ -368,18 +384,32 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="720dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:src="@android:drawable/ic_menu_compass" />
+        android:src="@drawable/home"
+        android:layout_marginEnd="0dp" />
 
     <EditText
         android:id="@+id/numCoursesEnrolled"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:focusable="false"
         android:layout_alignParentTop="true"
         android:layout_marginStart="500dp"
         android:layout_marginTop="460dp"
         android:ems="10"
+        android:gravity="center"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/termGPA"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="500dp"
+        android:layout_marginTop="700dp"
+        android:ems="10"
+        android:focusable="false"
         android:gravity="center"
         android:inputType="number" />
 
@@ -392,6 +422,16 @@
         android:layout_marginStart="560dp"
         android:layout_marginTop="450dp"
         android:text="@string/number_courses_enrolled" />
+
+    <TextView
+        android:id="@+id/gpaview"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="600dp"
+        android:layout_marginTop="680dp"
+        android:text="Term GPA" />
 
     <ImageButton
         android:id="@+id/addCourse"

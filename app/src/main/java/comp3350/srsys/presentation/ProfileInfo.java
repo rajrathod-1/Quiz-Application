@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import comp3350.srsys.R;
 import comp3350.srsys.business.AccessCourses;
 import comp3350.srsys.business.AccessProfile;
+import comp3350.srsys.business.validators.ProfileValidator;
 import comp3350.srsys.objects.Profile;
 
 public class ProfileInfo extends Activity {
@@ -39,33 +41,39 @@ public class ProfileInfo extends Activity {
                 AccessCourses accessCourses = new AccessCourses();
                 int coursesCount = accessCourses.getCourses().size();
 
-                updatedProfile = new Profile(1, fullNameTextView.getText().toString(),
-                        usernameTextView.getText().toString(),
-                        emailTextView.getText().toString(),
-                        phoneTextView.getText().toString(),
-                        coursesCount,
-                        "Winter 2024");
-                accessProfile.updateProfile(updatedProfile);
+                if (ProfileValidator.validateName(fullNameTextView.getText().toString()) && ProfileValidator.validateUserName(usernameTextView.getText().toString())
+                    && ProfileValidator.validateEmail(emailTextView.getText().toString()) && ProfileValidator.validatePhone(phoneTextView.getText().toString())){
 
-                TextView new_fullNameTextView = findViewById(R.id.full_name);
-                TextView new_usernameTextView = findViewById(R.id.username);
-                TextView new_inputFullNameTextView = findViewById(R.id.input_full_name);
-                TextView new_inputUsernameTextView = findViewById(R.id.input_username);
-                TextView new_emailTextView = findViewById(R.id.email);
-                TextView new_phoneTextView = findViewById(R.id.phone);
-                TextView new_numCoursesTextView = findViewById(R.id.courses_desc);
-                TextView new_semesterTextView = findViewById(R.id.random_desc);
+                    updatedProfile = new Profile(1, fullNameTextView.getText().toString(),
+                            usernameTextView.getText().toString(),
+                            emailTextView.getText().toString(),
+                            phoneTextView.getText().toString(),
+                            coursesCount,
+                            "Winter 2024");
+                    accessProfile.updateProfile(updatedProfile);
 
-                new_fullNameTextView.setText(updatedProfile.getName());
-                new_usernameTextView.setText(updatedProfile.getUsername());
-                new_inputFullNameTextView.setText(updatedProfile.getName());
-                new_inputUsernameTextView.setText(updatedProfile.getUsername());
-                new_emailTextView.setText(updatedProfile.getEmail());
-                new_phoneTextView.setText(updatedProfile.getPhone());
-                new_numCoursesTextView.setText(String.valueOf(updatedProfile.getNumCourses()));
-                new_semesterTextView.setText(updatedProfile.getSemester());
+                    TextView new_fullNameTextView = findViewById(R.id.full_name);
+                    TextView new_usernameTextView = findViewById(R.id.username);
+                    TextView new_inputFullNameTextView = findViewById(R.id.input_full_name);
+                    TextView new_inputUsernameTextView = findViewById(R.id.input_username);
+                    TextView new_emailTextView = findViewById(R.id.email);
+                    TextView new_phoneTextView = findViewById(R.id.phone);
+                    TextView new_numCoursesTextView = findViewById(R.id.courses_desc);
+                    TextView new_semesterTextView = findViewById(R.id.random_desc);
 
-
+                    new_fullNameTextView.setText(updatedProfile.getName());
+                    new_usernameTextView.setText(updatedProfile.getUsername());
+                    new_inputFullNameTextView.setText(updatedProfile.getName());
+                    new_inputUsernameTextView.setText(updatedProfile.getUsername());
+                    new_emailTextView.setText(updatedProfile.getEmail());
+                    new_phoneTextView.setText(updatedProfile.getPhone());
+                    new_numCoursesTextView.setText(String.valueOf(updatedProfile.getNumCourses()));
+                    new_semesterTextView.setText(updatedProfile.getSemester());
+                    Toast.makeText(getApplicationContext(), "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Error in Profile Creation: Invalid Information", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

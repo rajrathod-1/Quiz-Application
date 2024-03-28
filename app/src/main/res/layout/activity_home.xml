@@ -37,22 +37,6 @@
         android:gravity="center"
         android:text="@string/welcome" />
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="362dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="467dp"
-        android:layout_marginTop="585dp"
-        android:layout_marginEnd="467dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="text"
-        android:text="@string/select" />
-
     <ToggleButton
         android:id="@+id/profileButton"
         android:layout_width="255dp"

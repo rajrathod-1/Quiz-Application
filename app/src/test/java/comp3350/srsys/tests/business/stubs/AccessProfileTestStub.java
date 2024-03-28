@@ -1,6 +1,7 @@
 package comp3350.srsys.tests.business.stubs;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -15,6 +16,7 @@ import java.util.List;
 import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessProfile;
 import comp3350.srsys.business.AccessQuizzes;
+import comp3350.srsys.business.validators.ProfileValidator;
 import comp3350.srsys.objects.Profile;
 import comp3350.srsys.objects.Quiz;
 import comp3350.srsys.persistence.stubs.CoursePersistenceStub;

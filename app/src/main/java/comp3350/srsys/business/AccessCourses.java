@@ -1,5 +1,6 @@
 package comp3350.srsys.business;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
@@ -59,6 +60,28 @@ public class AccessCourses {
     public void deleteCourse(Course currentCourse)
     {
         coursePersistence.deleteCourse(currentCourse);
+    }
+
+    public void changeGPA(Course currentCourse, double gpa){
+        coursePersistence.changeGPA(currentCourse, gpa);
+    }
+
+    public double getTermGPA(){
+        List<Course> courses = getCourses();
+        double termGPA = 0;
+        float creditHours = 0;
+        if (courses != null){
+            for (int i = 0; i < courses.size(); i++){
+                termGPA += courses.get(i).getGPA()*courses.get(i).getCreditHours();
+                creditHours += courses.get(i).getCreditHours();
+            }
+            termGPA = termGPA/creditHours;
+        }
+        else{
+            termGPA = 0.0;
+        }
+
+        return Math.round(termGPA * 100.0) / 100.0;
     }
 
     public List<Course> sortCoursesByFavorite(){

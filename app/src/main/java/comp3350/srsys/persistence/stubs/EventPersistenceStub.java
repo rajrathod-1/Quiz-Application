@@ -1,6 +1,5 @@
 package comp3350.srsys.persistence.stubs;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,19 +18,13 @@ public class EventPersistenceStub implements IEventPersistence {
         Date date = new Date();
 
         // Event 1
-        eventList.add(new Event(
-                "Iteration 0", "2024-01-23", "2024-01-24"
-        ));
+        eventList.add(new Event(1,"Event1","2023-08-13","12:00:01"));
 
         // Event 2
-        eventList.add(new Event(
-                "Iteration 1", "2024-02-07", "2024-02-08"
-        ));
+        eventList.add(new Event(2,"Event2","2023-08-14","12:00:02"));
 
         // Event 3
-        eventList.add(new Event(
-                "Iteration 2", "2024-02-27", "2024-02-28"
-        ));
+        eventList.add(new Event(3,"Event3","2023-08-15","12:00:03"));
 
     }
 
@@ -50,6 +43,7 @@ public class EventPersistenceStub implements IEventPersistence {
         return result;
     }
 
+
     @Override
     public void deleteEvent(Event event) {
 
@@ -62,7 +56,7 @@ public class EventPersistenceStub implements IEventPersistence {
     public void deleteEventById(int id) {
         int index = -1;
         for(int i=0; i<eventList.size(); i++) {
-            if(i == id) {
+            if(eventList.get(i).getId() == id) {
                 index = i;
             }
         }

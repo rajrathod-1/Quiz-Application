@@ -1,8 +1,10 @@
 package comp3350.srsys.objects;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Serializable {
     private final String topic;
     private final int courseNum;
     private final String courseName;
@@ -15,6 +17,8 @@ public class Course {
     private boolean marked;
     private int notesCreated;
     private int quizCreated;
+    private double creditHours;
+    private double gpa;
 
     /*
            COURSE constructor
@@ -22,17 +26,19 @@ public class Course {
      */
     public Course(final String newTopic, final int newNum, final String newName, final int newMonth,
                   final int newDate, final int newYear, final int lastMonth, final int lastDate,
-                  final int lastYear, final boolean marked, final int notesCreated, final int quizCreated)
+                  final int lastYear, final boolean marked, final int notesCreated, final int quizCreated,
+                  final double creditHours, final double gpa)
     {
-        this(newTopic, newNum, newName, newMonth, newDate, newYear, lastMonth, lastDate, lastYear);
+        this(newTopic, newNum, newName, newMonth, newDate, newYear, lastMonth, lastDate, lastYear,gpa,creditHours);
         this.marked = marked;
         this.notesCreated = notesCreated;
         this.quizCreated = quizCreated;
+        this.gpa = gpa;
     }
 
     public Course(final String newTopic, final int newNum, final String newName, final int newMonth,
                   final int newDate, final int newYear, final int lastMonth, final int lastDate,
-                  final int lastYear){
+                  final int lastYear,final double gpa,final double creditHours){
         topic = newTopic;
         courseNum = newNum;
         courseName = newName;
@@ -45,6 +51,27 @@ public class Course {
         marked = false;
         notesCreated = 0;
         quizCreated = 0;
+        this.creditHours = creditHours;
+        this.gpa = gpa;
+    }
+
+    public Course(final String newTopic, final int newNum, final String newName, final int newMonth,
+                  final int newDate, final int newYear, final int lastMonth, final int lastDate,
+                  final int lastYear,final double creditHours){
+        topic = newTopic;
+        courseNum = newNum;
+        courseName = newName;
+        startMonth = newMonth;
+        startDate = newDate;
+        startYear = newYear;
+        endMonth = lastMonth;
+        endDate = lastDate;
+        endYear = lastYear;
+        marked = false;
+        notesCreated = 0;
+        quizCreated = 0;
+        this.creditHours = creditHours;
+        this.gpa = 0.0;
     }
 
     public Course(final String newTopic, final int newNum){
@@ -60,6 +87,8 @@ public class Course {
         marked = false;
         notesCreated = 0;
         quizCreated = 0;
+        this.creditHours = 3;
+        this.gpa = 0.0;
     }
 
     public String getTopic(){
@@ -125,6 +154,17 @@ public class Course {
 
     public String getEndDateString(){
         return endYear + "-"+ endMonth + "-" + endDate;
+    }
+
+    public double getCreditHours(){
+        return this.creditHours;
+    }
+    public void setGPA(double inputtedGPA){
+        this.gpa = inputtedGPA;
+    }
+
+    public double getGPA(){
+        return this.gpa;
     }
 
     public String toString()

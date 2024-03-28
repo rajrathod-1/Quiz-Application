@@ -2,6 +2,7 @@ package comp3350.srsys.persistence;
 
 import java.util.List;
 
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Note;
 
 public interface INotePersistence {
@@ -15,5 +16,7 @@ public interface INotePersistence {
     void deleteNote(final Note note);
 
     void deleteNoteById(final int id);
+
+    void deleteNotesByCourse(final Course course);
 
 }

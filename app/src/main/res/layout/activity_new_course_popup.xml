@@ -140,6 +140,23 @@
             app:layout_gravity="center"
             app:layout_row="1" />
 
+        <TextView
+            android:id="@+id/CreditHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit Hours"
+            app:layout_column="2"
+            app:layout_row="2" />
+
+        <EditText
+            android:id="@+id/creditHoursInput"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_column="3"
+            app:layout_row="2" />
+
     </androidx.gridlayout.widget.GridLayout>
 
     <!-- Add more views as needed -->

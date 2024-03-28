@@ -13,23 +13,33 @@ import java.util.Date;
 import java.util.List;
 
 import comp3350.srsys.business.exceptions.NoteNotFoundException;
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Note;
 import comp3350.srsys.persistence.INotePersistence;
 import comp3350.srsys.persistence.utils.DBHelper;
 
 
-// NOTE VALUES (id, title, content, date)
+// NOTE VALUES (id, title, content, date, courseTopic, courseNum)
 
 public class NotePersistenceHSQLDB implements INotePersistence {
 
     private final String url;
     private List<Note> notes;
+    private Course course;
 
     // Constructor
     public NotePersistenceHSQLDB(String dbPath) {
         this.url = "jdbc:hsqldb:file:" + dbPath + ";shutdown=true";
         notes = new ArrayList<>();
+        course = null;
         loadAllNotes();
+    }
+
+    public NotePersistenceHSQLDB(String dbPath, Course course) {
+        this.url = "jdbc:hsqldb:file:" + dbPath + ";shutdown=true";
+        notes = new ArrayList<>();
+        this.course = course;
+        loadNotesByCourse(course);
     }
 
     @Override
@@ -44,18 +54,20 @@ public class NotePersistenceHSQLDB implements INotePersistence {
         String dateString = DBHelper.getSQLDateString(note.getDate());
 
         try (Connection con = connect()) {
-            String query = "INSERT INTO NOTE VALUES(DEFAULT, ?, ?, ?)";
+            String query = "INSERT INTO NOTE VALUES(DEFAULT, ?, ?, ?, ?, ?)";
             final PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, note.getTitle());
             ps.setString(2, note.getContent());
             ps.setString(3, dateString);
+            ps.setString(4, note.getCourseTopic());
+            ps.setInt(5, note.getCourseNum());
 
             ps.executeUpdate();
             ps.close();
 
             // reset notes
             this.notes = new ArrayList<>();
-            loadAllNotes();
+            loadNotes(this.course);
 
             return note;
 
@@ -70,20 +82,22 @@ public class NotePersistenceHSQLDB implements INotePersistence {
     @Override
     public Note updateNote(Note note) {
         System.out.println("[LOG] Updating Note");
+        String dateString = DBHelper.getSQLDateString(note.getDate());
 
         try (Connection con = connect()) {
-            String query = "UPDATE NOTE SET title=?, content=? WHERE id=?";
+            String query = "UPDATE NOTE SET title=?, content=?, date=? WHERE id=?";
             final PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, note.getTitle());
             ps.setString(2, note.getContent());
-            ps.setInt(3, note.getId());
+            ps.setString(3, dateString);
+            ps.setInt(4, note.getId());
 
             ps.executeUpdate();
             ps.close();
 
             // reset notes
             this.notes = new ArrayList<>();
-            loadAllNotes();
+            loadNotes(this.course);
 
             return note;
 
@@ -111,7 +125,6 @@ public class NotePersistenceHSQLDB implements INotePersistence {
             ps.executeUpdate();
             ps.close();
 
-
             for (Note note : notes) {
                 if (note.getId() == id) {
                     notes.remove(note);
@@ -123,6 +136,25 @@ public class NotePersistenceHSQLDB implements INotePersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
             throw new NoteNotFoundException("Note could not be deleted in the database");
+        }
+    }
+
+    @Override
+    public void deleteNotesByCourse(Course course) {
+        System.out.println("[LOG] Deleting Notes in course " + course.getCourseName());
+
+        try (Connection con = connect()) {
+            String query = "DELETE FROM NOTE WHERE courseTopic=? AND courseNum=?";
+            final PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, course.getTopic());
+            ps.setInt(2, course.getCourseNum());
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
         }
     }
 
@@ -144,8 +176,19 @@ public class NotePersistenceHSQLDB implements INotePersistence {
         String title = rs.getString("title");
         String content = rs.getString("content");
         Date date = rs.getTimestamp("date");
+        String topic = rs.getString("courseTopic");
+        int num = rs.getInt("courseNum");
 
-        return new Note(noteID, date, title, content);
+        return new Note(noteID, date, title, content, topic, num);
+    }
+
+    private void loadNotes(Course course) {
+        if (course != null) {
+            loadNotesByCourse(course);
+        }
+        else {
+            loadAllNotes();
+        }
     }
 
     private void loadAllNotes() {
@@ -160,6 +203,29 @@ public class NotePersistenceHSQLDB implements INotePersistence {
             }
 
             statement.close();
+            rs.close();
+
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
+
+    private void loadNotesByCourse(Course course) {
+        try (Connection con = connect()) {
+            String query = "SELECT * FROM NOTE WHERE courseTopic=? AND courseNum=?";
+            final PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, course.getTopic());
+            ps.setInt(2, course.getCourseNum());
+
+            final ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                final Note note = fromResultSet(rs);
+                this.notes.add(note);
+            }
+
+            ps.close();
             rs.close();
 
         } catch (final SQLException e) {

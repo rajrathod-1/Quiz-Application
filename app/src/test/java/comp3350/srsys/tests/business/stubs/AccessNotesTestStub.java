@@ -1,6 +1,7 @@
 package comp3350.srsys.tests.business.stubs;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -10,7 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import java.util.Objects;
+
 import comp3350.srsys.application.Services;
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Note;
 
 import comp3350.srsys.business.AccessNotes;
@@ -69,7 +73,7 @@ public class AccessNotesTestStub {
 
         expectedSize = accessNotes.getNotes().size();
 
-        note = accessNotes.insertNote();
+        note = accessNotes.insertNote("COMP",3350);
         expectedSize++;
 
         assertEquals(expectedSize, accessNotes.getNotes().size());

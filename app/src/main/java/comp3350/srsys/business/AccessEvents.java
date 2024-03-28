@@ -28,17 +28,13 @@ public class AccessEvents {
 
     public Event insertEvent(Event event) {
         Event result = null;
-        if(EventValidator.validate(event)){
-            dataAccess.insertEvent(event);
-            result = event;
-        }
+        dataAccess.insertEvent(event);
+        result = event;
         return result;
     }
 
     public void deleteEvent(Event event) {
-        if(EventValidator.validate(event)){
-            dataAccess.deleteEvent(event);
-        }
+        dataAccess.deleteEvent(event);
     }
 
     public void deleteEventById(int id) {

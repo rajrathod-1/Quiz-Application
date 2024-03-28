@@ -17,14 +17,17 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import comp3350.srsys.R;
 import comp3350.srsys.business.AccessCourses;
+import comp3350.srsys.business.validators.CourseValidator;
 import comp3350.srsys.objects.Course;
 
 
@@ -96,8 +99,6 @@ public class ClassesInfo extends Activity {
         AccessCourses accessCourse = new AccessCourses();
         List<Course> registrations = accessCourse.getCourses();
 
-        EditText coursesEnrolled = (EditText)findViewById(R.id.numCoursesEnrolled);
-        coursesEnrolled.setText(registrations.size() + "");
         courseArrayAdapter = new ArrayAdapter<Course>(this, android.R.layout.simple_list_item_2, android.R.id.text1, registrations)
         {
             @Override
@@ -106,6 +107,12 @@ public class ClassesInfo extends Activity {
 
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                EditText coursesEnrolled = (EditText)findViewById(R.id.numCoursesEnrolled);
+                coursesEnrolled.setText(Integer.toString(accessCourse.getCourses().size()));
+
+                EditText termGPA = (EditText)findViewById(R.id.termGPA);
+                termGPA.setText(Double.toString(accessCourse.getTermGPA()));
 
                 text1.setText(registrations.get(position).getTopic() + " " + registrations.get(position).getCourseNum() + ": " + registrations.get(position).getCourseName());
                 text2.setText("Start Date : " + registrations.get(position).getStartDateString() + " End Date : " + registrations.get(position).getEndDateString());
@@ -122,30 +129,49 @@ public class ClassesInfo extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Course selected;
                 Button deleteButton = (Button)findViewById(R.id.deleteEntry);
+                Button gpaButton = (Button)findViewById(R.id.gradeButton);
                 ImageButton favoriteButton = findViewById(R.id.favoriteButton);
                 ImageButton notesButton = findViewById(R.id.notesButton);
                 ImageButton quizButton = findViewById(R.id.quizButton);
                 ImageButton eventsButton = findViewById(R.id.eventsButton);
+                EditText courseCode = (EditText)findViewById(R.id.codeOutput);
+                EditText courseName = (EditText)findViewById(R.id.nameOutput);
+                EditText dateEnrolled = (EditText)findViewById(R.id.startOutput);
+                EditText dateEnded = (EditText)findViewById(R.id.endOutput);
+                EditText subjectOutput = (EditText)findViewById(R.id.subjectOutput);
+                EditText notesOutput = (EditText)findViewById(R.id.notesOutput);
+                EditText quizOutput = (EditText)findViewById(R.id.quizOutput);
 
                 if (position == selectedCoursePosition) {
                     listView.setItemChecked(position, false);
                     deleteButton.setEnabled(false);
+                    gpaButton.setEnabled(false);
                     favoriteButton.setEnabled(false);
                     notesButton.setEnabled(false);
                     quizButton.setEnabled(false);
                     eventsButton.setEnabled(false);
+                    courseCode.setText("");
+                    courseName.setText("");
+                    dateEnrolled.setText("");
+                    dateEnded.setText("");
+                    subjectOutput.setText("");
+                    notesOutput.setText("");
+                    quizOutput.setText("");
+                    gpaButton.setText("Grade:");
                     selectedCoursePosition = -1;
                     favoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
                 } else {
                     listView.setItemChecked(position, true);
                     deleteButton.setEnabled(true);
+                    gpaButton.setEnabled(true);
                     favoriteButton.setEnabled(true);
                     notesButton.setEnabled(true);
                     quizButton.setEnabled(true);
                     eventsButton.setEnabled(true);
+                    selected = courseArrayAdapter.getItem(position);
+                    gpaButton.setText("Grade: " + selected.getGPA());
                     selectedCoursePosition = position;
                     selectCourseAtPosition(position);
-                    selected = courseArrayAdapter.getItem(position);
                     if (selected.getmarked()){
                         favoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
                     }
@@ -187,25 +213,40 @@ public class ClassesInfo extends Activity {
                         EditText newDateCreated = (EditText)popupView.findViewById(R.id.startOutput);
                         EditText newDateEnding = (EditText)popupView.findViewById(R.id.endOutput);
                         EditText newTopic = (EditText)popupView.findViewById(R.id.subjectOutput);
+                        EditText newCreditHours = (EditText)popupView.findViewById(R.id.creditHoursInput);
                         ToggleButton favoriteButton = (ToggleButton)popupView.findViewById(R.id.newFavoriteButton);
 
-                        String[] arrOfDateStartedInfo = newDateCreated.getText().toString().split("-", 0);
-                        String[] arrOfDateEndedInfo = newDateEnding.getText().toString().split("-", 0);
+                        if (CourseValidator.validateCourseNum(Double.parseDouble(newCode.getText().toString())) && CourseValidator.validateCourseSubject(newTopic.getText().toString())
+                            && CourseValidator.validateCourseName(newName.getText().toString()) && CourseValidator.validateDate(newDateCreated.getText().toString())
+                            && CourseValidator.validateDate(newDateEnding.getText().toString()) && CourseValidator.validateCreditHours(Double.parseDouble(newCreditHours.getText().toString()))) {
 
+                            String[] arrOfDateStartedInfo = newDateCreated.getText().toString().split("-", 0);
+                            String[] arrOfDateEndedInfo = newDateEnding.getText().toString().split("-", 0);
 
-                        Course newCourse = new Course(newTopic.getText().toString(),
-                        Integer.parseInt(newCode.getText().toString()), newName.getText().toString(), Integer.parseInt(arrOfDateStartedInfo[1]),
-                        Integer.parseInt(arrOfDateStartedInfo[2]), Integer.parseInt(arrOfDateStartedInfo[0]), Integer.parseInt(arrOfDateEndedInfo[1]),
-                        Integer.parseInt(arrOfDateEndedInfo[2]), Integer.parseInt(arrOfDateEndedInfo[0]));
+                            Course newCourse = new Course(newTopic.getText().toString(),
+                                    Integer.parseInt(newCode.getText().toString()), newName.getText().toString(), Integer.parseInt(arrOfDateStartedInfo[1]),
+                                    Integer.parseInt(arrOfDateStartedInfo[2]), Integer.parseInt(arrOfDateStartedInfo[0]), Integer.parseInt(arrOfDateEndedInfo[1]),
+                                    Integer.parseInt(arrOfDateEndedInfo[2]), Integer.parseInt(arrOfDateEndedInfo[0]), Double.parseDouble(newCreditHours.getText().toString()));
 
-                        if (favoriteButton.isChecked()) {
-                            newCourse.favoriteCourse();
+                            if (favoriteButton.isChecked()) {
+                                newCourse.favoriteCourse();
+                            }
+
+                            accessCourse.insertCourse(newCourse);
+                            courseArrayAdapter.notifyDataSetChanged();
+                            popupWindow.dismiss();
+                            Toast.makeText(getApplicationContext(), "New Course Successfully Created", Toast.LENGTH_SHORT).show();
                         }
-
-                        accessCourse.insertCourse(newCourse);
-                        courseArrayAdapter.notifyDataSetChanged();
-                        popupWindow.dismiss();
-
+                        else{
+                            Toast.makeText(getApplicationContext(), "Invalid input, please try again.", Toast.LENGTH_SHORT).show();
+                            newCode.setText("");
+                            newName.setText("");
+                            newDateCreated.setText("");
+                            newDateEnding.setText("");
+                            newTopic.setText("");
+                            newCreditHours.setText("");
+                            favoriteButton.setChecked(false);
+                        }
                     }
                 });
             }
@@ -238,6 +279,50 @@ public class ClassesInfo extends Activity {
 
                 Button noButton = popupView.findViewById(R.id.noButton);
                 noButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+            }
+        });
+
+        Button buttonToSetGPA = findViewById(R.id.gradeButton);
+        buttonToSetGPA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.activity_change_gpa, null);
+
+                boolean focusable = true;
+                final PopupWindow popupWindow = new PopupWindow(popupView,
+                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
+
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+
+                EditText gpaField = (EditText)popupView.findViewById(R.id.gpaInput);
+
+                Button saveButton = popupView.findViewById(R.id.saveButton);
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (CourseValidator.validateNewGPA(Double.parseDouble(gpaField.getText().toString()))){
+                            Course selected = courseArrayAdapter.getItem(selectedCoursePosition);
+                            accessCourse.changeGPA(selected, Double.parseDouble(gpaField.getText().toString()));
+                            courseArrayAdapter.notifyDataSetChanged();
+                            popupWindow.dismiss();
+                        }
+                        else{
+                            gpaField.setText("");
+                            Toast.makeText(getApplicationContext(), "Invalid input, please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                Button cancelButton = popupView.findViewById(R.id.cancelButton);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popupWindow.dismiss();
@@ -312,6 +397,8 @@ public class ClassesInfo extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClassesInfo.this, NotesInfo.class);
+                Course selected = courseArrayAdapter.getItem(selectedCoursePosition);
+                intent.putExtra("courseKey",selected);
                 startActivity(intent);
             }
         });
@@ -321,16 +408,20 @@ public class ClassesInfo extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClassesInfo.this, QuizListInfo.class);
+                Course selected = courseArrayAdapter.getItem(selectedCoursePosition);
+                intent.putExtra("course", selected);
                 startActivity(intent);
             }
         });
-        eventsButton.setOnClickListener(new View.OnClickListener(){
+
+        eventsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClassesInfo.this, CalendarInfo.class);
                 startActivity(intent);
             }
         });
+
     }
 
 

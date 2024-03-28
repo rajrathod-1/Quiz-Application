@@ -2,8 +2,8 @@ package comp3350.srsys.presentation;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +23,18 @@ import java.util.Comparator;
 import java.util.List;
 
 import comp3350.srsys.R;
+import comp3350.srsys.application.Services;
+import comp3350.srsys.business.validators.NoteValidator;
 import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Note;
 import comp3350.srsys.business.AccessNotes;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
+import org.w3c.dom.Text;
 
 
 public class NotesInfo extends Activity{
@@ -42,8 +48,36 @@ public class NotesInfo extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        AccessNotes accessNotes = new AccessNotes();
+        Intent thisIntent = getIntent();
+        Class<? extends Course> clazz = Course.class;
+        Course receivedCourse = (Course) thisIntent.getSerializableExtra("courseKey", clazz);
+        selectedNotePosition = thisIntent.getIntExtra("selectedNotePos", selectedNotePosition);
+
+        TextView pageTitle = findViewById(R.id.courseTitle);
+        pageTitle.setText(receivedCourse.getCourseName());
+
+        AccessNotes accessNotes = new AccessNotes(receivedCourse);
         List<Note> notes = accessNotes.getNotes();
+        accessNotes.sortByDate();
+        if(notes.size()>0){
+            selectedNotePosition = thisIntent.getIntExtra("selectedNotePos", 0);
+            Note selected = notes.get(selectedNotePosition);
+            EditText title = (EditText)findViewById(R.id.noteTitle);
+            EditText content = (EditText)findViewById(R.id.noteContent);
+            title.setText(selected.getTitle());
+            content.setText(selected.getContent());
+        }
+
+
+
+        if(notes.size()>0){
+            selectedNotePosition = thisIntent.getIntExtra("selectedNotePos", 0);
+            Note selected = notes.get(selectedNotePosition);
+            EditText title = (EditText)findViewById(R.id.noteTitle);
+            EditText content = (EditText)findViewById(R.id.noteContent);
+            title.setText(selected.getTitle());
+            content.setText(selected.getContent());
+        }
 
         noteArrayAdapter = new ArrayAdapter<Note>(this, android.R.layout.simple_list_item_1, android.R.id.text1, notes)
         {
@@ -52,8 +86,13 @@ public class NotesInfo extends Activity{
                 View view = super.getView(position, convertView, parent);
 
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-
                 text1.setText(notes.get(position).getTitle());
+
+                //changing background colour when selected to highlight selected
+                boolean shouldHighlight = (position == selectedNotePosition);
+
+                int backgroundColor = shouldHighlight ? ContextCompat.getColor(getContext(), R.color.highlightColor) : Color.TRANSPARENT;
+                view.setBackgroundColor(backgroundColor);
                 return view;
             }
         };
@@ -79,61 +118,15 @@ public class NotesInfo extends Activity{
                     EditText content = (EditText)findViewById(R.id.noteContent);
                     title.setText(selected.getTitle());
                     content.setText(selected.getContent());
-
+                    noteArrayAdapter.notifyDataSetChanged();
                 }
             }
         });
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
+            Services.clean();
             Intent intent = new Intent(NotesInfo.this, ClassesInfo.class);
             startActivity(intent);
-        });
-
-        EditText editTitle = findViewById(R.id.noteTitle);
-        editTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String updatedText = editable.toString();
-
-                if(selectedNotePosition>-1) {
-                    Note currentNote = noteArrayAdapter.getItem(selectedNotePosition);
-                    if (!updatedText.equals(currentNote.getTitle())) {
-                        currentNote.setTitle(updatedText);
-                        accessNotes.updateNotes(currentNote);
-                        noteArrayAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
-
-        EditText editContent = findViewById(R.id.noteContent);
-        editContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                String updatedText = editable.toString();
-
-                if(selectedNotePosition>-1) {
-                    Note currentNote = noteArrayAdapter.getItem(selectedNotePosition);
-                    if(!updatedText.equals(currentNote.getContent())) {
-                        currentNote.setContent(updatedText);
-                        accessNotes.updateNotes(currentNote);
-                        noteArrayAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
         });
 
         Button buttonToDeleteNote = findViewById(R.id.deleteNoteButton);
@@ -157,9 +150,23 @@ public class NotesInfo extends Activity{
                         public void onClick(View v) {
                             Note selected = noteArrayAdapter.getItem(selectedNotePosition);
                             accessNotes.deleteNotes(selected);
+                            selectedNotePosition = selectedNotePosition-1;
                             noteArrayAdapter.notifyDataSetChanged();
                             popupWindow.dismiss();
-                            selectedNotePosition = -1;
+                            EditText title = (EditText)findViewById(R.id.noteTitle);
+                            EditText content = (EditText)findViewById(R.id.noteContent);
+
+                            if(notes.size()==0){
+                                title.setText("");
+                                content.setText("");
+                            }else {
+                                if(selectedNotePosition<0)
+                                    selectedNotePosition=0;
+                                selected = notes.get(selectedNotePosition);
+                                title.setText(selected.getTitle());
+                                content.setText(selected.getContent());
+                            }
+
                         }
                     });
 
@@ -178,7 +185,9 @@ public class NotesInfo extends Activity{
         buttonToAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accessNotes.insertNote();
+                accessNotes.insertNote(receivedCourse.getTopic(), receivedCourse.getCourseNum());
+                selectedNotePosition = 0;
+                restartActivity();
                 noteArrayAdapter.notifyDataSetChanged();
             }
         });
@@ -187,8 +196,12 @@ public class NotesInfo extends Activity{
         buttonToSortByTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accessNotes.sortNotesByTitle();
-                noteArrayAdapter.notifyDataSetChanged();
+                if(notes.size()>0) {
+                    Note selected = notes.get(selectedNotePosition);
+                    accessNotes.sortNotesByTitle();
+                    selectedNotePosition = notes.indexOf(selected);
+                    noteArrayAdapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -196,16 +209,63 @@ public class NotesInfo extends Activity{
         buttonToSortByLastEdited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accessNotes.sortByDate();
-                noteArrayAdapter.notifyDataSetChanged();
+                if(notes.size()>0 ) {
+                    Note selected = notes.get(selectedNotePosition);
+                    accessNotes.sortByDate();
+                    selectedNotePosition = notes.indexOf(selected);
+                    noteArrayAdapter.notifyDataSetChanged();
+                }
             }
         });
 
-
+        Button buttonToSave = findViewById(R.id.saveNoteButton);
+        buttonToSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editTitle = (EditText)findViewById(R.id.noteTitle);
+                String updatedTitle = editTitle.getText().toString();
+                EditText editContent = (EditText)findViewById(R.id.noteContent);
+                String updatedContent = editContent.getText().toString();
+                if(selectedNotePosition>-1) {
+                    if (NoteValidator.validateNoteName(updatedTitle) && NoteValidator.validateContent(updatedContent)){
+                        Note currentNote = noteArrayAdapter.getItem(selectedNotePosition);
+                        currentNote.setTitle(updatedTitle);
+                        currentNote.setContent(updatedContent);
+                        accessNotes.updateNotes(currentNote);
+                        selectedNotePosition=0;
+                        restartActivity();
+                        Toast.makeText(getApplicationContext(), "New Note Successfully Saved", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Note title or content size too large", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void restartActivity() {
+        finish();
+        overridePendingTransition(0, 0);
+        getIntent().putExtra("selectedNotePos", selectedNotePosition);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    //these just save the selected note when tablet orientation changes
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("selectedNotePos", selectedNotePosition);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        selectedNotePosition = savedInstanceState.getInt("selectedNotePos");
     }
 }

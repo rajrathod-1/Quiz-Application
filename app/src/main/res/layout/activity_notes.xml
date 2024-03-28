@@ -5,7 +5,7 @@
 
     <Button
         android:id="@+id/addNoteButton"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="53dp"
         android:layout_alignTop="@+id/linearLayout"
         android:layout_alignParentBottom="true"
@@ -17,7 +17,7 @@
 
     <Button
         android:id="@+id/deleteNoteButton"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="53dp"
         android:layout_alignTop="@+id/linearLayout"
         android:layout_alignParentStart="true"
@@ -29,7 +29,7 @@
 
     <Button
         android:id="@+id/sortByTitleButton"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="53dp"
         android:layout_alignTop="@+id/linearLayout"
         android:layout_alignParentBottom="true"
@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/sortByLastEditedButton"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="53dp"
         android:layout_alignTop="@+id/linearLayout"
         android:layout_alignParentBottom="true"
@@ -50,6 +50,20 @@
         android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/sortByTitleButton"
         android:text="Sort By Last Edited" />
+
+    <Button
+        android:id="@+id/saveNoteButton"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1081dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@id/sortByLastEditedButton"
+        android:text="Save Note" />
+
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -70,6 +84,14 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/backarrow" />
+
+        <TextView
+            android:id="@+id/courseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:text="TextView" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -94,7 +116,9 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:choiceMode="none"
-            android:visibility="visible" />
+            android:visibility="visible" >
+
+        </ListView>
 
         <LinearLayout
             android:layout_width="500dp"
@@ -122,8 +146,6 @@
                 android:text="Content" />
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </RelativeLayout>

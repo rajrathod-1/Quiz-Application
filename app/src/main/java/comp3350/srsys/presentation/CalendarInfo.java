@@ -64,7 +64,7 @@ public class CalendarInfo extends AppCompatActivity implements CalendarAdapter.O
         buttonToEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalendarInfo.this, AddReminderActivity.class);
+                Intent intent = new Intent(CalendarInfo.this, CalendarEventInfo.class);
                 startActivity(intent);
             }
         });

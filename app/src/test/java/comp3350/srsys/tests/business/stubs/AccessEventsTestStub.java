@@ -34,7 +34,7 @@ public class AccessEventsTestStub {
     public void testGetEvents() {
         System.out.println("Starting testGetEvents");
 
-        assertEquals("Iteration 0", accessEvents.getEvents().get(0).getTitle());//check if the middle entry is present
+        assertEquals("Event1", accessEvents.getEvents().get(0).getTitle());//check if the middle entry is present
         assertEquals(3, accessEvents.getEvents().size());
 
         System.out.println("Finished testGetEvents");
@@ -46,7 +46,7 @@ public class AccessEventsTestStub {
 
         Date eventDate = new Date();
         Time eventTime = new Time(10, 10, 10);
-        Event newEvent = new Event("Something", "2024-03-01", "16:00:00");
+        Event newEvent = new Event(1,"Something", "2024-03-01", "16:00:00");
 
         Event event = accessEvents.insertEvent(newEvent);
         assertNotNull(event);
@@ -75,7 +75,7 @@ public class AccessEventsTestStub {
 
         Event event1 = accessEvents.getEvents().get(0);
 
-        accessEvents.deleteEventById(0);
+        accessEvents.deleteEventById(1);
 
         Event event2 = accessEvents.getEvents().get(0);
 

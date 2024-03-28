@@ -24,7 +24,7 @@ public class CourseTest {
         System.out.println("\nStarting testCreateACourse");
 
         //creates the course that will be tested
-        Course ourCourse = new Course("COMP", 3350, "Software Engineering 1", 1, 7, 2024, 4, 10, 2024);
+        Course ourCourse = new Course("COMP", 3350, "Software Engineering 1", 1, 7, 2024, 4, 10, 2024,3,4.5);
 
         assertNotNull(ourCourse);
         assertEquals("COMP", ourCourse.getTopic());
@@ -40,6 +40,26 @@ public class CourseTest {
         assertEquals("Course: COMP  3350: Software Engineering 1",ourCourse.toString());
         assertEquals(Objects.hash(ourCourse.getTopic(),ourCourse.getCourseNum()),ourCourse.hashCode());
 
+    }
+
+    @Test
+    public void testSecondaryCourseConstructor() {
+        Course course = new Course("Mathematics", 101, "Calculus", 1, 15, 2023, 5, 15, 2023, 3.0);
+
+        assertEquals("Mathematics", course.getTopic());
+        assertEquals(101, course.getCourseNum());
+        assertEquals("Calculus", course.getCourseName());
+        assertEquals(1, course.getStartMonth());
+        assertEquals(15, course.getStartDate());
+        assertEquals(2023, course.getStartYear());
+        assertEquals(5, course.getEndMonth());
+        assertEquals(15, course.getEndDate());
+        assertEquals(2023, course.getEndYear());
+        assertFalse(course.getmarked());
+        assertEquals(0, course.getNotesCreated());
+        assertEquals(0, course.getQuizCreated());
+        assertEquals(3.0, course.getCreditHours(), 0.01);
+        assertEquals(0.0, course.getGPA(), 0.01);
     }
 
     @Test

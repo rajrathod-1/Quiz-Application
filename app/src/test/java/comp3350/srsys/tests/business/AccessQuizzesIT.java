@@ -16,6 +16,7 @@ import java.util.List;
 
 import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessCourses;
+import comp3350.srsys.business.AccessNotes;
 import comp3350.srsys.business.AccessQuizzes;
 import comp3350.srsys.business.exceptions.QuizNotFoundException;
 import comp3350.srsys.objects.Course;
@@ -115,6 +116,21 @@ public class AccessQuizzesIT {
         accessQuizzes.updateQuiz(firstQuiz);
 
         assertEquals(accessQuizzes.getQuizzes().get(0).getAnswer(),"TestAnswer");
+    }
+
+    @Test
+    public void testLoadQuizzesByCourse() throws IOException {
+        Course newCourse = new Course("COMP", 3350, "Software Engineering I",2,1,2024,4,10,2024, false, 0, 0, 2.5, 2.0);
+        this.tempDB.delete();
+        Services.clean();
+        this.tempDB = TestUtils.copyDB();
+
+        accessQuizzes = new AccessQuizzes(newCourse);
+        List<Quiz> notesList = accessQuizzes.getQuizzes();
+        for (int i = 0; i < notesList.size(); i++){
+            assertEquals("COMP",notesList.get(i).getCourseTopic());
+            assertEquals(3350,notesList.get(i).getCourseNum());
+        }
     }
 
     @After

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dp"
     android:background="?android:attr/selectableItemBackground">
 
     <ImageView
@@ -23,7 +24,7 @@
         tools:ignore="ExtraText">
 
         <TextView
-            android:id="@+id/recycle_title"
+            android:id="@+id/event_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -33,7 +34,7 @@
             tools:text="Title"/>
 
         <TextView
-            android:id="@+id/recycle_date_time"
+            android:id="@+id/event_date_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"

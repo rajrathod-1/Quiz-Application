@@ -1,5 +1,7 @@
 package comp3350.srsys.presentation;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,21 +15,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import comp3350.srsys.R;
 import comp3350.srsys.business.AccessEvents;
+import comp3350.srsys.business.validators.EventValidator;
 import comp3350.srsys.objects.Event;
+
 public class AddReminderActivity extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener {
 
-    private EditText mTitleText;
-    private TextView mDateText, mTimeText;
-    private Calendar mCalendar;
-    private int mYear, mMonth, mHour, mMinute, mDay;
-    private String mTime = "";
-    private String mDate = "";
+    private EditText titleText;
+    private TextView dateText, timeText;
+    private Calendar calendar;
+    private int year, month, hour, minute, day;
+    private String time = "";
+    private String date = "";
 
     AccessEvents accessEvents = new AccessEvents();
 
@@ -39,101 +47,130 @@ public class AddReminderActivity extends AppCompatActivity implements
 
         Intent intent = getIntent();
 
-        mTitleText = findViewById(R.id.reminder_title);
-        mDateText = findViewById(R.id.set_date);
-        mTimeText = findViewById(R.id.set_time);
+        titleText = findViewById(R.id.reminder_title);
+        dateText = findViewById(R.id.set_date);
+        timeText = findViewById(R.id.set_time);
 
         Button btnDone = findViewById(R.id.btn_done);
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveReminder();
-                Intent intent = new Intent(AddReminderActivity.this, CalendarEventInfo.class);
-                startActivity(intent);
+                String title = titleText.getText().toString();
+                String date = dateText.getText().toString();
+                String time = timeText.getText().toString();
+                if (EventValidator.validateTitle(title) && EventValidator.validateDate(date) && EventValidator.validateTime(time)){
+                    saveReminder();
+                    Intent intent = new Intent(AddReminderActivity.this, CalendarEventInfo.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "New Event Successfully Created", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Event Information Invalid", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        mCalendar = Calendar.getInstance();
-        mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
-        mMinute = mCalendar.get(Calendar.MINUTE);
-        mYear = mCalendar.get(Calendar.YEAR);
-        mMonth = mCalendar.get(Calendar.MONTH) + 1;
-        mDay = mCalendar.get(Calendar.DATE);
+        calendar = Calendar.getInstance();
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DATE);
 
-        mDate = mDay + "/" + mMonth + "/" + mYear;
-        mTime = mHour + ":" + mMinute;
+        date = day + "/" + month + "/" + year;
+        time = hour + ":" + minute;
 
         // Setup TextViews using reminder values
-        mDateText.setText(mDate);
-        mTimeText.setText(mTime);
+        dateText.setText(date);
+        timeText.setText(time);
 
     }
 
     // On clicking Time picker
     public void setTime(View v) {
         Calendar now = Calendar.getInstance();
-        TimePickerDialog tpd = TimePickerDialog.newInstance(
+        TimePickerDialog timePicker = TimePickerDialog.newInstance(
                 this,
                 now.get(Calendar.HOUR_OF_DAY),
                 now.get(Calendar.MINUTE),
                 false
         );
-        tpd.setThemeDark(false);
-        tpd.show(getSupportFragmentManager(), "Timepickerdialog");
+        timePicker.setThemeDark(false);
+        timePicker.show(getSupportFragmentManager(), "Timepickerdialog");
 
     }
 
     // On clicking Date picker
     public void setDate(View v) {
         Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
+        DatePickerDialog datePicker = DatePickerDialog.newInstance(
                 this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
-        dpd.show(getSupportFragmentManager(), "Datepickerdialog");
+        datePicker.show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
     // Obtain time from time picker
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        mHour = hourOfDay;
-        mMinute = minute;
+        hour = hourOfDay;
+        this.minute = minute;
         if (minute < 10) {
-            mTime = hourOfDay + ":" + "0" + minute;
+            time = hourOfDay + ":" + "0" + minute;
         } else {
-            mTime = hourOfDay + ":" + minute;
+            time = hourOfDay + ":" + minute;
         }
-        mTimeText.setText(mTime);
+        timeText.setText(time);
     }
 
     // Obtain date from date picker
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         monthOfYear++;
-        mDay = dayOfMonth;
-        mMonth = monthOfYear;
-        mYear = year;
-        mDate = dayOfMonth + "/" + monthOfYear + "/" + year;
-        mDateText.setText(mDate);
+        day = dayOfMonth;
+        month = monthOfYear;
+        this.year = year;
+        date = dayOfMonth + "/" + monthOfYear + "/" + year;
+        dateText.setText(date);
     }
 
     // On clicking the save button
-    public void saveReminder() {
+    private void saveReminder() {
 
-        String title = mTitleText.getText().toString();
-        String date = mDateText.getText().toString();
-        String time = mTimeText.getText().toString();
+        String title = titleText.getText().toString();
+        String date = dateText.getText().toString();
+        String time = timeText.getText().toString();
 
-        if (title.isEmpty()) {
-            Toast.makeText(this, "Please enter a title for the reminder", Toast.LENGTH_SHORT).show();
-            return; // Exit the method without saving the reminder
-        }
-        Event newEvent = new Event(title, date, time);
+        Event newEvent = new Event(0, title, date, time);
         accessEvents.insertEvent(newEvent);
-
+        scheduleNotification(newEvent);
     }
-    // On pressing the back button
-}
 
+    private void scheduleNotification(Event event) {
+        // Parse event date and time to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        long eventTimeMillis = 0;
+        try {
+            Date eventDateTime = sdf.parse(event.getNewDate() + " " + event.getTime());
+            eventTimeMillis = eventDateTime.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Create an intent for the notification
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        notificationIntent.putExtra("title", event.getTitle());
+        notificationIntent.putExtra("message", "Event time: " + event.getTime());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, event.getId(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+
+        // Set the notification to trigger at the event time
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, eventTimeMillis, pendingIntent);
+        }
+    }
+}

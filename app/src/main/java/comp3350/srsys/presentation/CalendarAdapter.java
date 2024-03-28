@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 import comp3350.srsys.R;
 import comp3350.srsys.business.AccessCalendarUtils;
 
-class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
-    public final ArrayList<LocalDate> days;
-    public final OnItemListener onItemListener;
+public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
+    private final ArrayList<LocalDate> days;
+    private final OnItemListener onItemListener;
 
     public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener) {
         this.days = days;
@@ -25,31 +26,27 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
 
     @NonNull
     @Override
-    public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflate = LayoutInflater.from(parent.getContext());
-        View view = inflate.inflate(R.layout.calendar_cell, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.calendar_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        if(days.size() >= 15) {
+        if (days.size() >= 15) {
             layoutParams.height = (int) (parent.getHeight() * 0.16);
-        }
-        else {
+        } else {
             layoutParams.height = (int) (parent.getHeight());
         }
-        return new CalendarViewHolder(view, onItemListener, days);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CalendarViewHolder temp, int pos) {
-        final LocalDate date = days.get(pos);
-        if(date == null)
-        {
-            temp.dayOfMonth.setText("");
-        }
-        else {
-            temp.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
-            if(date.equals(AccessCalendarUtils.selectedDate))
-            {
-                temp.parentView.setBackgroundColor(Color.LTGRAY);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final LocalDate date = days.get(position);
+        if (date == null) {
+            holder.dayOfMonth.setText("");
+        } else {
+            holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
+            if (date.equals(AccessCalendarUtils.selectedDate)) {
+                holder.parentView.setBackgroundColor(Color.LTGRAY);
             }
         }
     }
@@ -61,5 +58,25 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
 
     public interface OnItemListener {
         void onItemClick(int position, LocalDate date);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public final View parentView;
+        public final TextView dayOfMonth;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            parentView = itemView.findViewById(R.id.parentView);
+            dayOfMonth = itemView.findViewById(R.id.cellDayText);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getBindingAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                onItemListener.onItemClick(position, days.get(position));
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class AccessNotesIT {
 
     @Test
     public void testInsertNote() {
-        accessNotes.insertNote();
+        accessNotes.insertNote("COMP",3350);
         assertEquals(4, accessNotes.getNotes().size());
 
         System.out.println("Finished testInsertNote");
@@ -63,7 +64,7 @@ public class AccessNotesIT {
 
     @Test
     public void testDeleteNote() {
-        accessNotes.deleteNotes(new Note(1, new Date(2024,1,1,12,0,1) , "This is the title", "This is the content"));
+        accessNotes.deleteNotes(accessNotes.getNotes().get(0));
         assertEquals(2, accessNotes.getNotes().size());
 
         System.out.println("Finished testDeleteNote");
@@ -105,11 +106,25 @@ public class AccessNotesIT {
         assertEquals(accessNotes.getNotes().get(0).getTitle(),"New Title");
     }
 
+    @Test
+    public void testLoadNotesByCourse() throws IOException {
+        Course newCourse = new Course("COMP", 3350, "Software Engineering I",2,1,2024,4,10,2024, false, 0, 0, 2.5, 2.0);
+        this.tempDB.delete();
+        Services.clean();
+        this.tempDB = TestUtils.copyDB();
+
+        accessNotes = new AccessNotes(newCourse);
+        List<Note> notesList = accessNotes.getNotes();
+        for (int i = 0; i < notesList.size(); i++){
+            assertEquals("COMP",notesList.get(i).getCourseTopic());
+            assertEquals(3350,notesList.get(i).getCourseNum());
+        }
+    }
+
     @After
     public void tearDown() {
         // reset DB
         this.tempDB.delete();
-        accessNotes.purgeTestNotes();
 
         Services.clean();
     }

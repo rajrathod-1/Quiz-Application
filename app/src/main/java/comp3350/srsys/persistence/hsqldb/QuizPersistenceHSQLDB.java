@@ -14,21 +14,29 @@ import java.util.Date;
 
 import comp3350.srsys.business.exceptions.NoteNotFoundException;
 import comp3350.srsys.business.exceptions.QuizNotFoundException;
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Quiz;
 import comp3350.srsys.persistence.IQuizPersistence;
 import comp3350.srsys.persistence.utils.DBHelper;
-
-// QUIZ VALUES (id, question, choice1, choice2, choice3, choice4, correctChoice, date)
 
 public class QuizPersistenceHSQLDB implements IQuizPersistence
 {
     private final String url;
     private List<Quiz> quizzes;
+    private Course course;
 
     public QuizPersistenceHSQLDB(String dbPath) {
         this.url = "jdbc:hsqldb:file:" + dbPath + ";shutdown=true";
         quizzes = new ArrayList<>();
+        course = null;
         loadAllQuizzes();
+    }
+
+    public QuizPersistenceHSQLDB(String dbPath, Course course) {
+        this.url = "jdbc:hsqldb:file:" + dbPath + ";shutdown=true";
+        quizzes = new ArrayList<>();
+        this.course = course;
+        loadQuizzesByCourse(course);
     }
 
     @Override
@@ -45,7 +53,7 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
         String query;
 
         try (Connection con = connect()) {
-            query = "INSERT INTO QUIZ VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO QUIZ VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             final PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, quiz.getQuestion());
             ps.setString(2, choices.get(0));
@@ -53,14 +61,17 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
             ps.setString(4, choices.get(2));
             ps.setString(5, choices.get(3));
             ps.setInt(6, quiz.getCorrectChoice());
-            ps.setString(7, dateString);
+            ps.setString(7, quiz.getQuizType());
+            ps.setString(8, dateString);
+            ps.setString(9, quiz.getCourseTopic());
+            ps.setInt(10, quiz.getCourseNum());
 
             ps.executeUpdate();     //updating database
             ps.close();
 
             //reset quizzes
             this.quizzes = new ArrayList<>();
-            loadAllQuizzes();
+            loadQuizzes(this.course);
 
             return quiz;
 
@@ -99,7 +110,7 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
 
             //reset quizzes
             this.quizzes = new ArrayList<>();
-            loadAllQuizzes();
+            loadQuizzes(course);
 
             return quiz;
 
@@ -143,6 +154,25 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
         }
     }
 
+    @Override
+    public void deleteQuizzesByCourse(Course course) {
+        System.out.println("[LOG] Deleting quizzes in course " + course.getCourseName());
+
+        try (Connection con = connect()) {
+            String query = "DELETE FROM QUIZ WHERE courseTopic=? AND courseNum=?";
+            final PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, course.getTopic());
+            ps.setInt(2, course.getCourseNum());
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (final SQLException error) {
+            Log.e("Connect SQL", error.getMessage() + error.getSQLState());
+            error.printStackTrace();
+        }
+    }
+
 
     /*
      *      PRIVATE METHODS
@@ -164,7 +194,10 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
         String choice3 = rs.getString("choice3");
         String choice4 = rs.getString("choice4");
         int correctChoice = rs.getInt("correctChoice");
+        String quizType = rs.getString("quizType");
         Date date = rs.getTimestamp("date");
+        String topic = rs.getString("courseTopic");
+        int num = rs.getInt("courseNum");
 
         List<String> choices = new ArrayList<>();
         choices.add(choice1);
@@ -172,7 +205,16 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
         choices.add(choice3);
         choices.add(choice4);
 
-        return new Quiz(quizID, date, question, choices, correctChoice);
+        return new Quiz(quizID, date, question, choices, correctChoice, quizType, topic, num);
+    }
+
+    private void loadQuizzes(Course course) {
+        if (course != null) {
+            loadQuizzesByCourse(course);
+        }
+        else {
+            loadAllQuizzes();
+        }
     }
 
     private void loadAllQuizzes() {
@@ -187,6 +229,29 @@ public class QuizPersistenceHSQLDB implements IQuizPersistence
             }
 
             statement.close();
+            rs.close();
+
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
+
+    private void loadQuizzesByCourse(Course course) {
+        try (Connection con = connect()) {
+            String query = "SELECT * FROM QUIZ WHERE courseTopic=? AND courseNum=?";
+            final PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, course.getTopic());
+            ps.setInt(2, course.getCourseNum());
+
+            final ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                final Quiz quiz = fromResultSet(rs);
+                this.quizzes.add(quiz);
+            }
+
+            ps.close();
             rs.close();
 
         } catch (final SQLException e) {

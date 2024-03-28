@@ -33,4 +33,10 @@ public class QuizMark {
     {
         return questionCorrect[position];
     }
+
+    public void checkChoice(int choice, int correctChoice, int position)
+    {
+        questionSeen[position] = true;
+        questionCorrect[position] = (choice == correctChoice);
+    }
 }

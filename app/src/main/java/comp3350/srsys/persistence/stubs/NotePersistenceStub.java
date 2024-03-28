@@ -5,7 +5,9 @@ import android.nfc.Tag;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.objects.Note;
 
 import comp3350.srsys.persistence.INotePersistence;
@@ -28,7 +30,9 @@ public class NotePersistenceStub implements INotePersistence {
                 "A. Individuals and Interactions. \n" +
                         "B. Working Software. \n" +
                         "C. Customer Collaboration. \n" +
-                        "Responding to change. \n"
+                        "Responding to change. \n",
+                "COMP",
+                3350
         );
 
         // Note 2
@@ -39,7 +43,9 @@ public class NotePersistenceStub implements INotePersistence {
                 "Addition is one of the four basic operations of arithmetic, " +
                         "the other three being subtraction, multiplication and division. " +
                         "The addition of two whole numbers results in the total amount or " +
-                        "sum of those values combined."
+                        "sum of those values combined.",
+                "COMP",
+                3350
         );
 
         // Note 3
@@ -48,7 +54,9 @@ public class NotePersistenceStub implements INotePersistence {
                 date,
                 "What are Germs?",
                 "The term \"germs\" refers to the microscopic bacteria, viruses, " +
-                        "fungi, and protozoa that can cause disease"
+                        "fungi, and protozoa that can cause disease",
+                "COMP",
+                3350
         );
 
         noteList.add(note1);
@@ -106,6 +114,17 @@ public class NotePersistenceStub implements INotePersistence {
 
         if(index >= 0) {
             noteList.remove(index);
+        }
+    }
+
+    @Override
+    public void deleteNotesByCourse(Course course) {
+
+        for (Note note : noteList) {
+            if (note.getCourseNum() == course.getCourseNum() &&
+                    Objects.equals(note.getCourseTopic(), course.getTopic())) {
+                noteList.remove(note);
+            }
         }
     }
 }

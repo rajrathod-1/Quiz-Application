@@ -60,4 +60,13 @@
     <string name="reveal_answer">Reveal Answer</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="trueString">True</string>
+    <string name="falseString">False</string>
+    <string name="true_or_false">True or False?</string>
+    <string name="mc_prompt">Which is correct?</string>
+    <string-array name="quiz_choices">
+        <item>Flashcard</item>
+        <item>True or False</item>
+        <item>Multiple Choice</item>
+    </string-array>
 </resources>

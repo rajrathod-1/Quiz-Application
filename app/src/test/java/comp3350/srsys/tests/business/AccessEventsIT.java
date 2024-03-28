@@ -44,7 +44,7 @@ public class AccessEventsIT {
 
     @Test
     public void testAddEvent() {
-        accessEvents.insertEvent(new Event("Something", "2024-03-01", "16:00:00"));
+        accessEvents.insertEvent(new Event(1,"Something", "2024-03-01", "16:00:00"));
 
         final List<Event> courses = accessEvents.getEvents();
         assertEquals(4,courses.size());
@@ -54,7 +54,7 @@ public class AccessEventsIT {
 
     @Test
     public void testDeleteEvent() {
-        accessEvents.deleteEvent(new Event("Iteration 1 due", "2024-03-01", "16:00:00"));
+        accessEvents.deleteEvent(new Event(1,"Iteration 1 due", "2024-03-01", "16:00:00"));
 
         final List<Event> courses = accessEvents.getEvents();
         assertEquals(2,courses.size());

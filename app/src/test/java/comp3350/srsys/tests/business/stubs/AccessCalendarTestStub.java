@@ -33,11 +33,7 @@ public class AccessCalendarTestStub {
     @Before
     public void setUp() throws IOException {
         Services.clean();
-        System.out.println("Starting integration test for AccessCourses");
-        this.tempDB = TestUtils.copyDB();
-        this.accessCourses = new AccessCourses();
-
-        assertNotNull(this.accessCourses);
+        System.out.println("Starting integration test for AccessCalendarUtils");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package comp3350.srsys.application;
 
+import comp3350.srsys.objects.Course;
 import comp3350.srsys.persistence.ICoursePersistence;
 import comp3350.srsys.persistence.IEventPersistence;
 import comp3350.srsys.persistence.INotePersistence;
@@ -23,30 +24,37 @@ public class Services {
     {
         if (coursePersistence == null)
         {
-            //coursePersistence = new CoursePersistenceStub();
             coursePersistence = new CoursePersistenceHSQLDB(Main.getDBPathName());
         }
 
         return coursePersistence;
     }
 
-    public static synchronized IQuizPersistence getQuizPersistence()
+    public static synchronized IQuizPersistence getQuizPersistence(Course course)
     {
         if (quizPersistence == null)
         {
-            //quizPersistence = new QuizPersistenceStub();
-            quizPersistence = new QuizPersistenceHSQLDB(Main.getDBPathName());
+            if (course != null) {
+                quizPersistence = new QuizPersistenceHSQLDB(Main.getDBPathName(), course);
+            }
+            else {
+                quizPersistence = new QuizPersistenceHSQLDB(Main.getDBPathName());
+            }
         }
 
         return quizPersistence;
     }
 
-    public static synchronized INotePersistence getNotePersistence()
+    public static synchronized INotePersistence getNotePersistence(Course course)
     {
         if (notePersistence == null)
         {
-            //notePersistence = new NotePersistenceStub();
-            notePersistence = new NotePersistenceHSQLDB(Main.getDBPathName());
+            if (course != null) {
+                notePersistence = new NotePersistenceHSQLDB(Main.getDBPathName(), course);
+            }
+            else {
+                notePersistence = new NotePersistenceHSQLDB(Main.getDBPathName());
+            }
         }
 
         return notePersistence;
@@ -56,7 +64,6 @@ public class Services {
     {
         if (eventPersistence == null)
         {
-            //eventPersistence = new EventPersistenceStub();
             eventPersistence = new EventPersistenceHSQLDB(Main.getDBPathName());
         }
 
@@ -73,6 +80,7 @@ public class Services {
         return profilePersistence;
     }
 
+    //Method used for testing. Will clean persistence objects before and after a test has completed
     public static synchronized void clean() {
         coursePersistence = null;
         quizPersistence = null;

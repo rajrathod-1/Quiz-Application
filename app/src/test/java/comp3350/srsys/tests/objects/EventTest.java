@@ -22,7 +22,7 @@ public class EventTest {
 
     @Test
     public void testCreateEvent() {
-        Event event = new Event("Iteration 1 due", "2024-03-01", "16:00:00");
+        Event event = new Event(1,"Iteration 1 due", "2024-03-01", "16:00:00");
 
         assertEquals("Iteration 1 due", event.getTitle());
         assertEquals("2024-03-01", event.getNewDate());
@@ -30,29 +30,29 @@ public class EventTest {
 
     @Test
     public void testEventToString(){
-        Event event = new Event("Iteration 1 due", "2024-03-01", "16:00:00");
-        assertEquals("Event: { " +
+        Event event = new Event(1,"Iteration 1 due", "2024-03-01", "16:00:00");
+        assertEquals("Event: { ID = " + event.getId() + "\n" +
                 "Title = " + event.getTitle() +
-                "\nDate = " + event.getNewDate() +
+                "\nEvent Date = " + event.getNewDate() +
                 "\nTime = " + event.getTime() +
                 "\n}",event.toString());
     }
 
     @Test
     public void testGetTitle(){
-        Event event = new Event("Iteration 1 due", "2024-03-01", "16:00:00");
+        Event event = new Event(1,"Iteration 1 due", "2024-03-01", "16:00:00");
         assertEquals("Iteration 1 due",event.getTitle());
     }
 
     @Test
     public void testNewDate(){
-        Event event = new Event("Iteration 1 due", "2024-03-01", "16:00:00");
+        Event event = new Event(1,"Iteration 1 due", "2024-03-01", "16:00:00");
         assertEquals("2024-03-01",event.getNewDate());
     }
 
     @Test
     public void testTime(){
-        Event event = new Event("Iteration 1 due", "2024-03-01", "16:00:00");
+        Event event = new Event(1,"Iteration 1 due", "2024-03-01", "16:00:00");
         assertEquals("16:00:00",event.getTime());
     }
 

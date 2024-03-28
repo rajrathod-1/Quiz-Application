@@ -11,8 +11,12 @@ public class Quiz extends Card{
     //Instance Variables
     private String question;
     private List<String> choices;
-    private int correctChoice;   // index
-    //private String quizType;  //idk what type this should be
+    private int correctChoice;   // index of correct answer in choices
+                                 // In TrueOrFalse, 0 = true & 1 = false
+
+    private String quizType;    // MC (Multiple Choice
+                                // TrueOrFalse
+                                // FlashCard
 
 
     /*
@@ -24,12 +28,12 @@ public class Quiz extends Card{
         this.question = null;
         this.choices = new ArrayList<>();
         this.correctChoice = -1;
+        quizType = null;
     }
 
     /*
-     *  Quiz Constructor
-     *      - used by the app when a new Quiz is created
-     *      - sets the id to quizCount
+     *  Quiz Constructor - without Course relationship
+     *      - used in testings
      */
     public Quiz(String question, List<String> choices, int correctChoice)
     {
@@ -41,17 +45,33 @@ public class Quiz extends Card{
     }
 
     /*
+     *  Quiz Constructor - with Course relationship
+     *      - used by the app when a new Quiz is created
+     *      - sets the id to quizCount
+     */
+    public Quiz(String question, List<String> choices, int correctChoice, String quizType, String topic, int num)
+    {
+        super(topic, num);
+        this.id = quizCount++;
+        this.question = question;
+        this.choices = choices;
+        this.correctChoice = correctChoice;
+        this.quizType = quizType;
+    }
+
+    /*
      *  Quiz Constructor
      *      - used when DB creates Quizzes with data from database
      */
-    public Quiz (int id, Date date, String question, List<String> choices, int correctChoice)
+    public Quiz (int id, Date date, String question, List<String> choices, int correctChoice, String quizType, String topic, int num)
     {
-        super();
+        super(topic, num);
         this.id = id;
         this.date = date;
         this.question = question;
         this.choices = choices;
         this.correctChoice = correctChoice;
+        this.quizType = quizType;
     }
 
     // Instance Methods
@@ -69,6 +89,10 @@ public class Quiz extends Card{
 
     public int getCorrectChoice() {
         return correctChoice;
+    }
+
+    public String getQuizType() {
+        return quizType;
     }
 
     // Gets the string of the correct choice
@@ -93,6 +117,10 @@ public class Quiz extends Card{
 
     public void setAnswer(String newAnswer) {
         this.choices.set(correctChoice, newAnswer);
+    }
+
+    public void setQuizType(String quizType) {
+        this.quizType = quizType;
     }
 
     /*

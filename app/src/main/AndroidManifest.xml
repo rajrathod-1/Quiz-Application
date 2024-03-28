@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="comp3350.srsys">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
     <application
         android:icon="@drawable/monkey"
         android:label="QuizMonkies"
@@ -19,6 +26,13 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".presentation.NotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="comp3350.srsys.SHOW_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".presentation.ClassesInfo" />
         <activity android:name=".presentation.CalendarInfo" />
         <activity android:name=".presentation.ProfileInfo" />
@@ -28,6 +42,7 @@
             android:name=".presentation.CalendarEventInfo"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".presentation.AddReminderActivity" />
+
         <activity android:name=".presentation.QuizListInfo" />
     </application>
 

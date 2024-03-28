@@ -17,12 +17,11 @@ public class Note extends Card{
     public Note() {
         super();
         this.content = null;
+        this.title = null;
     }
 
     /*
-     *  Note Constructor
-     *      - used by the app when a new Note is created
-     *      - sets the id to noteCount
+     *  Note Constructor  - without Course relationship
      */
     public Note(String title, String content) {
         super();
@@ -32,12 +31,24 @@ public class Note extends Card{
     }
 
     /*
-     *  Note Constructor
+     *  Note Constructor - with Course relationship
+     *      - used by the app when a new Note is created
+     *      - sets the id to noteCount
+     */
+    public Note(String title, String content, String topic, int num) {
+        super(topic, num);
+        this.id = noteCount++;
+        this.title = title;
+        this.content = content;
+    }
+
+    /*
+     *  Note Constructor - with Course relationship
      *      - used when DB creates Notes with data from database
      */
-    public Note(int id, Date date, String title, String content)
+    public Note(int id, Date date, String title, String content, String topic, int num)
     {
-        super();
+        super(topic, num);
         this.id = id;
         this.date = date;
         this.title = title;
@@ -61,7 +72,6 @@ public class Note extends Card{
     public void setContent(String newContent) {
         this.content = newContent;
     }
-
 
     // HELPERS
 

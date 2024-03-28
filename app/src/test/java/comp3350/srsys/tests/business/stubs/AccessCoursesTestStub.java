@@ -3,11 +3,14 @@ package comp3350.srsys.tests.business.stubs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.suppliers.TestedOn;
+
+import java.util.Objects;
 
 import comp3350.srsys.application.Services;
 import comp3350.srsys.business.AccessCourses;
@@ -34,7 +37,7 @@ public class AccessCoursesTestStub {
 
         assertEquals(expectedSize, accessCourses.getCourses().size());
 
-        course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
+        course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025,3,4.5);
         accessCourses.insertCourse(course);
         expectedSize++;
 
@@ -66,7 +69,7 @@ public class AccessCoursesTestStub {
     @Test
     public void testSortCoursesByFavorite() {
 
-        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
+        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025,3,4.5);
         newCourse.favoriteCourse();
 
         accessCourses.insertCourse(newCourse);
@@ -125,7 +128,7 @@ public class AccessCoursesTestStub {
 
     @Test
     public void testSortObjectsByDate(){
-        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2000, 4, 5, 2000);
+        Course newCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2000, 4, 5, 2000,3,4.5);
         newCourse.favoriteCourse();
 
         accessCourses.insertCourse(newCourse);
@@ -143,12 +146,33 @@ public class AccessCoursesTestStub {
 
     @Test
     public void testDeleteNonExistingCourse() {
-        course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025);
+        course = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025,3,4.5);
 
         accessCourses.deleteCourse(course);
 
         //expected size should remain the same
         assertEquals(expectedSize, accessCourses.getCourses().size());
+    }
+
+    @Test
+    public void testChangeGPAForExistingCourse() {
+        Course currentCourse = new Course("COMP", 3190, "Intro to AI", 1, 0, 2024, 4, 5, 2025,3,3.0);
+
+        assertEquals(3.0,currentCourse.getGPA(),0.1);
+        currentCourse.setGPA(4.0);
+        assertEquals(4.0,currentCourse.getGPA(),0.1);
+
+    }
+
+    @Test
+    public void testChangeGPA() {
+        Course course1 = accessCourses.getCourses().get(0);
+        assertEquals(course1.getGPA(),3.5,0.1);
+
+        accessCourses.changeGPA(course1,4.5);
+
+        course1 = accessCourses.getCourses().get(0);
+        assertEquals(course1.getGPA(),4.5,0.1);
     }
 
     @After
