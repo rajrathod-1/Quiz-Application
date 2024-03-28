@@ -46,7 +46,7 @@ From there you would input text into the reminder bar and set the time and date 
 and you will be taken to a screen where you can see all of your created events.
 HSQLDB database has been setup with events so events that are created will be persistent on app
 shutdown. A new feature in the app is the ability for notifications to be given to the user when one of 
-the register events is coming up. To do this you would have to go into the device settings and enable notifications however.
+the register events is coming up. To do this you will have to go into the tablet settings, go to apps, then select QuizMonkies, and then enable notifications from our app. Then when you create an event, and set the time, then (you can leave the app if you want) swipe down to see the notification center, the notification will pop up a bit after the time it was set to (might have to wait like 30 seconds after the time that was set). 
 
 The last part of the app is the profile page. This page is where the user can change their name, username,
 email, and phone number. This is done by inputting their updated values into the text bars and then
