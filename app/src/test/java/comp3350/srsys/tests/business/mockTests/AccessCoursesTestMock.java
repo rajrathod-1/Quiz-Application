@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,7 @@ import comp3350.srsys.persistence.ICoursePersistence;
 import comp3350.srsys.persistence.stubs.CoursePersistenceStub;
 
 public class AccessCoursesTestMock {
-
+    @Mock
     private ICoursePersistence coursePersistence;
     private AccessCourses accessCourses;
     private Course course1,course2;

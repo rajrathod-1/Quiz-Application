@@ -4,6 +4,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import comp3350.srsys.tests.business.mockTests.AccessCoursesTestMock;
+import comp3350.srsys.tests.business.mockTests.AccessEventsTestMock;
+import comp3350.srsys.tests.business.mockTests.AccessNotesTestMock;
+import comp3350.srsys.tests.business.mockTests.AccessProfileTestMock;
+import comp3350.srsys.tests.business.mockTests.AccessQuizzesTestMock;
 import comp3350.srsys.tests.business.stubs.AccessCalendarTestStub;
 import comp3350.srsys.tests.business.stubs.AccessCoursesTestStub;
 import comp3350.srsys.tests.business.stubs.AccessEventsTestStub;
@@ -43,7 +47,11 @@ import comp3350.srsys.tests.objects.QuizTest;
         NoteValidatorTest.class,
         ProfileValidatorTest.class,
         QuizValidatorTest.class,
-        AccessCoursesTestMock.class
+        AccessCoursesTestMock.class,
+        AccessEventsTestMock.class,
+        AccessNotesTestMock.class,
+        AccessProfileTestMock.class,
+        AccessQuizzesTestMock.class,
 })
 
 public class AllUnitTests

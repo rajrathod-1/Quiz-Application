@@ -117,6 +117,9 @@ public class NotePersistenceStub implements INotePersistence {
         }
     }
 
+    //the below function is used to delete a specific note from a course.
+    //This function is utilized for hsqldb database connections to change the presently presented note
+    //after a note has been deleted. As such it is used in database connection and cannot be tested with a unit test.
     @Override
     public void deleteNotesByCourse(Course course) {
 

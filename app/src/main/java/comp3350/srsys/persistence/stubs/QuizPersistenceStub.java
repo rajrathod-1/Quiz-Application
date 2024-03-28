@@ -117,6 +117,9 @@ public class QuizPersistenceStub implements IQuizPersistence {
         }
     }
 
+    //the below function is used to delete a specific quiz from a course.
+    //This function is utilized for hsqldb database connections to change the presently presented quizzes
+    //after a quiz has been deleted. As such it is used in database connection and cannot be tested with a unit test.
     @Override
     public void deleteQuizzesByCourse(Course course) {
         for (Quiz quiz : quizList) {
