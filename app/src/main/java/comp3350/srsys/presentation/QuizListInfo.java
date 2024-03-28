@@ -53,6 +53,9 @@ public class QuizListInfo extends Activity{
         Class<? extends Course> clazz = Course.class;
         course = getIntent().getSerializableExtra("course", clazz);
 
+        TextView pageTitle = findViewById(R.id.courseTitle);
+        pageTitle.setText(course.getCourseName());
+
         AccessQuizzes accessQuizzes = new AccessQuizzes(course);
         List<Quiz> quizzes = accessQuizzes.getQuizzes();
 
@@ -97,11 +100,37 @@ public class QuizListInfo extends Activity{
             this.finish();
         });
 
-        playButton.setOnClickListener(v -> {
-            Intent intent = new Intent(QuizListInfo.this, QuizCardInfo.class);
-            intent.putExtra("course", course);
-            intent.putExtra("position", selectedQuizPos);
-            startActivity(intent);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!quizzes.isEmpty()) {
+                    Intent intent = new Intent(QuizListInfo.this, QuizCardInfo.class);
+                    intent.putExtra("course", course);
+                    intent.putExtra("position", selectedQuizPos);
+                    startActivity(intent);
+                }
+                else {
+                    LayoutInflater inflater = (LayoutInflater)
+                            getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View popupView = inflater.inflate(R.layout.activity_warning_popup, null);
+
+                    boolean focusable = true;
+                    final PopupWindow popupWindow = new PopupWindow(popupView,
+                            LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
+
+                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                    Button closeButton = popupView.findViewById(R.id.closeButton);
+
+                    closeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popupWindow.dismiss();
+                        }
+                    });
+                }
+            }
         });
 
         ArrayAdapter<CharSequence> typeArrayAdapter = ArrayAdapter.createFromResource(
