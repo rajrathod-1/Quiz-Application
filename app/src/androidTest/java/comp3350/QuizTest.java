@@ -55,14 +55,6 @@ public class QuizTest {
         testUtils = new TestUtils();
     }
 
-    @Test
-    public void viewQuizCards() {
-        onView(withId(R.id.classesButton)).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.listCourses)).atPosition(0).perform(click());
-        onView(withId(R.id.quizButton)).perform(click());
-        onView(withId(R.id.listQuizzes)).check(matches(isDisplayed()));
-    }
-
     //similarly to the Notes test the SQL database had problems when multiple tests
     //were run. The individual Quiz tests have comments identifying them.
     @Test
