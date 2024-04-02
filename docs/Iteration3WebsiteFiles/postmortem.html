@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Statement - QuizMonkies</title>
+    <link rel="stylesheet" href="postmortem.css">
+</head>
+<body>
+    <div class="container">
+        <a href="./index.html" class="back-button">Back</a> 
+        <h2>Post Mortem</h2>
+        <p>A notable achievement during our project was the rapid design and implementation of the database required for iteration 2. This database was integrated into our application with relative ease and became operational well before the due date for iteration 2. This early completion facilitated our development of features for iteration 2, as data storage and retrieval functions were already in place and functioning correctly.
+            However, we encountered a setback with git issues while attempting to submit iteration 1. Specifically, these issues hindered our ability to properly merge the develop and main branches, causing considerable stress among our team members as the deadline approached. Ultimately, we reached out to Rob for assistance and managed to resolve the git error approximately an hour past the due date.
+            The overall architecture of our system was based on the three-tier model discussed in class, comprising data, logic, and presentation layers. Each layer contains specific classes responsible for distinct functions within these categories</p>
+        
+        <p>What went right in the development process is the compartmentalization of features. Each developer was assigned a specific set of features, enhancing their expertise in those areas due to their prior work on related features. However, one aspect of the development process that could have been improved was our adherence to timelines. It was observed that, in many iterations, tasks were completed at the last minute, which is not ideal as work should be more evenly distributed leading up to a deadline.
+            If given the opportunity to start the project over, we would place greater emphasis on establishing clear git branching and merging guidelines. This would facilitate smoother integration of changes made by our developers. A notable example of git-related issues arose during the first iteration, which we believe could have been mitigated by stricter adherence to a branching strategy.
+            Our project consists of 34 classes, distributed as follows: 11 in the presentation layer, 12 in the data layer, and 21 in the logic layer. When categorized by major feature sets, the academic courses implementation utilized 6 classes, the calendar implementation 11 classes, the quiz cards implementation 8 classes, the notes implementation 6 classes, and the profile implementation 6 classes.
+            </p>
+
+        <p>The most time-consuming aspects of this project were the unit and system tests. The unit tests required considerable time each iteration due to necessary revisions stemming from technical debt. System tests also took a long time because of the need to address flaky elements within those tests. Conversely, adding additional fields to the database post-creation was a relatively quick process, contrary to our initial expectations. Our familiarity with the database allowed us to implement these changes without significant impact on other classes.
+            A particularly effective design decision was the inclusion of a clean function within the persistence connections. This function facilitated the cleanup of persistence components after each test, improving test isolation and simplifying the development of unit and integration tests.
+            We encountered some persistent bugs, mainly related to database errors during the creation of elements in notes or quizzes. These issues, arising from the way courses are selected to retrieve associated quizzes or notes, affected system tests and sometimes caused the database to crash between tests.
+            A feature that performed better than expected was the course addition, viewing, and deletion functionalities. These consistently passed all system tests without causing SQL errors, demonstrating their reliability and reducing the need for adjustments to address test flakiness.
+            </p>
+
+        <p>We incorporated technologies such as "com.wdullaer", "com.amulyakhare", "com.wrapp", and "com.getbase" into our project. These were added as dependencies in our Gradle file, enabling us to utilize their special presentation layer components.
+            Our team adopted a "scrum" style for meeting organization, dividing work among members and focusing on their assigned tasks. After completing an iteration, we engaged in open discussions about the contributions and challenges faced by each team member.
+            Our final product deviated slightly from our initial vision, particularly in the types of quizzes available and the feature for calculating grades based on assignment/test marks. Despite these differences, we learned the importance of communication, teamwork, and creating a supportive environment. Going forward, we plan to define roles more clearly, maintain effective communication, and adapt flexibly to schedule changes.
+            In conclusion, our team worked effectively to develop software that meets industry standards. Through this project, we have improved our programming skills, learned the importance of compartmentalizing components, and enhanced our teamwork abilities.
+            </p>
+
+        <h4>Shown on the title page is our velocity graph: </h4>
+        <p>The graph shows us that during this project we would consistently overestimate the amount of time that it would take us to work on our dev tasks. This is shown in how our estimate is slightly higher than the actual in both iterations 1 and 2.</p>
+        </div>
+</body>
+</html>

@@ -1,0 +1,310 @@
+  <!doctype html>
+  <html lang="en">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>QuizMonkies 🐒</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" type="images/monkey.png" href="images/monkey.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/e83b95d228.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+
+  </head>
+
+  </html>
+
+  <section id="title">
+    <div class="container-fluid">
+
+
+      <!-- Nav Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark ">
+        <a class="navbar-brand" href=""> QuizMonkies 🐒 </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Togglenavigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./vision.html">Vision Statement</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./postmortem.html">Post Mortem</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonial-carousel"> Customer Satisfaction</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#cta">Meet The Team</a>
+            </li>
+          </ul>
+          <div>
+      </nav>
+
+
+
+      <!-- Title -->
+      <div class="row heading">
+
+        <div class="col-lg-6">
+          <h1 class="big-heading" >Make your study easier with QuizMonkies 🐒</h1>
+          <button type="button" class="btn btn-outline-light btn-lg download-button" onclick="downloadAPK()"> <i class="fa-brands fa-google-play"></i> Download</button>
+        </div>
+
+        <div class="col-lg-6">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/R1G3obwSNdE?si=VfqdXZAowhu-l2Dt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </section>
+
+  <section id="app-features" class="text-center">
+    <h1 class="app-feature-heading">✨QuizMonkies Features✨</h1>
+    <div id="app-carousel" class="carousel slide" data-ride="false">
+      <div class="carousel-inner feauture-carousel">
+        <div class="carousel-item active" id="app-item">
+          <h3>Users can keep track of all upcoming events</h3>
+          <img class="app-image" src="images/events.png" alt="Events">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>Different kinds of quiz cards for students to use</h3>
+          <img class="app-image" src="images/different_quizzes.png" alt="Different Quizzes">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>After user has created a quiz they have the functionality to edit the quiz</h3>
+          <img class="app-image" src="images/edit_quiz.png" alt="Edit Quiz">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>New Courses can be added accordingly</h3>
+          <img class="app-image" src="images/add_courses.png" alt="Add Courses">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>User are notified about the events by a notification</h3>
+          <img class="app-image" src="images/notification.png" alt="Notifications">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>Viewable Calendar</h3>
+          <img class="app-image" src="images/calendar.png" alt="Calendar">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>GPA calculator for the students</h3>
+          <img class="app-image" src="images/gpa.png" alt="GPA Calculator">
+        </div>
+        <div class="carousel-item" id="app-item">
+          <h3>User can create notes for a specific subject and they also have the functionality to edit, view those notes as well</h3>
+          <img class="app-image" src="images/notes.png" alt="Notes">
+        </div>
+        <div class="carousel-item"id="app-item">
+          <h3>User Profiles for different users</h3>
+          <img class="app-image" src="images/profile.png" alt="User Profiles">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#app-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#app-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+  </section>
+  
+
+
+  <!-- Features -->
+
+  <section id="features">
+
+    <div class="row">
+      <div class="col-lg-4 feature-box">
+        <i class="icon fa-solid fa-circle-check fa-4x"></i>
+        <h3>Easy to use.</h3>
+        <p>So easy to use, even your child can become a genius.</p>
+      </div>
+
+      <div class="col-lg-4 feature-box">
+
+        <i class="icon fa-solid fa-bullseye fa-4x"></i>
+        <h3>Different Quiz</h3>
+        <p>Multiple types of quizzes to test yourself on.</p>
+      </div>
+
+      <div class="col-lg-4 feature-box">
+        <i class="icon fa-solid fa-heart fa-4x"></i>
+        <h3>Guaranteed to work.</h3>
+        <p>Find yourself surrounded by A+ grades.</p>
+        </ div>
+      </div>
+  </section>
+
+
+  <!-- Testimonials -->
+
+  <section id="testimonials">
+
+    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <h2 class="testimonial-text">Improved Grades</h2>
+          <h4>Pebbles, a high school student, saw a significant improvement in his grades after using QuizMonkies to organize his study material and practice quizzes.</h4>
+          <img class="testimonial-image" src="images/dog-img.jpg" alt="dog-profile">
+          <em>Pebbles, Winnipeg</em>
+        </div>
+        <div class="carousel-item">
+          <h2>Efficient Study Habits</h2>
+          <h4>Beverly, a college student, credits QuizMonkies for helping her develop efficient study habits and manage her time effectively, resulting in better academic performance.</h4>
+          <img class="testimonial-image" src="images/lady-img.jpg" alt="lady-profile">
+          <em>Beverly, Illinois</em>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+
+  </section>
+
+
+
+  <!-- Application Architecture Section -->
+<section id="app-architecture">
+  <div class="container">
+    <h3 class="section-heading">Application Architecture</h3>
+    <button id="openArchitectureBtn" onclick="openArchitectureImage()">Open Architecture</button>
+  </div>
+</section>
+
+<section id="app-architecture">
+  <div class="container">
+    <h3 class="section-heading">Project Velocity</h3>
+    <button id="openArchitectureBtn" onclick="openProjectVelocityImage()">Project Velocity</button>
+  </div>
+</section>
+
+
+  <!-- Call to Action -->
+
+  <section id="cta">
+    <div class="container">
+      <h3 class="cta-heading">Team Members and what they learned</h3>
+      <ul class="cards">
+  
+        <li class="cards_item">
+          <div class="card">
+            <div class="card_content">
+              <h2 class="card_title">
+                Ron Arvin Cruz &#x2022; <span class="arrow">&#9660;</span>
+              </h2>
+              <div class="card_text" id="member1">
+                <p>- Version Control: Ron learned how to effectively manage branches within a collaborative environment. This helped him in organizing changes and made it easier for his team members to track any changes he made. Also, it helped him to prevent unnecessary changes to the main file in the project repository.</p>
+                <p>- HSQLDB Implementation: Ron learned how to successfully implement a local database using HSQLDB within the Android Studio environment, allowing the application to operate in offline mode.</p>
+                <p>- Enhanced Collaboration: Ron mostly worked on the backend side of the application, including the logic and database layers. Thus, he implemented necessary backend changes to make the integration of new UI functionalities possible, as requested by his team members.</p>
+                <p>- Development Planning: Ron gained experience and learned how to start the development process for applications. This includes planning features, breaking them down into user stories, and issuing development tasks to implement these features, making coordination among team members smoothly.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="cards_item">
+          <div class="card">
+            <div class="card_content">
+              <h2 class="card_title">
+                Antoinne Dalupang &#x2022; <span class="arrow">&#9660;</span>
+              </h2>
+              <div class="card_text" id="member1">
+                <p>- Android Development. Through Android Studio, Antoinne worked on the user interface element for quizzes in the QuizMonkies app. He learned how to use layouts to his advantage to create interfaces that would adapt and change according to user input.</p>
+                <p>- Communication and Collaboration. QuizMonkies was developed by a team with a variety of ideas and experience in software development. Throughout development, Antoinne developed his skills in communicating and working with his team to create QuizMonkies.
+                </p>
+                <p>- Analysis. Issues were prevalent during the development of QuizMonkies. The skill of analysis was essential to find the origin of the issue and the solution.
+                </p>
+                <p>- Version Control. Through GitLab and the Version Control system on Android Studio, Antoinne worked on his skills in version control to manage changes and team collaboration through the use of merge requests, branching as well as the utilization of a meaningful branch naming convention.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="cards_item">
+          <div class="card">
+            <div class="card_content">
+              <h2 class="card_title">
+                Alexander Haigh &#x2022; <span class="arrow">&#9660;</span>
+              </h2>
+              <div class="card_text" id="member1">
+                <p>- Unit/Integration/System Test Design and Implementation. Alex worked on the development of the tests that were used in the project. He believes that these are skills that will be useful after he graduates and begins working in industry.
+                  .</p>
+                <p>- Android Development. Alex worked on designing the academic course implementation for the QuizMonkies app. He believes that the knowledge gained with Java development will be beneficial in the future. </p>
+                <p>- Documentation. Alex worked on writing documentation for the features, user stories, and dev tasks that were assigned to the members of the group. These skills will be useful in the case that he decides to work in project management. </p>
+                <p>- Presentation. Alex worked on the presentation video that is attached to this website. He believes that the skills gained from making the presentation will be useful for marketing any products that he develops.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="cards_item">
+          <div class="card">
+            <div class="card_content">
+              <h2 class="card_title">
+                Raj Rathod &#x2022; <span class="arrow">&#9660;</span>
+              </h2>
+              <div class="card_text" id="member1">
+                <p>- Creating Beautiful UIs in Android Studio: Made visually captivating and user-friendly interfaces using Android Studio, incorporating design elements like layouts, colors and typography to enhance user experience across presentation layer.</p>
+                <p>- Utilizing GitLab for Version Control: Managed version control and collaborative development using GitLab, employing features like repositories, branches, commits, and merge requests for effective teamwork.</p>
+                <p>- Fixing Code Smells: Developed the ability to identify and resolve common code smells through thorough code review and refactoring.</p>
+                <p>- Properly Coding in SOLID Principles: Applied SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion) to write modular, flexible, and maintainable code, enhancing software design quality.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="cards_item">
+          <div class="card">
+            <div class="card_content">
+              <h2 class="card_title">
+                Braydon Schick &#x2022; <span class="arrow">&#9660;</span>
+              </h2>
+              <div class="card_text" id="member1">
+                <p>- Gained an understanding of modern system architectures and how layers are separated and then combined to create a system. </p>
+                <p>- Learned how to use a version control system (GitLab) and how code combined in a big collaboration between team members. </p>
+                <p>- Learned how team dynamics work and how to properly organize, communicate, and implement a team project.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      
+      </ul>
+    </div>
+  </section>
+  
+  
+
+
+  <!-- Footer -->
+
+  <footer id="footer">
+    <p>© Copyright 2024 QuizMonkies 🐒</p>
+
+  </footer>
+
+
+
+  </body>
+
+  </html>
